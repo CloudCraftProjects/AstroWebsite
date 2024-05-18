@@ -1,0 +1,20 @@
+{
+  "name": "cloudcraft-website-astro",
+  "license": "GPL-3.0-only",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.7.0",
+    "@fortawesome/fontawesome-svg-core": "^6.5.2",
+    "astro": "^4.8.6",
+    "typescript": "^5.4.5"
+  },
+  "packageManager": "yarn@4.2.2"
+}

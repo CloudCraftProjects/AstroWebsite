@@ -1,0 +1,36 @@
+---
+import NavbarLink from "./NavbarLink.astro";
+---
+
+<nav>
+  <div class="container">
+    <NavbarLink icon={["solid", "cloud"]} href="/" noActive>CloudCraft</NavbarLink>
+    <div class="nodes">
+      <NavbarLink icon={["solid", "cloud"]} href="/">Home</NavbarLink>
+      <NavbarLink icon={["solid", "newspaper"]} href="/projects">Projekte</NavbarLink>
+      <NavbarLink icon={["solid", "server"]} href="/sponsor">Sponsor</NavbarLink>
+      <NavbarLink icon={["regular", "circle-question"]} href="/faq">FAQ</NavbarLink>
+      <NavbarLink icon={["brands", "discord"]} href="/r/discord">Discord</NavbarLink>
+    </div>
+  </div>
+</nav>
+<style>
+  nav {
+    background-color: rgb(33, 37, 41);
+    padding: 1.3em;
+    font-size: large;
+  }
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    max-width: 65%;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .container > .nodes {
+    display: flex;
+    gap: 1em;
+  }
+</style>

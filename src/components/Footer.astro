@@ -1,0 +1,38 @@
+---
+import Link from "./Link.astro";
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer>
+  <span>© {currentYear} CloudCraft</span>
+  <span>NOT AN OFFICIAL MINECRAFT PRODUCT.<br />NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</span>
+  <span class="links">
+    <Link icon={["brands", "instagram"]} href="/r/instagram">Instagram</Link>
+    <Link icon={["brands", "youtube"]} href="/r/youtube">YouTube</Link>
+    <Link icon={["brands", "discord"]} href="/r/discord">Discord</Link>
+    <Link icon={["brands", "github"]} href="/r/github">GitHub</Link>
+    <Link icon={["solid", "envelope"]} href="/r/apply">Bewerben</Link>
+    <Link icon={["solid", "signal"]} href="/r/status">Status</Link>
+    <Link icon={["solid", "address-card"]} href="/faq#contact">Kontakt</Link>
+  </span>
+</footer>
+<style>
+  footer {
+    flex: 1;
+    padding-top: 3em;
+    padding-bottom: 2em;
+    text-align: center;
+    background-color: rgb(33, 37, 41);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1em;
+  }
+  .links {
+    display: flex;
+    gap: 1em;
+  }
+</style>

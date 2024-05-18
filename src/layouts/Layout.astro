@@ -1,0 +1,77 @@
+---
+import Footer from '../components/Footer.astro';
+import Navbar from '../components/Navbar.astro';
+
+interface Props {
+	title: string;
+	description: string;
+	keywords: string[];
+}
+
+const { title, description, keywords } = Astro.props;
+
+// TODO: dynamically grab projects
+keywords.push("cloudcraft", "minecraft", "discord", "craftattack", "elements", "kingdoms", "varo", "hardcore", "cloudwars");
+---
+
+<!doctype html>
+<html lang="de">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+		<title>{title} - CloudCraft</title>
+		<meta name="description" content={description} />
+		<meta name="keywords" content={keywords.join(" ")} />
+
+		<meta property="og:type" content="website">
+		<meta property="og:url" content={import.meta.env.SITE}>
+		<meta property="og:title" content={title}>
+		<meta property="og:description" content={description}>
+		<meta property="og:site_name" content="CloudCraft">
+		<meta property="og:image" content="/logo.png">
+		<meta property="twitter:card" content="summary">
+		<meta property="twitter:domain" content={import.meta.env.SITE}>
+		<meta property="twitter:url" content={import.meta.env.SITE}>
+		<meta property="twitter:title" content={title}>
+		<meta property="twitter:description" content={description}>
+		<meta property="twitter:image" content="/logo.png">
+	
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+		<link rel="manifest" href="/site.webmanifest">
+		
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link rel="canonical" href={Astro.url.href} />
+	
+		<meta name="generator" content={Astro.generator} />
+		<link rel="stylesheet" href="/fontawesome.min.css">
+	</head>
+	<body>
+		<Navbar />
+		<slot />
+		<Footer />
+	</body>
+</html>
+<style is:global>
+	:root {
+		--background: rgb(44, 47, 49);
+		--foreground: rgb(255, 255, 255);
+	}
+	html {
+		font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+		box-sizing: border-box;
+		scroll-behavior: smooth;
+		height: 100%;
+	}
+	body {
+		background-color: var(--background);
+		color: var(--foreground);
+		margin: 0px;
+
+		min-height: 100%;
+		display: flex;
+		flex-direction: column;
+	}
+</style>
