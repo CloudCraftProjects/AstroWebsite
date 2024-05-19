@@ -5,4 +5,3 @@ Expires: 2025-01-31T17:18:00.000Z
 Preferred-Languages: de, en
 Canonical: https://cloudcraftmc.de/.well-known/security.txt
 Canonical: https://www.cloudcraftmc.de/.well-known/security.txt
-Canonical: https://cloudcraftmc.pages.dev/.well-known/security.txt
