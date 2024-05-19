@@ -3,9 +3,12 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import AllProjects from "../components/AllProjects.astro";
 import DiscordLink from "../components/DiscordLink.astro";
+import fs from "node:fs";
+
+const projects = fs.readdirSync(`${import.meta.dirname}/../../public/projects`);
 ---
 
-<Layout title="Projekte" description="Eine Auflistung der beliebtesten Projekten von CloudCraft" keywords={["projects"]}>
+<Layout title="Projekte" description="Eine Auflistung der beliebtesten Projekten von CloudCraft" keywords={projects.concat(["projects"])}>
   <Header title="CloudCraft" image={{ src: "/logo.webp", alt: "Logo von CloudCraft", width: 240, height: 240 }}>
     <p>Hier findest du Verlinkungen zu den unterschiedlichsten Projekten.</p>
     <p>
