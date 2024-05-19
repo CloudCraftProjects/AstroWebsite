@@ -97,7 +97,7 @@ const { projectId, slides, initialSlide = 1, slideWidth = 1920, slideHeight = 10
     display: flex;
     flex-direction: column;
 
-    max-width: 60%;
+    max-width: var(--content-width);
     margin-left: auto;
     margin-right: auto;
   }
@@ -140,6 +140,13 @@ const { projectId, slides, initialSlide = 1, slideWidth = 1920, slideHeight = 10
   }
   .caption > .title {
     font-size: 1.2em;
+  }
+  @media screen and (max-width: 750px) {
+    .slide > .caption {
+      margin-top: 0.6em;
+      position: inherit;
+      bottom: unset;
+    }
   }
   .caption > p {
     margin: 0;
