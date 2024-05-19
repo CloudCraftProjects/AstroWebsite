@@ -1,26 +1,47 @@
 ---
+import Icon from "./Icon.astro";
+
 interface Props {
-  icon: string[];
+  icon?: string[];
   href: string;
   bold?: boolean;
+  noColor?: boolean;
 }
 
-const { icon, href, bold } = Astro.props;
+const { icon, href, bold, noColor } = Astro.props;
+
+const classNames = [];
+if (bold) classNames.push("bold");
+if (noColor) classNames.push("no-color");
+const className = classNames.length > 0 ? classNames.join(" ") : undefined;
 ---
 
-<a href={href} class={bold ? "bold" : undefined}>
-  <i class={icon.map((i) => "fa-" + i).join(" ")}></i>
+<a href={href} class={className}>
+  {icon && <Icon icon={icon} />}
   <slot />
 </a>
 <style>
   a {
-    color: #c4effd;
     text-decoration: none;
+    --transition-duration: 80ms;
   }
   a.bold {
     font-weight: bold;
   }
-  a:hover {
+  a.no-color {
+    color: white;
+    transition: color var(--transition-duration) linear;
+  }
+  a:hover.no-color {
+    color: #d6d6d6;
+    transition: color var(--transition-duration) linear;
+  }
+  a:not(.no-color) {
+    color: #c4effd;
+    transition: color var(--transition-duration) linear;
+  }
+  a:hover:not(.no-color) {
     color: #718bfc;
+    transition: color var(--transition-duration) linear;
   }
 </style>

@@ -11,6 +11,6 @@ const { icon, href, noActive } = Astro.props;
 const active = !noActive && Astro.url.pathname === href;
 ---
 
-<Link icon={icon} href={href} bold={active}>
+<Link icon={icon} href={href} bold={active} noColor>
   <slot />
 </Link>

@@ -50,7 +50,9 @@ keywords.push("cloudcraft", "minecraft", "discord", "craftattack", "elements", "
 	</head>
 	<body>
 		<Navbar />
-		<slot />
+		<div class="page-content">
+			<slot />
+		</div>
 		<Footer />
 	</body>
 </html>
@@ -73,5 +75,12 @@ keywords.push("cloudcraft", "minecraft", "discord", "craftattack", "elements", "
 		min-height: 100%;
 		display: flex;
 		flex-direction: column;
+	}
+	h1, h2, h3, h4, h5, h6 {
+		font-weight: normal;
+		margin: 0px;
+	}
+	.page-content {
+		font-size: large;
 	}
 </style>

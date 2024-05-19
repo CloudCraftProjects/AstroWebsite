@@ -1,0 +1,93 @@
+---
+import Badge from "./Badge.astro";
+import Link from "./Link.astro";
+import Tooltip from "./Tooltip.astro";
+
+interface Props {
+  title: string;
+  previewImage: string;
+  running?: boolean;
+}
+
+const { title, previewImage, running } = Astro.props;
+const projectId = title?.toLowerCase();
+---
+
+<div class="card">
+  <a class="image" href={`/projects/${projectId}`}>
+    <img src={`/projects/${projectId}/${previewImage}.webp`} width="406" height="270.6666666" />
+  </a>
+  <div class="info">
+    <h2>
+      <span>{title}</span>
+      {
+        running && (
+          <Tooltip text="Anmeldung im Discord">
+            <Link href="/r/discord" noColor>
+              <Badge icon={["brands", "discord"]}>Aktuell</Badge>
+            </Link>
+          </Tooltip>
+        )
+      }
+    </h2><slot />
+  </div>
+  <div class="button-container">
+    <Link href={`/projects/${projectId}`}>
+      <button class="button">Mehr erfahren <i class="fa-solid fa-circle-info"></i></button>
+    </Link>
+  </div>
+</div>
+<style>
+  .card {
+    --border-radius: 0.4em;
+    --border-width: 1px;
+
+    display: flex;
+    flex-direction: column;
+    border: var(--border-width) solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--border-radius);
+    font-size: smaller;
+    max-width: 406px;
+    line-height: 175%;
+    color: rgb(222, 226, 230);
+  }
+  .image, .image > img {
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    max-height: calc(406px / 3 * 2);
+  }
+  .info {
+    padding: 0.6em;
+    background-color: #212529;
+    min-height: 190px;
+  }
+  .info > h2 {
+    display: flex;
+    flex-direction: row;
+    gap: 0.75em;
+    margin-top: 0.5em;
+    margin-bottom: 0.6em;
+    font-size: 1.8em;
+  }
+  .button-container {
+    padding: 0.6em;
+    border-top: var(--border-width) solid rgba(255, 255, 255, 0.15);
+    background-color: rgb(44, 44, 44);
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+  }
+  .button {
+    background-color: rgb(11, 94, 215);
+    transition: background-color 80ms linear;
+    border: 0px;
+    padding: 0.5em;
+    color: white;
+    border-radius: 0.3em;
+    font-size: 1.1em;
+    cursor: pointer;
+  }
+  .button:hover {
+    background-color: rgb(15, 65, 139);
+    transition: background-color 80ms linear;
+  }
+</style>
