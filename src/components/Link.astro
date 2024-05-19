@@ -22,10 +22,8 @@ const className = classNames.length > 0 ? classNames.join(" ") : undefined;
 <style>
   a {
     text-decoration: none;
-    --transition-duration: 80ms;
-
     color: rgb(var(--link-color));
-    transition: color var(--transition-duration) linear;
+    transition: color 80ms linear;
 
     /* reserve space for underlining border */
     border-bottom: rgba(var(--link-color), 0.4) solid 1px;

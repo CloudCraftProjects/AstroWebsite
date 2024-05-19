@@ -10,8 +10,7 @@ interface Props {
 
 const { title, description, keywords } = Astro.props;
 
-// TODO: dynamically grab projects
-keywords.push("cloudcraft", "minecraft", "discord", "craftattack", "elements", "kingdoms", "varo", "hardcore", "cloudwars");
+keywords.push("cloudcraft", "minecraft", "minecraftserver", "server", "discord");
 ---
 
 <!doctype html>
@@ -82,6 +81,7 @@ keywords.push("cloudcraft", "minecraft", "discord", "craftattack", "elements", "
     box-sizing: border-box;
     scroll-behavior: smooth;
     height: 100%;
+    line-height: 1.5rem;
   }
   body {
     background-color: var(--background);

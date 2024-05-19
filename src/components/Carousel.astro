@@ -1,0 +1,160 @@
+---
+import Image from "astro/components/Image.astro";
+
+interface Props {
+  projectId: string;
+  slides: {
+    img: string;
+    title: string;
+    description: string;
+  }[];
+  initialSlide?: number;
+  slideWidth?: number;
+  slideHeight?: number;
+}
+
+const { projectId, slides, initialSlide = 1, slideWidth = 1920, slideHeight = 1080 } = Astro.props;
+---
+
+<div class="carousel-container" data-initial-slide={initialSlide} data-slide-count={slides.length}>
+  <div>
+    {
+      slides.map(({ img, title, description }, index) => (
+        <div class={`slide${index + 1 === initialSlide ? " active" : ""}`} data-slide={index + 1}>
+          <Image src={`/projects/${projectId}/${img}.webp`} alt={`${title}. ${description}`} width={slideWidth} height={slideHeight} />
+          <div class="caption" aria-hidden="true">
+            <p class="title">{title}</p>
+            <p class="description">{description}</p>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+  <div class="switchers">
+    {slides.map((_, index) => <span aria-hidden="true" class={`switcher${index + 1 === initialSlide ? " active" : ""}`} data-slide={index + 1} />)}
+  </div>
+  <script>
+    const getSlideElement = (slideIndex: number): HTMLElement => {
+      return document.querySelector(`.slide[data-slide="${slideIndex}"]`) as HTMLElement;
+    };
+    const getSwitchElement = (slideIndex: number): HTMLElement => {
+      return document.querySelector(`.switcher[data-slide="${slideIndex}"]`) as HTMLElement;
+    };
+
+    let switchJob: NodeJS.Timeout | undefined = undefined;
+    const startSwitchJob = () => {
+      if (switchJob !== undefined) {
+        clearTimeout(switchJob);
+      }
+      switchJob = setTimeout(() => switchSlide(1), 5000);
+    };
+    startSwitchJob();
+
+    const carouselContainer = document.querySelector(".carousel-container")! as HTMLElement;
+    const slideCount = +carouselContainer.dataset.slideCount!;
+    let selectedSlide = +carouselContainer.dataset.initialSlide!;
+    const changeSlide = (slideIndex: number) => {
+      // configure old slide
+      getSlideElement(selectedSlide).classList.toggle("active");
+      getSwitchElement(selectedSlide).classList.toggle("active");
+
+      // configure new slide
+      getSlideElement(slideIndex).classList.toggle("active");
+      getSwitchElement(slideIndex).classList.toggle("active");
+
+      selectedSlide = slideIndex;
+      startSwitchJob(); // re-start
+    };
+    const switchSlide = (offset: number) => {
+      const newSlide = (selectedSlide + offset) % slideCount;
+      changeSlide(newSlide);
+    };
+
+    document.querySelectorAll(".switcher").forEach((element) => {
+      const htmlElement = element as HTMLElement;
+      const slideIndex = +htmlElement.dataset.slide!;
+      htmlElement.addEventListener("click", () => changeSlide(slideIndex));
+    });
+  </script>
+</div>
+<style>
+  .carousel-container {
+    margin-top: 1em;
+    margin-bottom: 1em;
+
+    display: flex;
+    flex-direction: column;
+
+    max-width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .slide {
+    display: none;
+    position: relative;
+
+    animation-name: fade;
+    animation-duration: 300ms;
+  }
+  @keyframes fade {
+    from {
+      opacity: 0%;
+    }
+    to {
+      opacity: 100%;
+    }
+  }
+  .slide.active {
+    display: block;
+  }
+  .slide > img {
+    border-radius: 0.5em;
+    width: 100%;
+    height: 100%;
+  }
+  .slide > .caption {
+    padding: 8px 12px;
+    position: absolute;
+    bottom: 5%;
+    width: 100%;
+    text-align: center;
+    /* there is no proper way for this; https://stackoverflow.com/a/27767158 */
+    text-shadow:
+      0px 0px 0.5em black,
+      0px 0px 0.5em black,
+      0px 0px 0.5em black;
+  }
+  .caption > .title {
+    font-size: 1.2em;
+  }
+  .caption > p {
+    margin: 0;
+  }
+  .switchers {
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+    gap: 0.3em;
+  }
+  .switcher {
+    height: 0.85em;
+    width: 2.5em;
+    background-color: #ffffff;
+    border-radius: 0.15em;
+    display: inline-block;
+    transition: background-color 80ms linear;
+  }
+  .switcher:not(.active) {
+    cursor: pointer;
+    margin: calc(1px + 0.1em);
+  }
+  .switcher.active {
+    background-color: #65b5b1;
+    margin: calc(0px + 0.1em);
+    border: white solid 1px;
+  }
+  .switcher:hover:not(.active) {
+    background-color: #d6d6d6;
+  }
+</style>
