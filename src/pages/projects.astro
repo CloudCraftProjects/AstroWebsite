@@ -3,9 +3,8 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import AllProjects from "../components/AllProjects.astro";
 import DiscordLink from "../components/DiscordLink.astro";
-import fs from "node:fs";
 
-const projects = fs.readdirSync(`${import.meta.dirname}/../../public/projects`);
+const projects = ["craftattack", "elements", "hardcore", "varo", "kingdoms", "cloudwars"];
 ---
 
 <Layout title="Projekte" description="Eine Auflistung der beliebtesten Projekten von CloudCraft" keywords={projects.concat(["projects"])}>
