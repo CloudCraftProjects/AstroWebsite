@@ -23,11 +23,13 @@ const projectId = title?.toLowerCase();
       <span>{title}</span>
       {
         running && (
-          <Tooltip text="Anmeldung im Discord">
-            <Link href="/r/discord" noColor>
-              <Badge icon={["brands", "discord"]}>Aktuell</Badge>
-            </Link>
-          </Tooltip>
+          <div>
+            <Tooltip text="Anmeldung im Discord">
+              <Link href="/r/discord" noColor>
+                <Badge icon={["brands", "discord"]}>Aktuell</Badge>
+              </Link>
+            </Tooltip>
+          </div>
         )
       }
     </h2><slot />
@@ -42,13 +44,15 @@ const projectId = title?.toLowerCase();
   .card {
     --border-radius: 0.4em;
     --border-width: 1px;
+    --img-width: 406px;
+    --img-height: calc(var(--img-width) / 3 * 2);
 
     display: flex;
     flex-direction: column;
     border: var(--border-width) solid rgba(255, 255, 255, 0.15);
     border-radius: var(--border-radius);
     font-size: 0.9em;
-    max-width: 406px;
+    max-width: var(--img-width);
     line-height: 1.5em;
     color: rgb(222, 226, 230);
   }
@@ -56,7 +60,7 @@ const projectId = title?.toLowerCase();
   .image > img {
     border-top-left-radius: var(--border-radius);
     border-top-right-radius: var(--border-radius);
-    max-height: calc(406px / 3 * 2);
+    max-height: var(--img-height);
   }
   .info {
     padding: 0.6em;
@@ -72,6 +76,8 @@ const projectId = title?.toLowerCase();
     font-size: 1.8em;
   }
   .button-container {
+    display: flex;
+    justify-content: center;
     padding: 0.6em;
     border-top: var(--border-width) solid rgba(255, 255, 255, 0.15);
     background-color: rgb(44, 44, 44);
@@ -91,5 +97,25 @@ const projectId = title?.toLowerCase();
   .button:hover {
     background-color: rgb(15, 65, 139);
     transition: background-color 80ms linear;
+  }
+  @media screen and (max-width: 430px) {
+    .card {
+      --img-width: calc(406px / 2);
+    }
+    .image,
+    .image > img {
+      width: var(--img-width);
+      height: var(--img-height);
+    }
+    .info {
+        text-align: center;
+    }
+    .info > h2 {
+      flex-direction: column;
+      align-items: center;
+    }
+    .info > h2 > div {
+      font-size: 0.9em;
+    }
   }
 </style>

@@ -4,13 +4,19 @@ import NavbarLink from "./NavbarLink.astro";
 
 <nav>
   <div class="container">
-    <NavbarLink icon={["solid", "cloud"]} href="/" noActive>CloudCraft</NavbarLink>
+    <div class="brand">
+      <NavbarLink icon={["solid", "cloud"]} href="/" noActive>CloudCraft</NavbarLink>
+    </div>
     <div class="nodes">
       <NavbarLink icon={["solid", "cloud"]} href="/">Home</NavbarLink>
-      <NavbarLink icon={["solid", "newspaper"]} href="/projects">Projekte</NavbarLink>
+      <div class="nav-projects">
+        <NavbarLink icon={["solid", "newspaper"]} href="/projects">Projekte</NavbarLink>
+      </div>
       <NavbarLink icon={["solid", "server"]} href="/sponsor">Sponsor</NavbarLink>
       <NavbarLink icon={["regular", "circle-question"]} href="/faq">FAQ</NavbarLink>
-      <NavbarLink icon={["brands", "discord"]} href="/r/discord">Discord</NavbarLink>
+      <div class="nav-discord">
+        <NavbarLink icon={["brands", "discord"]} href="/r/discord">Discord</NavbarLink>
+      </div>
     </div>
   </div>
 </nav>
@@ -25,12 +31,33 @@ import NavbarLink from "./NavbarLink.astro";
     justify-content: space-between;
     align-items: center;
 
-    max-width: 65%;
+    max-width: var(--content-width);
     margin-right: auto;
     margin-left: auto;
   }
   .container > .nodes {
     display: flex;
     gap: 1em;
+  }
+  @media screen and (max-width: 750px) {
+    .container {
+      max-width: 96%;
+    }
+    .nav-discord {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 595px) {
+    .container {
+      justify-content: center;
+    }
+    .brand {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 455px) {
+    .nav-projects {
+      display: none;
+    }
   }
 </style>

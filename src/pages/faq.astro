@@ -62,7 +62,7 @@ const team = [
       <h2 id="downloads">Wo kann man die Maps der Projekte downloaden?</h2>
       <p>Es sind nicht alle Projekte-Downloads hochgeladen. Dir fehlt hier ein Download? Frag per Ticket auf unserem <DiscordLink /> nach, die meisten Maps können hochgeladen werden.</p>
       <p><em>Alle Archieve sind im .tar.gz Format. Die Archive werden Extern gehostet.</em></p>
-      <p>Übersicht aller Projekte: <Link href="https://docs.google.com/spreadsheets/d/1rVbdr_ykClf5nOPUS6QTmbg0rEdwMjbGhXv4U44Ckow/" /></p>
+      <p class="long-text">Übersicht aller Projekte: <Link href="https://docs.google.com/spreadsheets/d/1rVbdr_ykClf5nOPUS6QTmbg0rEdwMjbGhXv4U44Ckow/" /></p>
     </div>
   </main>
 </Layout>
@@ -71,11 +71,14 @@ const team = [
   main {
     margin-top: 2em;
     margin-bottom: 2em;
-    max-width: 60%;
+    max-width: var(--content-width);
     margin-left: auto;
     margin-right: auto;
   }
   h2 {
     margin-top: 1.5em;
+  }
+  .long-text {
+    word-wrap: break-word;
   }
 </style>

@@ -16,8 +16,14 @@ import Project from "./Project.astro";
     gap: 3em;
     justify-content: center;
     flex-wrap: wrap;
-    max-width: 70%;
+    max-width: var(--content-width);
     margin-right: auto;
     margin-left: auto;
+  }
+
+  @media screen and (max-width: 1245px) {
+     div {
+      max-width: 98%;
+     }
   }
 </style>

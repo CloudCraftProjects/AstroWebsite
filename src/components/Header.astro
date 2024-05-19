@@ -28,10 +28,16 @@ const { title, image } = Astro.props;
     background-color: rgb(31, 102, 132);
     padding-top: 3.5em;
     padding-bottom: 1em;
-    padding-right: 20%;
-    padding-left: 20%;
+    padding-right: calc((100% - var(--content-width)) / 2);
+    padding-left: calc((100% - var(--content-width)) / 2);
   }
   h1 {
     font-weight: bold;
+  }
+  @media screen and (max-width: 590px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+    }
   }
 </style>

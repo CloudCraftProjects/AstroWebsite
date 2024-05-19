@@ -43,7 +43,7 @@ import DiscordLink from "../components/DiscordLink.astro";
     margin-right: auto;
     margin-left: auto;
     margin-bottom: 2em;
-    max-width: 60%;
+    max-width: var(--content-width);
     gap: 2em;
   }
   .about-us > div {
@@ -54,6 +54,30 @@ import DiscordLink from "../components/DiscordLink.astro";
     opacity: 0%;
   }
   .about-us > iframe {
-    min-width: 420px;
+    min-width: 20%;
+  }
+  @media screen and (max-width: 630px) {
+    .about-us {
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 0em;
+      gap: 1em;
+    }
+    .about-us > div {
+      max-width: 100%;
+    }
+    .about-us > div > .server-status {
+      display: none;
+    }
+    .about-us > iframe {
+      margin-bottom: 2em;
+      min-width: 100%;
+    }
+  }
+  @media screen and (max-width: 460px) {
+    .about-us > iframe {
+      min-width: unset;
+	  width: 100%;
+    }
   }
 </style>
