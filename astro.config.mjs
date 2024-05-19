@@ -8,7 +8,8 @@ import mdx from "@astrojs/mdx";
 export default defineConfig({
   site: "https://cloudcraftmc.de",
   output: "static",
-  compressHTML: false,
+  compressHTML: true,
+  trailingSlash: "never",
   integrations: [
     sitemap({
       filter: (page) => !page.includes("404"),
