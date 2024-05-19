@@ -15,6 +15,20 @@ import Projects from "../components/Projects.astro";
     </p>
   </Header>
   <main>
+    <div class="about-us">
+      <div>
+        <h2>Über uns</h2>
+        <p>Bei CloudCraft gibt es die unterschiedlichsten und abwechslungsreichsten Minecraft Projekte.</p>
+        <p>Wir bieten verschiedenste Langzeitprojekte wie Elements, CraftAttack oder Kingdoms an, aber verstantalten auch kürzere Events wie Among Us in Minecraft, Varo oder auch CloudWars.</p>
+        <div class="server-status">
+          <p>
+            Spiele jetzt auch du mit <b>42</b> weiteren Spielern auf cloudcraftmc.de!
+          </p>
+          <p><b>Hinweis:</b> Für die meisten Projekte musst du dich vorher ganz einfach auf unserem <Link href="/r/discord"><i class="fa-brands fa-discord"></i> Discord</Link>anmelden</p>
+        </div>
+      </div>
+      <iframe title="CloudCraft Discord Server Widget" src="https://canary.discord.com/widget?id=737751273163718668&theme=dark" width="420" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+    </div>
     <Projects />
   </main>
 </Layout>
@@ -23,5 +37,23 @@ import Projects from "../components/Projects.astro";
   main {
     margin-top: 2em;
     margin-bottom: 2em;
+  }
+  .about-us {
+    display: flex;
+    justify-content: space-between;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 2em;
+    max-width: 60%;
+    gap: 2em;
+  }
+  .about-us > div {
+    max-width: 50%;
+  }
+  .about-us > div > .server-status {
+    margin-top: 3em;
+  }
+  .about-us > iframe {
+    min-width: 420px;
   }
 </style>
