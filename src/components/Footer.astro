@@ -1,4 +1,5 @@
 ---
+import DiscordLink from "./DiscordLink.astro";
 import Link from "./Link.astro";
 
 const currentYear = new Date().getFullYear();
@@ -10,7 +11,7 @@ const currentYear = new Date().getFullYear();
   <span class="links">
     <Link icon={["brands", "instagram"]} href="/r/instagram">Instagram</Link>
     <Link icon={["brands", "youtube"]} href="/r/youtube">YouTube</Link>
-    <Link icon={["brands", "discord"]} href="/r/discord">Discord</Link>
+    <DiscordLink />
     <Link icon={["brands", "github"]} href="/r/github">GitHub</Link>
     <Link icon={["solid", "envelope"]} href="/r/apply">Bewerben</Link>
     <Link icon={["solid", "signal"]} href="/r/status">Status</Link>

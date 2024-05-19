@@ -4,13 +4,14 @@ import Header from "../components/Header.astro";
 import Link from "../components/Link.astro";
 import AllProjects from "../components/AllProjects.astro";
 import PlayerCounter from "../components/PlayerCounter.astro";
+import DiscordLink from "../components/DiscordLink.astro";
 ---
 
 <Layout title="Home" description="Offizielle Homepage vom Minecraft Projekte Discord CloudCraft" keywords={["home"]}>
   <Header title="CloudCraft" image={{ src: "/logo.png", alt: "Logo von CloudCraft", width: 240, height: 240 }}>
     <p>CloudCraft ist ein Minecraft Projekte Discord. Hier werden viele spannende Projekte gehostet. Zu diesen zählen Elements, CraftAttack, StoneAttack, Kingdoms, Varo und viele weitere Projekte!</p>
     <p>
-      Join jetzt unserem <Link icon={["brands", "discord"]} href="/r/discord">Discord</Link>, um kein Projekt mehr zu verpassen!
+      Join jetzt unserem <DiscordLink />, um kein Projekt mehr zu verpassen!
     </p>
   </Header>
   <main>
@@ -23,7 +24,7 @@ import PlayerCounter from "../components/PlayerCounter.astro";
           <p>
             Spiele jetzt auch du mit <b><PlayerCounter server="cloudcraftmc.de" visibleElement=".server-status" /></b> weiteren Spielern auf cloudcraftmc.de!
           </p>
-          <p><b>Hinweis:</b> Für die meisten Projekte musst du dich vorher ganz einfach auf unserem <Link href="/r/discord"><i class="fa-brands fa-discord"></i> Discord</Link>anmelden</p>
+          <p><b>Hinweis:</b> Für die meisten Projekte musst du dich vorher ganz einfach auf unserem <DiscordLink /> anmelden</p>
         </div>
       </div>
       <iframe title="CloudCraft Discord Server Widget" src="https://canary.discord.com/widget?id=737751273163718668&theme=dark" width="420" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
@@ -51,7 +52,7 @@ import PlayerCounter from "../components/PlayerCounter.astro";
   }
   .about-us > div > .server-status {
     margin-top: 3em;
-	opacity: 0%;
+    opacity: 0%;
   }
   .about-us > iframe {
     min-width: 420px;

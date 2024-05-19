@@ -1,0 +1,11 @@
+---
+import Link from "./Link.astro";
+
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+---
+
+<Link href=`https://discord.com/users/${id}`>@<slot /></Link>

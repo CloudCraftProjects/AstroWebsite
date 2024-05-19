@@ -1,0 +1,81 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Link from "../components/Link.astro";
+import DiscordLink from "../components/DiscordLink.astro";
+import DcUser from "../components/DcUser.astro";
+
+const team = [
+  { id: "324648170011492352", name: "booky10", role: "Owner/Developer" },
+  { id: "557958187152572446", name: "fabio1908", role: "Administrator" },
+  { id: "748881908284260402", name: "bynxskill", role: "Head-Moderator" },
+  { id: "537356866494267402", name: "yullihahn", role: "Head-Moderator" },
+  { id: "337870467308322816", name: "caliax", role: "Head-Builder" },
+  { id: "756817401315721266", name: "austriasamy", role: "Moderator" },
+  { id: "630433404491530248", name: "blue_5480", role: "Moderator" },
+  { id: "1017153407393484881", name: "leeeonn", role: "Moderator" },
+  { id: "772127193798541313", name: "lordjujutv", role: "Moderator" },
+  { id: "278242592649641984", name: "ole_hd", role: "Moderator" },
+  { id: "369585622542712835", name: "vito5871", role: "Moderator" },
+  { id: "1071120628716929164", name: "wehsoos", role: "Moderator" },
+  { id: "561177598231707658", name: "69dreamz", role: "Builder" },
+  { id: "710117430214656000", name: "panda0372", role: "Builder" },
+  { id: "710179041965244457", name: "spongebess", role: "Builder" },
+  { id: "706597494880207020", name: "teamgeilo", role: "Builder" },
+  { id: "684851800717000754", name: "zerox4057", role: "Builder" },
+];
+---
+
+<Layout title="FAQ" description="Die am häufigsten gestellten Fragen über CloudCraft - hier beantwortet" keywords={["faq"]}>
+  <Header title="CloudCraft - FAQ" image={{ src: "/logo.png", alt: "Logo von CloudCraft", width: 240, height: 240 }}>
+    <p>Hier findest du Antworten auf die am meist gestelltesten Fragen.</p>
+    <p>Du hast eine Frage, welche hier nicht beantwortet wird? Tritt unserem <DiscordLink /> bei, dort wird deine Frage vom CloudCraft-Team schnellstmöglich beantwortet.</p>
+  </Header>
+  <main>
+    <div id="team">
+      <h2>Wer sind wir?</h2>
+      <p>Wir sind ein Team dem es Spaß macht für euch verschiedenste Minecraft-Projekte auf die Beine zu stellen. Gegründet wurde der Server von <DcUser id="650258283185045507/">tschenikl</DcUser> und <DcUser id="351085754979450881/">niklas883</DcUser>. Aktuell besteht unser Team aus {team.length} Teammitgliedern:</p>
+      <ul>
+        {
+          team.map((member) => (
+            <li>
+              <DcUser id={member.id}>{member.name}</DcUser>: {member.role}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div>
+      <h2 id="sponsor">Wir finanzieren wir das?</h2>
+      <p><Link icon={["solid", "globe"]} href="https://chaoshosting.eu/">Chaoshosting</Link> sponsort uns unsere Minecraft-Server. Auf der <Link icon={["solid", "server"]} href="/sponsor">Sponsor</Link>-Seite kannst du mehr über sie erfahren.</p>
+    </div>
+    <div>
+      <h2 id="source">Kann man CraftAttack/Elements/etc. selbst nutzen?</h2>
+      <p>Einige unserer System sind Open-Source. Auf unserer <Link icon={["brands", "github"]} href="/r/github">GitHub</Link>-Seite können diese heruntergeladen werden. Allerdings ist nicht alles öffentlich verfügbar.</p>
+    </div>
+    <div>
+      <h2 id="contact">Wie kann man euch kontaktieren?</h2>
+      <p>Die schnellste Kontaktmöglich ist über unseren <DiscordLink />. Dort kannst du per Ticket dem Team direkt eine Frage stellen.</p>
+      <p>Eine alternative Kontaktmöglichkeit wäre per &#69;-&#77;&#97;&#105;&#108; unter cloudcraft4mc<i class="fa-solid fa-at"></i>&#103;m&#97;il[p&#117;nkt]com. Bitte beachte, dass wir hier keine direkte Antwort garantieren können.</p>
+    </div>
+    <div>
+      <h2 id="downloads">Wo kann man die Maps der Projekte downloaden?</h2>
+      <p>Es sind nicht alle Projekte-Downloads hochgeladen. Dir fehlt hier ein Download? Frag per Ticket auf unserem <DiscordLink /> nach, die meisten Maps können hochgeladen werden.</p>
+      <p><em>Alle Archieve sind im .tar.gz Format. Die Archive werden Extern gehostet.</em></p>
+      <p>Übersicht aller Projekte: <Link href="https://docs.google.com/spreadsheets/d/1rVbdr_ykClf5nOPUS6QTmbg0rEdwMjbGhXv4U44Ckow/" /></p>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  main {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    max-width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  h2 {
+    margin-top: 1.5em;
+  }
+</style>
