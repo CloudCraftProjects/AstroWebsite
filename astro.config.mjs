@@ -12,6 +12,8 @@ export default defineConfig({
   integrations: [
     sitemap({
       filter: (page) => !page.includes("404"),
+      changefreq: "weekly",
+      lastmod: new Date(),
     }),
     purgecss(),
     mdx(),
