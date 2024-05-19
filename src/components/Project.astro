@@ -1,4 +1,5 @@
 ---
+import Image from "astro/components/Image.astro";
 import Badge from "./Badge.astro";
 import Link from "./Link.astro";
 import Tooltip from "./Tooltip.astro";
@@ -15,7 +16,7 @@ const projectId = title?.toLowerCase();
 
 <div class="card">
   <a class="image" href={`/projects/${projectId}`}>
-    <img src={`/projects/${projectId}/${previewImage}.webp`} width="406" height="270.6666666" />
+    <Image src={`/projects/${projectId}/${previewImage}.webp`} width="406" height="270.6666666" alt={`Vorschaubild von ${title}`} />
   </a>
   <div class="info">
     <h2>
@@ -51,7 +52,8 @@ const projectId = title?.toLowerCase();
     line-height: 175%;
     color: rgb(222, 226, 230);
   }
-  .image, .image > img {
+  .image,
+  .image > img {
     border-top-left-radius: var(--border-radius);
     border-top-right-radius: var(--border-radius);
     max-height: calc(406px / 3 * 2);
