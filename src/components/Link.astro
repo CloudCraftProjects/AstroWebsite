@@ -23,24 +23,27 @@ const className = classNames.length > 0 ? classNames.join(" ") : undefined;
   a {
     text-decoration: none;
     --transition-duration: 80ms;
+
+    color: rgb(var(--link-color));
+    transition: color var(--transition-duration) linear;
+
+    /* reserve space for underlining border */
+    border-bottom: rgba(var(--link-color), 0.4) solid 1px;
+  }
+  a:hover {
+    color: rgb(var(--link-hover-color));
+    border-bottom: rgb(var(--link-hover-color)) solid 1px;
   }
   a.bold {
     font-weight: bold;
   }
   a.no-color {
-    color: white;
-    transition: color var(--transition-duration) linear;
-  }
-  a:hover.no-color {
-    color: #d6d6d6;
-    transition: color var(--transition-duration) linear;
+    --link-color: 255, 255, 255;
+    --link-hover-color: 214, 214, 214;
   }
   a:not(.no-color) {
-    color: #c4effd;
-    transition: color var(--transition-duration) linear;
+    --link-color: 218, 246, 255;
+    --link-hover-color: 113, 139, 252;
   }
-  a:hover:not(.no-color) {
-    color: #718bfc;
-    transition: color var(--transition-duration) linear;
-  }
+
 </style>
