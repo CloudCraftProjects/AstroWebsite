@@ -11,7 +11,7 @@ const { server, visibleThreshold = 10, visibleElement } = Astro.props;
 <span class="playercounter" data-server={server} data-visible-threshold={visibleThreshold} data-visible-element={visibleElement}>??</span>
 
 <script>
-  const element = document.querySelector(".playercounter")!;
+  const element = document.querySelector(".playercounter")! as HTMLElement;
   fetch(`https://api.mcstatus.io/v2/status/java/${element.dataset.server}`)
     .then((resp) =>
       resp
@@ -19,10 +19,10 @@ const { server, visibleThreshold = 10, visibleElement } = Astro.props;
         .then((json) => {
           const playerCount = json.players.online;
           element.innerText = playerCount;
-          if (playerCount >= element.dataset.visibleThreshold) {
+          if (playerCount >= element.dataset.visibleThreshold! && element.dataset.visibleElement) {
             const visibleElement = document.querySelector(element.dataset.visibleElement);
             if (visibleElement) {
-              visibleElement.style.opacity = "100%";
+              (visibleElement as HTMLElement).style.opacity = "100%";
             }
           }
         })
