@@ -9,7 +9,7 @@ export default defineConfig({
   site: "https://cloudcraftmc.de",
   output: "static",
   compressHTML: true,
-  trailingSlash: "never",
+  trailingSlash: "always",
   integrations: [
     sitemap({
       filter: (page) => !page.includes("404"),
