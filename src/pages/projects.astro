@@ -1,0 +1,25 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Link from "../components/Link.astro";
+import AllProjects from "../components/AllProjects.astro";
+---
+
+<Layout title="Projekte" description="Eine Auflistung der beliebtesten Projekten von CloudCraft" keywords={["projects"]}>
+  <Header title="CloudCraft" image={{ src: "/logo.png", alt: "Logo", width: 240, height: 240 }}>
+    <p>Hier findest du Verlinkungen zu den unterschiedlichsten Projekten.</p>
+    <p>
+      Du hast eine Idee für ein Projekt, welches du bei uns sehen möchtest? Dann schreib uns deinen Vorschlag auf unserem <Link icon={["brands", "discord"]} href="/r/discord">Discord</Link>!
+    </p>
+  </Header>
+  <main>
+    <AllProjects />
+  </main>
+</Layout>
+
+<style>
+  main {
+    margin-top: 2em;
+    margin-bottom: 2em;
+  }
+</style>
