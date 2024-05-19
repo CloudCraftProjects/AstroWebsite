@@ -15,7 +15,7 @@ const projectId = title?.toLowerCase();
 ---
 
 <div class="card">
-  <a class="image" href={`/projects/${projectId}`}>
+  <a class="image" href={`/projects/${projectId}/`}>
     <Image src={`/projects/${projectId}/${previewImage}.webp`} width="406" height="270.6666666" alt={`Vorschaubild von ${title}`} />
   </a>
   <div class="info">
@@ -35,7 +35,7 @@ const projectId = title?.toLowerCase();
     </h2><slot />
   </div>
   <div class="button-container">
-    <Link href={`/projects/${projectId}`}>
+    <Link href={`/projects/${projectId}/`}>
       <button class="button">Mehr erfahren <i class="fa-solid fa-circle-info"></i></button>
     </Link>
   </div>
