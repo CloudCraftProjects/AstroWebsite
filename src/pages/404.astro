@@ -1,0 +1,38 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Link from "../components/Link.astro";
+import DiscordLink from "../components/DiscordLink.astro";
+---
+
+<Layout title="Error 404" description="Die Seite konnte nicht gefunden werden" keywords={["404"]}>
+  <Header title="CloudCraft" image={{ src: "/logo.png", alt: "Logo von CloudCraft", width: 240, height: 240 }}>
+    <p>Error 404 - Die Seite konnte nicht gefunden werden.</p>
+  </Header>
+  <main>
+    <div>
+      <h2>Fehlerbehebung</h2>
+      <p>Du meinst, dass du einen Fehler auf der Website gefunden hast?</p>
+      <p>
+        Dann teile diesen Fehler dem Team am besten über ein Ticket auf unserem <DiscordLink /> mit.
+      </p>
+    </div>
+    <div>
+      <h2>Zurück zur Homepage</h2>
+      <p>Klicke <Link icon={["solid", "home"]} href="/">hier</Link>, um wieder zurück zur Homepage zu gelangen.</p>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  main {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    max-width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  h2 {
+    margin-top: 1.5em;
+  }
+</style>
