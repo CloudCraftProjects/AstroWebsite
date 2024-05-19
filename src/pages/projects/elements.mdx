@@ -1,0 +1,57 @@
+---
+layout: "../../layouts/ProjectLayout.astro"
+title: "Elements"
+description: "Minecraft Elements ist ein YouTuber-Projekt. Wir haben das Projekt nachprogrammiert und stellen es euch zum Spielen zur Verfügung!"
+---
+
+import Link from "../../components/Link.astro";
+import DiscordLink from "../../components/DiscordLink.astro";
+import Carousel from "../../components/Carousel.astro";
+
+export const slides = [
+    {
+        img: "el1_hub",
+        title: "Elements Hub",
+        description: "Elements Hub mit 6/7 Händlern",
+    },
+    {
+        img: "el1_sky_spawn",
+        title: "Skyblock Spawn",
+        description: "Das Skyblock-Spawngebäude, erbaut von Spielern",
+    },
+    {
+        img: "el1_sky_overview",
+        title: "Skyblock Übersicht",
+        description: "Eine Übersicht aller Basen in Skyblock",
+    },
+    {
+        img: "el1_stone_spawn",
+        title: "Stoneblock Spawn",
+        description: "Die Spawnhöle von Stoneblock mit vielen Abzweigungen",
+    },
+    {
+        img: "el1_stone_overview",
+        title: "Stoneblock Übersicht",
+        description: "Ein Überblick aller Wege und Räume in Stoneblock",
+    },
+    {
+        img: "el1_nether_spawn",
+        title: "Netherblock Spawn",
+        description: "Der Spawn von Netherblock - mit Slabs ausgelegt",
+    },
+    {
+        img: "el1_nether_overview",
+        title: "Netherblock Übersicht",
+        description: "Ein Überblick von Netherblock - alles nah zusammen gebaut",
+    },
+];
+
+<Carousel projectId="elements" slides={slides} />
+
+Minecraft Elements ist die Fortsetzung von SkyAttack (Sommer 2021) und StoneAttack (Sommer 2022). In diesem Projekt kommen viele Deutsche YouTuber und Streamer zusammen, um gemeinsam Minecraft zu spielen.
+
+Die Besonderheit bei Minecraft Elements ist allerdings nur, dass dies kein normales Minecraft ist. Der YouTuber <Link icon={["brands","youtube"]} href="https://www.youtube.com/@SparkofPhoenix/">SparkOfPhoenix</Link> hat sich mehrere Monate lang Minecraft Elements ausgedacht und mit DataPacks programmiert. Nach Ankündigung des Projektes am 12.7.2023 hat CloudCraft das gesamte Projekt nachgebaut und mit Plugins nachprogrammiert, damit am 18.7. alle Spieler das Projekt selbst spielen konnten.
+
+In Minecraft Elements gibt es einen Hub - dort befinden sich die verschiedenen Händler, welche alle einzeln freigeschaltet werden müssen. Am Anfang kann man zwischen mehreren Welten wählen, zur Auswahl stehen Skyblock, Stoneblock und Netherblock. Jede Welt hat seine Vor- und Nachteile. Die Nether-Spieler müssen beispielsweise mit vielen Monstern kämpfen, haben aber auch im persönlichen Shop (muss zunächst freigeschaltet werden und ist pro Welt verschieden) Netherite und andere wertvolle Items.
+
+Besuche unseren <DiscordLink/>, um kein Elements-Projekt mehr zu verpassen!

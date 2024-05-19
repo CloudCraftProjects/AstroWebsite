@@ -1,0 +1,43 @@
+---
+layout: "../../layouts/ProjectLayout.astro"
+title: "CloudWars"
+description: "CloudWars ist ein Capture the Flag Event. Du musst mit verschiedenen Kits die Flagge des Gegner einsammeln und in deine eigene Burg bringen - aber wer sammelt am Ende mehr Flaggen?"
+---
+
+import DiscordLink from "../../components/DiscordLink.astro";
+import Carousel from "../../components/Carousel.astro";
+
+export const slides = [
+    {
+        img: "cw_red_pov",
+        title: "Sicht von roter Burg",
+        description: "Blick zur blauen Burg über das Schlachtfeld",
+    },
+    {
+        img: "cw_top_down",
+        title: "Schlachtfeldplan",
+        description: "Übersicht des gesamten Schlachtfelds aus der Vogelperspektive",
+    },
+    {
+        img: "cw_side_view",
+        title: "Seitenansicht",
+        description: "Ein seitlicher Blick auf das Schlachtfeld von CloudWars",
+    },
+    {
+        img: "cw_waiting_lobby",
+        title: "Wartebereich",
+        description: "Der Wartebereich - hier hält man sich nur kurz auf",
+    },
+];
+
+<Carousel projectId="cloudwars" slides={slides} />
+
+Im August 2020 hat CloudCraft "CloudWars" ins Leben gerufen. Dies war das erste größere selbstentwickelte Projekt.
+
+CloudWars ist ein Capture the Flag (CTF) Spielmodus. Bei CTF geht es darum, in die gegnerische Basis vorzudringen um deren Flagge zu stehlen und diese danach wieder in der eigenen Basis zu deponieren.
+
+Allerdings gibt es bei CloudWars eigene nützliche Kits, welche das Spiel deutlich spannender machen. Man kann sich für einen Helden entscheiden, welcher wiederrum besondere Fähigkeiten hat. Einige Helden können Monster spawnen, andere haben Super-Armbrüste, Blitzdreizäcke, Pfeilenhagel und viele weitere Besonderheiten.
+
+CloudWars wurde von CloudCraft selbst entwickelt und ist damit ein einzigartiger Spielmodus mit garantiertem Spielspaß.
+
+Du willst kein CloudWars-Event mehr verpassen? Tritt unserem <DiscordLink/> bei, um immer auf dem neusten Stand zu bleiben und keine Events mehr zu verpassen!
