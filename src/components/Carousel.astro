@@ -66,8 +66,8 @@ const { projectId, slides, initialSlide = 1, slideWidth = 1920, slideHeight = 10
       startSwitchJob(); // re-start
     };
     const switchSlide = (offset: number) => {
-      const newSlide = (selectedSlide + offset) % slideCount;
-      changeSlide(newSlide);
+      const newSlide = (selectedSlide + offset - 1) % slideCount;
+      changeSlide(newSlide + 1);
     };
 
     document.querySelectorAll(".switcher").forEach((element) => {
