@@ -1,0 +1,32 @@
+---
+interface Props {
+  server: string;
+  visibleThreshold?: number;
+  visibleElement?: string;
+}
+
+const { server, visibleThreshold = 10, visibleElement } = Astro.props;
+---
+
+<span class="playercounter" data-server={server} data-visible-threshold={visibleThreshold} data-visible-element={visibleElement}>??</span>
+
+<script>
+  const element = document.querySelector(".playercounter")!;
+  fetch(`https://api.mcstatus.io/v2/status/java/${element.dataset.server}`)
+    .then((resp) =>
+      resp
+        .json()
+        .then((json) => {
+          const playerCount = json.players.online;
+          element.innerText = playerCount;
+          if (playerCount >= element.dataset.visibleThreshold) {
+            const visibleElement = document.querySelector(element.dataset.visibleElement);
+            if (visibleElement) {
+              visibleElement.style.opacity = "100%";
+            }
+          }
+        })
+        .catch(console.error)
+    )
+    .catch(console.error);
+</script>
