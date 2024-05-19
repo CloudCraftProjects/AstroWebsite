@@ -1,0 +1,8 @@
+Contact: mailto:cloudcraft4mc@gmail.com
+Contact: https://discord.gg/cloudcraft-737751273163718668
+Contact: https://discord.gg/hPHuwaYaMJ
+Expires: 2025-01-31T17:18:00.000Z
+Preferred-Languages: de, en
+Canonical: https://cloudcraftmc.de/.well-known/security.txt
+Canonical: https://www.cloudcraftmc.de/.well-known/security.txt
+Canonical: https://cloudcraftmc.pages.dev/.well-known/security.txt
