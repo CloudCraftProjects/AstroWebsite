@@ -21,7 +21,11 @@ const { projectId, slides, initialSlide = 1, slideWidth = 1920, slideHeight = 10
     {
       slides.map(({ img, title, description }, index) => (
         <div class={`slide${index + 1 === initialSlide ? " active" : ""}`} data-slide={index + 1}>
-          <Image src={`/projects/${projectId}/${img}.webp`} alt={`${title}. ${description}`} width={slideWidth} height={slideHeight} />
+          <div class="image">
+            <Image src={`/projects/${projectId}/${img}.webp`} alt={`${title}. ${description}`} width={slideWidth} height={slideHeight} />
+            <div class="arrow previous" />
+            <div class="arrow next" />
+          </div>
           <div class="caption" aria-hidden="true">
             <p class="title">{title}</p>
             <p class="description">{description}</p>
@@ -29,8 +33,6 @@ const { projectId, slides, initialSlide = 1, slideWidth = 1920, slideHeight = 10
         </div>
       ))
     }
-    <div class="arrow previous"></div>
-    <div class="arrow next"></div>
   </div>
   <div class="switchers">
     {slides.map((_, index) => <div class={`switcher${index + 1 === initialSlide ? " active" : ""}`} data-slide={index + 1} />)}
@@ -75,15 +77,24 @@ const { projectId, slides, initialSlide = 1, slideWidth = 1920, slideHeight = 10
       changeSlide(newSlide + 1);
     };
 
-    document.querySelectorAll(".switcher").forEach((element) => {
-      const htmlElement = element as HTMLElement;
-      const slideIndex = +htmlElement.dataset.slide!;
-      htmlElement.addEventListener("click", () => changeSlide(slideIndex));
+    const switcherContainer = document.querySelector(".switchers") as HTMLElement;
+    switcherContainer.addEventListener("click", (event) => {
+      const targetElement = event.target as HTMLElement;
+      if (targetElement.classList.contains("switcher")) {
+        const slideIndex = +targetElement.dataset.slide!;
+        changeSlide(slideIndex);
+      }
     });
 
     const bindArrow = (direction: string, offset: number) => {
-      const element = document.querySelector(`.arrow.${direction}`) as HTMLElement;
-      element.addEventListener("click", () => switchSlide(offset));
+      const slidesContainer = document.querySelector(".slides") as HTMLElement;
+      const targetClassName = `arrow ${direction}`;
+      slidesContainer.addEventListener("click", (event) => {
+        const targetElement = event.target as HTMLElement;
+        if (targetElement.className == targetClassName) {
+          switchSlide(offset);
+        }
+      });
     };
     bindArrow("previous", -1);
     bindArrow("next", 1);
@@ -122,7 +133,10 @@ const { projectId, slides, initialSlide = 1, slideWidth = 1920, slideHeight = 10
   .slide.active {
     display: block;
   }
-  .slide > img {
+  .slide > .image {
+    position: relative;
+  }
+  .slide > .image > img {
     border-radius: var(--rounded-corners);
     width: 100%;
     height: 100%;
