@@ -106,9 +106,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@astrojs/mdx@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "@astrojs/mdx@npm:3.0.0"
+"@astrojs/mdx@npm:3.0.1":
+  version: 3.0.1
+  resolution: "@astrojs/mdx@npm:3.0.1"
   dependencies:
     "@astrojs/markdown-remark": "npm:5.1.0"
     "@mdx-js/mdx": "npm:^3.0.1"
@@ -127,7 +127,7 @@ __metadata:
     vfile: "npm:^6.0.1"
   peerDependencies:
     astro: ^4.8.0
-  checksum: 10c0/2494a924cb7cf063b9cac625218d7b3a782e8bd4e642eb6a504934c3c88772e08fa96ea273dc355b4a7a556841171689952cf5a3acf9ad18c6e0a5892e2b4ba5
+  checksum: 10c0/2641fe31439246ba93c401b84641320ac43dffaaf52d409d1f11123b513a2592cc8514e53046077774ff8c6fd626b7b5c42222defad7f0319ddd4bc9aea70c3f
   languageName: node
   linkType: hard
 
@@ -140,14 +140,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@astrojs/sitemap@npm:^3.1.4":
-  version: 3.1.4
-  resolution: "@astrojs/sitemap@npm:3.1.4"
+"@astrojs/sitemap@npm:3.1.5":
+  version: 3.1.5
+  resolution: "@astrojs/sitemap@npm:3.1.5"
   dependencies:
     sitemap: "npm:^7.1.1"
     stream-replace-string: "npm:^2.0.0"
-    zod: "npm:^3.22.4"
-  checksum: 10c0/883ce35c18957212c1c2d87048a3e783d3cbdf05a796a0af8d0dc6aa5f6fcf2e13d2adc152a9446beacf7ec90dac8f59d5cc932b615c062edff042350ec63fc7
+    zod: "npm:^3.23.8"
+  checksum: 10c0/1ae7ff76f645cf30a40e80a93779583db79f2c85c81288f6785a76649fbd64f702a7067f7d450c5c40dbc443915f20320918e65f0ceb71f2b19ba76fa9a766b6
   languageName: node
   linkType: hard
 
@@ -1725,9 +1725,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"astro@npm:^4.8.6":
-  version: 4.8.6
-  resolution: "astro@npm:4.8.6"
+"astro@npm:4.9.2":
+  version: 4.9.2
+  resolution: "astro@npm:4.9.2"
   dependencies:
     "@astrojs/compiler": "npm:^2.8.0"
     "@astrojs/internal-helpers": "npm:0.4.0"
@@ -1798,7 +1798,7 @@ __metadata:
       optional: true
   bin:
     astro: astro.js
-  checksum: 10c0/4d5db593524f305a178973fd2044604a08a45b07031bcbac9d1550a88ef363c7ff398e9f8c7cf0d1ed07dc783816f6add4c98e78b8c23bbaa510e157965b2241
+  checksum: 10c0/7d4d5ea0833478f46d1599b964017c2c1ce26a9b74d2ea6d638f9ab6331d61cc01dde1f4a5ed7ead173f637f82cc765eb775622538bb4a5e5654994125f7c68f
   languageName: node
   linkType: hard
 
@@ -2053,10 +2053,10 @@ __metadata:
   resolution: "cloudcraft-website-astro@workspace:."
   dependencies:
     "@astrojs/check": "npm:^0.7.0"
-    "@astrojs/mdx": "npm:^3.0.0"
-    "@astrojs/sitemap": "npm:^3.1.4"
+    "@astrojs/mdx": "npm:3.0.1"
+    "@astrojs/sitemap": "npm:3.1.5"
     "@fortawesome/fontawesome-svg-core": "npm:^6.5.2"
-    astro: "npm:^4.8.6"
+    astro: "npm:4.9.2"
     astro-purgecss: "npm:^4.1.1"
     purgecss: "npm:^6.0.0"
     typescript: "npm:^5.4.5"
@@ -6371,7 +6371,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:^3.22.4, zod@npm:^3.23.8":
+"zod@npm:^3.23.8":
   version: 3.23.8
   resolution: "zod@npm:3.23.8"
   checksum: 10c0/8f14c87d6b1b53c944c25ce7a28616896319d95bc46a9660fe441adc0ed0a81253b02b5abdaeffedbeb23bdd25a0bf1c29d2c12dd919aef6447652dd295e3e69
