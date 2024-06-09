@@ -22,7 +22,7 @@ const { projectId, slides, initialSlide = 1, slideWidth = 1920, slideHeight = 10
       slides.map(({ img, title, description }, index) => (
         <div class={`slide${index + 1 === initialSlide ? " active" : ""}`} data-slide={index + 1}>
           <div class="image">
-            <Image src={`/projects/${projectId}/${img}.webp`} alt={`${title}. ${description}`} width={slideWidth} height={slideHeight} />
+            <Image src={`/assets/projects/${projectId}/${img}.webp`} alt={`${title}. ${description}`} width={slideWidth} height={slideHeight} />
             <div class="arrow previous" />
             <div class="arrow next" />
           </div>
