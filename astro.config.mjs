@@ -1,8 +1,8 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import purgecss from "astro-purgecss";
-
 import mdx from "@astrojs/mdx";
+import preact from "@astrojs/preact";
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,5 +18,8 @@ export default defineConfig({
     }),
     purgecss(),
     mdx(),
+    preact({
+      devtools: process.env.NODE_ENV !== "production",
+    }),
   ],
 });
