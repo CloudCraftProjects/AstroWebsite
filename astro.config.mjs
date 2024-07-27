@@ -8,7 +8,7 @@ import mdx from "@astrojs/mdx";
 export default defineConfig({
   site: "https://cloudcraftmc.de",
   output: "static",
-  compressHTML: true,
+  compressHTML: process.env.NODE_ENV === "production",
   trailingSlash: "always",
   integrations: [
     sitemap({

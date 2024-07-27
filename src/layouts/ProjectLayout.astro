@@ -6,14 +6,18 @@ interface Props {
   frontmatter: {
     title: string;
     description: string;
+    keywords?: string[];
   };
 }
 
-const { title, description } = Astro.props.frontmatter;
+const { title, description, keywords } = Astro.props.frontmatter;
 const projectId = title.toLowerCase();
+
+const allKeywords = keywords || [];
+allKeywords.push(projectId);
 ---
 
-<Layout title={title} description={description} keywords={[projectId]}>
+<Layout title={title} description={description} keywords={allKeywords}>
   <Header title={title} image={{ src: "/assets/logo.webp", alt: "Logo von CloudCraft", width: 240, height: 240 }}>
     <p>{description}</p>
   </Header>
