@@ -15,10 +15,10 @@ const { title, image } = Astro.props;
 ---
 
 <header>
-  <div>
+  <section>
     <h1>{title}</h1>
     <slot />
-  </div>
+  </section>
   {image && <Image {...image} loading={"eager"} />}
 </header>
 <style>
@@ -31,7 +31,7 @@ const { title, image } = Astro.props;
     padding-right: calc((100% - var(--content-width)) / 2);
     padding-left: calc((100% - var(--content-width)) / 2);
   }
-  div {
+  section {
     max-width: 60%;
   }
   h1 {
@@ -43,7 +43,7 @@ const { title, image } = Astro.props;
       align-items: center;
       text-align: center;
     }
-    div {
+    section {
       max-width: 100%;
     }
   }
