@@ -1,0 +1,16 @@
+---
+interface Props {
+  type: string;
+  data: object;
+}
+
+const { type, data } = Astro.props;
+const fullDataStr = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": type,
+  ...data,
+});
+const scriptFragment = `<script type="application/ld+json">${fullDataStr}</script>`;
+---
+
+<Fragment set:html={scriptFragment} />

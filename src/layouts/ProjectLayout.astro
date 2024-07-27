@@ -1,5 +1,6 @@
 ---
 import Header from "../components/Header.astro";
+import StructuredData from "../components/StructuredData.astro";
 import Layout from "./Layout.astro";
 
 interface Props {
@@ -13,11 +14,11 @@ interface Props {
 const { title, description, keywords } = Astro.props.frontmatter;
 const projectId = title.toLowerCase();
 
-const allKeywords = keywords || [];
-allKeywords.push(projectId);
+const allKeywords = [projectId].concat(keywords || []);
 ---
 
 <Layout title={title} description={description} keywords={allKeywords}>
+  <StructuredData slot="head" type="Article" data={{ headline: title }} />
   <Header title={title} image={{ src: "/assets/logo.webp", alt: "Logo von CloudCraft", width: 240, height: 240 }}>
     <h2>{description}</h2>
   </Header>
