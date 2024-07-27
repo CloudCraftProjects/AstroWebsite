@@ -1,114 +1,23 @@
 ---
+import type { HeadProps } from "../components/BaseHead.astro";
+import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Navbar from "../components/Navbar.astro";
 
-interface Props {
-  title: string;
-  description: string;
-  keywords: string[];
-}
-
-const { title, description, keywords } = Astro.props;
-
-keywords.push("cloudcraft", "cloudcraftmc", "cloudcraftprojects", "minecraft", "minecraftserver", "server", "discord");
+interface Props extends HeadProps {}
 ---
 
 <!doctype html>
 <html lang="de">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
-    <title>{title} - CloudCraft Minecraft</title>
-    <meta name="description" content={description} />
-    <meta name="keywords" content={keywords.join(" ")} />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content={import.meta.env.SITE} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    <meta property="og:site_name" content="CloudCraft" />
-    <meta property="og:image" content="/logo.png" />
-    <meta property="twitter:card" content="summary" />
-    <meta property="twitter:domain" content={import.meta.env.SITE} />
-    <meta property="twitter:url" content={import.meta.env.SITE} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content="/logo.png" />
-
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
-    <link rel="manifest" href="/site.webmanifest" />
-
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="canonical" href={Astro.url.href} />
-
-    <meta name="generator" content={Astro.generator} />
-
-    <link rel="sitemap" href="/sitemap-index.xml" />
-    <link rel="stylesheet" href="/assets/fontawesome.min.css" />
+    <BaseHead {...Astro.props} />
+    <slot name="head" />
   </head>
   <body>
     <Navbar />
-    <div class="page-content">
+    <div id="page-content">
       <slot />
     </div>
     <Footer />
   </body>
 </html>
-<style is:global>
-  :root {
-    --background: rgb(44, 47, 49);
-    --foreground: rgb(255, 255, 255);
-    --content-width: 70%;
-  }
-  html {
-    font-family:
-      system-ui,
-      -apple-system,
-      "Segoe UI",
-      Roboto,
-      "Helvetica Neue",
-      "Noto Sans",
-      "Liberation Sans",
-      Arial,
-      sans-serif,
-      "Apple Color Emoji",
-      "Segoe UI Emoji",
-      "Segoe UI Symbol",
-      "Noto Color Emoji";
-    box-sizing: border-box;
-    scroll-behavior: smooth;
-    height: 100%;
-    line-height: 1.5rem;
-  }
-  body {
-    background-color: var(--background);
-    color: var(--foreground);
-    margin: 0px;
-
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-weight: normal;
-    margin: 0px;
-  }
-  .page-content {
-    font-size: 1.1em;
-  }
-  @media screen and (max-width: 1055px) {
-    :root {
-      --background: rgb(44, 47, 49);
-      --foreground: rgb(255, 255, 255);
-      --content-width: 90%;
-    }
-  }
-</style>

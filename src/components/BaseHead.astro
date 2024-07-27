@@ -1,0 +1,54 @@
+---
+// global stylesheets
+import "../styles/fontawesome.min.css";
+
+export interface HeadProps {
+  title: string;
+  description: string;
+  keywords: string[];
+}
+interface Props extends HeadProps {}
+
+const { title, description, keywords } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+<link rel="sitemap" href="/sitemap-index.xml" />
+<meta name="generator" content={Astro.generator} />
+
+<link rel="preload" href="/assets/webfonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/webfonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/assets/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin />
+
+<link rel="canonical" href={canonicalURL} />
+
+<title>{title} | CloudCraft Minecraft</title>
+<meta itemprop="name" content={title} />
+<meta name="title" content={`${title} | CloudCraft`} />
+<meta itemprop="description" content={description} />
+<meta name="description" content={description} />
+<meta name="keywords" content={keywords.join(" ")} />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content={Astro.url} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:site_name" content="CloudCraft Projects" />
+<meta property="og:image" content="/logo.webp" />
+
+<meta property="twitter:card" content="summary" />
+<meta property="twitter:site" content="CloudCraft Projects" />
+<meta property="twitter:domain" content={import.meta.env.SITE} />
+<meta property="twitter:url" content={Astro.url} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content="/logo.webp" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
+<link rel="manifest" href="/site.webmanifest" />

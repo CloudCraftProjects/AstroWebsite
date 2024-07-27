@@ -19,11 +19,11 @@ allKeywords.push(projectId);
 
 <Layout title={title} description={description} keywords={allKeywords}>
   <Header title={title} image={{ src: "/assets/logo.webp", alt: "Logo von CloudCraft", width: 240, height: 240 }}>
-    <p>{description}</p>
+    <h2>{description}</h2>
   </Header>
   <main>
     <article>
-      <h2>{title}</h2>
+      <h3>{title}</h3>
       <slot />
     </article>
   </main>
@@ -37,6 +37,10 @@ allKeywords.push(projectId);
     margin-right: auto;
   }
   h2 {
+    margin-top: 1em;
+    font-size: 1em;
+  }
+  h3 {
     text-align: center;
     font-weight: bold;
     font-size: 2em;
