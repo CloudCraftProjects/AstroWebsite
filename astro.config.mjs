@@ -16,7 +16,10 @@ export default defineConfig({
       changefreq: "weekly",
       lastmod: new Date(),
     }),
-    purgecss(),
+    purgecss({
+      fontFace: true,
+      keyframes: true,
+    }),
     mdx(),
     preact({
       devtools: process.env.NODE_ENV !== "production",
