@@ -4,6 +4,8 @@ title: "CraftAttack"
 description: "Spiele mit vielen anderen Spielern auf einem großen Server. Triff dich mit anderen und erschaffe gemeinsam riesige Bauwerke!"
 ---
 
+import Icon from "../../components/Icon.astro";
+import Link from "../../components/Link.astro";
 import DiscordLink from "../../components/DiscordLink.astro";
 import Carousel from "../../components/Carousel.astro";
 
@@ -75,14 +77,41 @@ export const slides = [
     },
 ];
 
-<Carousel projectId="craftattack" slides={slides} />
+<div style="width: 80%; margin-left: auto; margin-right: auto; margin-top: 2em; margin-bottom: 2em; padding: 1em 0em 1em 0em; background-color: #555; text-align: center; border-radius: 1em;">
+<h3 style="font-weight: bold; margin-bottom: 0.5em">Achtung!</h3>
+<strong>Bald startet das CraftAttack 11 Projekt!</strong>
+
+Sei am 26.10.2024 um 17:00 Uhr (CEST) mit beim Start von CraftAttack 11 dabei!<br/>
+Die Anmeldung erfolgt einfach über unseren <DiscordLink/>.
+
+Das CloudCraft-Team freut sich auf ein wieder großartiges Projekt!
+
+<div style="font-size: 4em; color: #ff2222">
+<Icon icon={["solid", "heart"]} />
+</div>
+
+</div>
+
+<Carousel projectId="craftattack" slides={slides.reverse()} />
 
 CraftAttack ist eines der bekanntesten Minecraft YouTuber-Projekte im deutschsprachigen Raum.
 
-Es geht darum mit vielen anderen Spielern gemeinsam im Überlebensmodus zu spielen und gigantische Bauwerke zu errichten! Die
+Bei CraftAttack geht es darum mit vielen anderen Spielern gemeinsam im Überlebensmodus zu spielen und gigantische Bauwerke zu errichten! Die
 Besonderheit bei CraftAttack ist, dass es so gut wie keine Regeln gibt. Solange jeder keine anderen Spieler tötet oder
 sonst stört, darf jeder das bauen und machen, was er möchte!
 
 CloudCraft veranstalte 2020 das erste eigene CraftAttack-Projekt. Inzwischen gibt es viele weitere CraftAttack-Projekte
 von CloudCraft - garantiert eins zum Start des YouTuber-Projekts. Ob gerade ein Projekt läuft, kannst du auf
 unserem <DiscordLink/> nachschauen.
+
+<hr style="margin-bottom: 1em"/>
+
+<h2 style="text-align: center; font-weight: bold">Online-Karte von CraftAttack 11</h2>
+
+<iframe style="width: 100%; margin-top: 1em; margin-bottom: 1em; height: 75vh" src="https://craftattack.cloudcraftmc.de/" loading="lazy" allowtransparency="true" frameborder="0" sandbox="allow-scripts allow-same-origin" />
+
+<hr style="margin-bottom: 1em"/>
+
+Dich interessiert, was im letzten Projekt, CraftAttack 10, geschehen ist?
+Du kannst dir die alte Online-Karte unter <Link href="//maps.cloudcraftmc.de/craftattack10/">maps.cloudcraftmc.de/craftattack10</Link> anschauen.
+Den Download der Minecraft-Map gibt es auf unserer <Link icon={["solid", "download"]} href="/r/downloads">Downloads</Link>-Seite.
