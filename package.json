@@ -11,12 +11,12 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/check": "0.9.3",
-    "@astrojs/mdx": "3.1.7",
+    "@astrojs/check": "0.9.4",
+    "@astrojs/mdx": "3.1.8",
     "@astrojs/preact": "3.5.3",
-    "@astrojs/sitemap": "3.1.6",
+    "@astrojs/sitemap": "3.2.0",
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
-    "astro": "4.15.9",
+    "astro": "4.16.3",
     "astro-purgecss": "^4.1.1",
     "preact": "^10.23.1",
     "purgecss": "^6.0.0",
