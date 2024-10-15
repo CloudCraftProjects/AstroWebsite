@@ -2,6 +2,11 @@
 layout: "../../layouts/ProjectLayout.astro"
 title: "CraftAttack"
 description: "Spiele mit vielen anderen Spielern auf einem großen Server. Triff dich mit anderen und erschaffe gemeinsam riesige Bauwerke!"
+prefetch:
+- https://unpkg.com/leaflet@1.9.4/dist/leaflet.css
+- https://unpkg.com/leaflet@1.9.4/dist/leaflet.js
+preconnect:
+- https://static.cloudflareinsights.com/
 ---
 
 import Icon from "../../components/Icon.astro";

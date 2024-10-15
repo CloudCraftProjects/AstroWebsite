@@ -10,10 +10,12 @@ interface Props {
     pubDate?: Date;
     modDate?: Date;
     keywords?: string[];
+    prefetch?: string[];
+    preconnect?: string[];
   };
 }
 
-const { title, description, pubDate, modDate, keywords } = Astro.props.frontmatter;
+const { title, description, pubDate, modDate, keywords, prefetch, preconnect } = Astro.props.frontmatter;
 const projectId = title.toLowerCase();
 
 const allKeywords = [projectId].concat(keywords || []);
@@ -43,6 +45,8 @@ if (modDate) articleData["dateModified"] = modDate.toString();
 ---
 
 <Layout title={title} description={description} keywords={allKeywords}>
+  {prefetch && prefetch.map(url => <link slot="head" rel="prefetch" href={url} />)}
+  {preconnect && preconnect.map(url => <link slot="head" rel="preconnect" href={url} />)}
   <StructuredData slot="head" type="Article" data={articleData} />
   <Header title={title} image={{ src: "/assets/logo.webp", alt: "Logo von CloudCraft", width: 240, height: 240 }}>
     <h2>{description}</h2>
