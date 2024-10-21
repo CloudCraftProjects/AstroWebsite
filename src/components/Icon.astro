@@ -6,4 +6,4 @@ interface Props {
 const { icon } = Astro.props;
 ---
 
-<i class={icon.map((i) => "fa-" + i).join(" ")}/>
+<i aria-hidden="true" class={icon.map((i) => "fa-" + i).join(" ")}/>
