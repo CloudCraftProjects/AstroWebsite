@@ -16,7 +16,7 @@
     "@astrojs/preact": "3.5.3",
     "@astrojs/sitemap": "3.2.1",
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
-    "astro": "4.16.5",
+    "astro": "4.16.7",
     "astro-purgecss": "^4.1.1",
     "preact": "^10.23.1",
     "purgecss": "^6.0.0",
