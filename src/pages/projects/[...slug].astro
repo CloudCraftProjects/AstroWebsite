@@ -1,0 +1,25 @@
+---
+import {type CollectionEntry, getCollection, render} from "astro:content";
+import ProjectLayout from "../../layouts/ProjectLayout.astro";
+import * as path from "node:path";
+
+export const getStaticPaths = async () => {
+    const projects = await getCollection("projects");
+    return projects.map((project) => ({
+        params: {slug: project.data.slug},
+        props: project,
+    }));
+};
+type Props = CollectionEntry<"projects">;
+
+const project = Astro.props;
+const {Content} = await render(project);
+
+const projectDir = path.dirname(project.filePath);
+const projectCategory = (await getCollection("categories"))
+    .find(category => path.dirname(category.filePath) === projectDir)!!;
+---
+
+<ProjectLayout project={project} category={projectCategory}>
+    <Content/>
+</ProjectLayout>

@@ -2,22 +2,15 @@
 import Header from "../components/Header.astro";
 import StructuredData from "../components/StructuredData.astro";
 import Layout from "./Layout.astro";
+import {CollectionEntry} from "astro:content";
 
 interface Props {
-  frontmatter: {
-    title: string;
-    description: string;
-    pubDate?: Date;
-    modDate?: Date;
-    keywords?: string[];
-    prefetch?: string[];
-    preconnect?: string[];
-  };
+  project: CollectionEntry<"projects">;
+  category: CollectionEntry<"categories">;
 }
 
-const { title, description, pubDate, modDate, keywords, prefetch, preconnect } = Astro.props.frontmatter;
-const projectId = title.toLowerCase();
-
+const {slug: projectId, title, pubDate, modDate, keywords, prefetch, preconnect} = Astro.props.project.data;
+const description = Astro.props.category.data.description;
 const allKeywords = [projectId].concat(keywords || []);
 
 const cloudcraftData = {
