@@ -42,8 +42,8 @@ const id = path.dirname(filePath).split("/").at(-1);
     <slot>{description}</slot>
   </div>
   <div class="button-container">
-    <Link href={`/projects/${id}/`}>
-      <button class="button">Mehr erfahren <i class="fa-solid fa-circle-info"></i></button>
+    <Link icon={["solid", "circle-info"]} href={`/projects/${id}/`} button={{color: "contrast", border: true}} noColor>
+      Mehr erfahren
     </Link>
   </div>
 </div>
@@ -90,20 +90,6 @@ const id = path.dirname(filePath).split("/").at(-1);
     background-color: rgb(44, 44, 44);
     border-bottom-left-radius: var(--border-radius);
     border-bottom-right-radius: var(--border-radius);
-  }
-  .button {
-    background-color: rgb(11, 94, 215);
-    transition: background-color 80ms linear;
-    border: 0px;
-    padding: 0.5em;
-    color: white;
-    border-radius: 0.3em;
-    font-size: 1.1em;
-    cursor: pointer;
-  }
-  .button:hover {
-    background-color: rgb(15, 65, 139);
-    transition: background-color 80ms linear;
   }
   @media screen and (max-width: 430px) {
     .card {

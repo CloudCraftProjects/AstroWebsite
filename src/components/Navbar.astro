@@ -12,7 +12,9 @@ import NavbarLink from "./NavbarLink.astro";
       <div class="nav-projects">
         <NavbarLink icon={["solid", "newspaper"]} href="/projects/">Projekte</NavbarLink>
       </div>
-      <NavbarLink icon={["solid", "server"]} href="/sponsor/">Sponsor</NavbarLink>
+      <div class="nav-sponsor">
+        <NavbarLink icon={["solid", "server"]} href="/sponsor/">Sponsor</NavbarLink>
+      </div>
       <NavbarLink icon={["regular", "circle-question"]} href="/faq/">FAQ</NavbarLink>
       <div class="nav-discord">
         <NavbarLink icon={["brands", "discord"]} href="/r/discord">Discord</NavbarLink>
@@ -37,9 +39,15 @@ import NavbarLink from "./NavbarLink.astro";
   }
   .container > .nodes {
     display: flex;
+    align-items: center;
     gap: 1em;
   }
-  @media screen and (max-width: 750px) {
+  @media screen and (max-width: 900px) {
+    .container {
+      font-size: 0.9em;
+    }
+  }
+  @media screen and (max-width: 885px) {
     .container {
       max-width: 96%;
     }
@@ -47,7 +55,7 @@ import NavbarLink from "./NavbarLink.astro";
       display: none;
     }
   }
-  @media screen and (max-width: 595px) {
+  @media screen and (max-width: 705px) {
     .container {
       justify-content: center;
     }
@@ -55,8 +63,13 @@ import NavbarLink from "./NavbarLink.astro";
       display: none;
     }
   }
-  @media screen and (max-width: 455px) {
+  @media screen and (max-width: 535px) {
     .nav-projects {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 350px) {
+    .nav-sponsor {
       display: none;
     }
   }

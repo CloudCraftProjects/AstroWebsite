@@ -31,10 +31,20 @@ h6 {
 #page-content {
   font-size: 1.1em;
 }
+@media screen and (max-width: 1455px) {
+  :root {
+    --content-width: 80%;
+  }
+}
 @media screen and (max-width: 1055px) {
   :root {
     --background: rgb(44, 47, 49);
     --foreground: rgb(255, 255, 255);
     --content-width: 90%;
+  }
+}
+@media screen and (max-width: 900px) {
+  #page-content {
+    font-size: 1.05em;
   }
 }

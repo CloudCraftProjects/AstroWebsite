@@ -1,0 +1,43 @@
+---
+export interface ButtonProps {
+    color?: "dark" | "contrast";
+    border?: boolean;
+}
+interface Props extends ButtonProps {
+}
+
+const {color = "dark", border = false} = Astro.props;
+---
+
+<div class={`holder ${border ? "border" : ""} ${color}`}>
+    <slot/>
+</div>
+<style>
+    .holder.dark {
+        --button-color: #363636;
+        --button-color-hover: #424242;
+        --button-color-outline: #999999;
+    }
+
+    .holder.contrast {
+        --button-color: #0c51b9;
+        --button-color-hover: #154792;
+        --button-color-outline: #5f92dd;
+    }
+
+    .holder {
+        padding: 0.55rem;
+        background-color: var(--button-color);
+        border-radius: 0.5rem;
+        transition: background-color 80ms linear;
+    }
+
+    .holder:hover {
+        background-color: var(--button-color-hover);
+        cursor: pointer;
+    }
+
+    .holder.border {
+        border: 0.1rem solid var(--button-color-outline);
+    }
+</style>
