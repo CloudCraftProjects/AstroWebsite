@@ -26,16 +26,14 @@ const className = classNames.length > 0 ? classNames.join(" ") : undefined;
         <div class="ultarget">
           {icon &&
               <Icon icon={icon}/>}{" "}
-          <slot>{href}</slot>
-        </div>
+          <slot>{href}</slot></div
+        >
       </Button>
     :
       <>{icon &&
           <Icon icon={icon}/>}{" "}
-        <slot>{href}</slot>
-      </>
-  }
-</a
+        <slot>{href}</slot></>
+  }</a
 >
 <style>
   a {
