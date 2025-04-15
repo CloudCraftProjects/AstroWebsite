@@ -1,32 +1,29 @@
 ---
 interface Props {
-  server: string;
-  visibleThreshold?: number;
-  visibleElement?: string;
+    url: string;
+    visibleThreshold?: number;
+    visibleElement?: string;
 }
 
-const { server, visibleThreshold = 10, visibleElement } = Astro.props;
+const {url, visibleThreshold = 10, visibleElement} = Astro.props;
 ---
 
-<span class="playercounter" data-server={server} data-visible-threshold={visibleThreshold} data-visible-element={visibleElement}>??</span>
+<span class="playercounter" data-url={url} data-visible-threshold={visibleThreshold}
+      data-visible-element={visibleElement}>??</span>
 
 <script>
-  const element = document.querySelector(".playercounter")! as HTMLElement;
-  fetch(`https://api.mcstatus.io/v2/status/java/${element.dataset.server}`)
-    .then((resp) =>
-      resp
-        .json()
+    const element = document.querySelector(".playercounter")! as HTMLElement;
+    fetch(element.dataset.url)
+        .then((resp) => resp.json())
         .then((json) => {
-          const playerCount = json.players.online;
-          element.innerText = playerCount;
-          if (playerCount >= element.dataset.visibleThreshold! && element.dataset.visibleElement) {
-            const visibleElement = document.querySelector(element.dataset.visibleElement);
-            if (visibleElement) {
-              (visibleElement as HTMLElement).style.opacity = "100%";
+            const playerCount = json.players.online as number;
+            element.innerText = playerCount;
+            if (playerCount >= element.dataset.visibleThreshold! && element.dataset.visibleElement) {
+                const visibleElement = document.querySelector(element.dataset.visibleElement);
+                if (visibleElement) {
+                    (visibleElement as HTMLElement).style.opacity = "100%";
+                }
             }
-          }
         })
-        .catch(console.error)
-    )
-    .catch(console.error);
+        .catch(console.error);
 </script>
