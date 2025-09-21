@@ -1,0 +1,83 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import Link from "../components/Link.astro";
+import DiscordLink from "../components/DiscordLink.astro";
+---
+
+<Layout
+        title="Regelwerk"
+        description="Um jedem Spieler ein angenehmes Spielerlebnis zu garantieren, haben wir hier einige generelle Regeln festgelegt"
+        keywords={["rules", "rulebook", "regeln", "regelwerk"]}
+>
+    <Header title="Regelwerk" image={{src: "/assets/logo.webp", alt: "Logo von CloudCraft", width: 240, height: 240}}>
+        <p>
+            Um jedem Spieler ein angenehmes Spielerlebnis zu garantieren, haben wir hier ein paar generelle Regeln festgelegt.
+            Diese Regeln gelten grundsätzlich für <strong>JEDES</strong> unserer Projekte.
+        </p>
+        <p>
+            Allerdings solltest du beachten, dass es in Projekten zusätzliche Regeln
+            geben könnte oder einige Regeln nicht gelten.
+        </p>
+    </Header>
+    <main>
+        <h2>Generell</h2>
+        <ul>
+            <li>Dein Avatar/Skin und dein Benutzername sollten dir gehören, niemanden beleidigen und jugendfrei sein.</li>
+            <li>
+                Im Textchat solltest du nicht spammen und keine Werbung verbreiten. Nutze eine freundliche und sachliche
+                Sprache und vermeide Diskussion über Politik, Religion, usw.
+            </li>
+            <li>
+                Im Voicechat sind Aufnahmeprogramme oder Stimmverzerrer untersagt,
+                außer alle anderen Mitglieder im Voicechat stimmen ausdrücklich zu.
+            </li>
+            <li>
+                Bugs sollten nicht ausgenutzt werden und stattdessen schnellstens dem Team gemeldet werden.<br/>
+                <em>Spezielle Minecraft-Bugs wie Bedrock-Breaking, String-, Sand-/Gravel-, Teppich- und TNT-Duping sind allerdings erlaubt.</em>
+            </li>
+        </ul>
+        <h2>Spielverhalten in Minecraft</h2>
+        <ul>
+            <li>
+                Griefing, Diebstahl und Töten von Spielern ist nur mit ausdrücklicher Erlaubnis erlaubt.<br/>
+                <em>Griefing und Diebstahl kannst du selber mithilfe von <code>/co i</code> nachverfolgen.</em>
+            </li>
+            <li>Jegliche Form von Trapping ist verboten (z.B. Versperren von Portalen oder Betten).</li>
+            <li>Jegliche Form spielerischer Vorteile ist verboten (z.B. Hack-Clients oder X-Ray).</li>
+            <li>Roleplay ist erlaubt, solange jeder Teilnehmende damit einverstanden ist.</li>
+        </ul>
+        <h2>Bestrafungen</h2>
+        <ul>
+            <li>
+                Verstöße gegen Regelbrüche werden geahndet. Die Form der Bestrafung ist dem jeweiligen Teammitglied überlassen.
+            </li>
+            <li>
+                Umgehung von Strafen ist sowohl auf dem Discord als auch in Minecraft strengstens untersagt.
+            </li>
+            <li>
+                <!-- @formatter:off -->
+                Das Team handelt nach eigenem Ermessen. Falls du eine Strafe
+                ungerecht findest, öffne ein Ticket auf dem <DiscordLink/>.
+                <!-- @formatter:on -->
+            </li>
+        </ul>
+        <h2>Disclaimer</h2>
+        <ul>
+            <li>Unwissenheit schützt nicht vor Bestrafung.</li>
+            <li>Den Anweisungen vom Team ist in jedem Fall Folge zu leisten.</li>
+        </ul>
+    </main>
+</Layout>
+
+<style>
+    main {
+        max-width: var(--content-width);
+        margin: 2em auto;
+        line-height: 1.6em;
+    }
+
+    h2 {
+        margin-top: 1.5em;
+    }
+</style>
