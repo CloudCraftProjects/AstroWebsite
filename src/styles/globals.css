@@ -8,7 +8,6 @@ html {
   box-sizing: border-box;
   scroll-behavior: smooth;
   height: 100%;
-  line-height: 1.5rem;
 }
 body {
   background-color: var(--background);
@@ -47,4 +46,7 @@ h6 {
   #page-content {
     font-size: 1.05em;
   }
+}
+* {
+    line-height: 1.55em;
 }
