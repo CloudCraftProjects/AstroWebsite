@@ -12,7 +12,7 @@ export default defineConfig({
   trailingSlash: "ignore",
   integrations: [
     sitemap({
-      filter: (page) => !page.includes("404"),
+      filter: (page) => !page.includes("404") && !page.includes("sponsor"),
       changefreq: "weekly",
       lastmod: new Date(),
     }),
