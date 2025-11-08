@@ -1,13 +1,13 @@
 ---
 import Icon from "./Icon.astro";
-import Button, { ButtonProps } from "./Button.astro";
+import Button, {ButtonProps} from "./Button.astro";
 
 interface Props {
-  icon?: string[];
-  href: string;
-  bold?: boolean;
-  noColor?: boolean;
-  button?: boolean | ButtonProps;
+    icon?: string[];
+    href: string;
+    bold?: boolean;
+    noColor?: boolean;
+    button?: boolean | ButtonProps;
 }
 
 const {icon, href, bold, noColor, button: rbtn} = Astro.props;
@@ -20,46 +20,59 @@ if (!button) classNames.push("ultarget");
 const className = classNames.length > 0 ? classNames.join(" ") : undefined;
 ---
 
-<a href={href} class={className}>
-  {button ?
-      <Button {...button}>
-        <div class="ultarget">
-          {icon &&
-              <Icon icon={icon}/>}{" "}
-          <slot>{href}</slot></div
-        >
-      </Button>
-    :
-      <>{icon &&
-          <Icon icon={icon}/>}{" "}
-        <slot>{href}</slot></>
-  }</a
+<a href={href} class={className}>{
+    button ?
+            <Button {...button}>
+                <div class="ultarget">
+                    {icon &&
+                            <>
+                                <Icon icon={icon}/>
+                            </>
+                    }
+                    <slot>{href}</slot>
+                </div
+                >
+            </Button>
+        :
+            <>{icon &&
+                    <>
+                        <Icon icon={icon}/>
+                    </>
+            }
+                <slot>{href}</slot></>
+}</a
 >
 <style>
-  a {
-    text-decoration: none;
-    color: rgb(var(--link-color));
-    transition: color 80ms linear;
-  }
-  a:hover {
-      color: rgb(var(--link-hover-color));
-  }
-  .ultarget {
-      border-bottom: rgba(var(--link-color), 0.4) solid 1px;
-  }
-  .ultarget:has(a:hover) {
-      border-bottom: rgb(var(--link-hover-color)) solid 1px;
-  }
-  a.bold {
-    font-weight: bold;
-  }
-  a.no-color {
-    --link-color: 255, 255, 255;
-    --link-hover-color: 214, 214, 214;
-  }
-  a:not(.no-color) {
-    --link-color: 218, 246, 255;
-    --link-hover-color: 113, 139, 252;
-  }
+    a {
+        text-decoration: none;
+        color: rgb(var(--link-color));
+        transition: color 80ms linear;
+    }
+
+    a:hover {
+        color: rgb(var(--link-hover-color));
+    }
+
+    .ultarget {
+        border-bottom: rgba(var(--link-color), 0.4) solid 1px;
+    }
+
+    .ultarget:has(a:hover) {
+        border-bottom: rgb(var(--link-hover-color)) solid 1px;
+    }
+
+    a.bold {
+        font-weight: bold;
+    }
+
+    a.no-color {
+        --link-color: 255, 255, 255;
+        --link-hover-color: 214, 214, 214;
+    }
+
+    a:not(.no-color) {
+        --link-color: 218, 246, 255;
+        --link-hover-color: 113, 139, 252;
+    }
 
 </style>
