@@ -1,0 +1,31 @@
+---
+export interface Props {
+    url: string;
+    visibleThreshold?: number;
+    visibleElement?: string;
+}
+
+const {url, visibleThreshold = 10, visibleElement} = Astro.props;
+---
+
+<span id="playercounter" data-url={url} data-threshold={visibleThreshold} data-target={visibleElement}>??</span>
+
+<script>
+    const span = document.getElementById("playercounter")!;
+    fetch(span.dataset.url!)
+        .then((resp) => resp.json())
+        .then((json) => {
+            const count = json.players.online;
+            if (span) {
+                span.textContent = String(count);
+            }
+            const target = span.dataset.target!;
+            if (count >= Number(span.dataset.threshold!) && target) {
+                const el = document.querySelector(target);
+                if (el) {
+                    (el as HTMLElement).style.opacity = "100%";
+                }
+            }
+        })
+        .catch(console.error);
+</script>

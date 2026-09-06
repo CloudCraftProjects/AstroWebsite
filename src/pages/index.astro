@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import AllProjects from "../components/AllProjects.astro";
-import PlayerCounter from "../components/PlayerCounter";
+import PlayerCounter from "../components/PlayerCounter.astro";
 import DiscordLink from "../components/DiscordLink.astro";
 ---
 
@@ -21,7 +21,7 @@ import DiscordLink from "../components/DiscordLink.astro";
         <p>Wir bieten verschiedenste Langzeitprojekte wie Elements, CraftAttack oder Kingdoms an, aber verstantalten auch kürzere Events wie Among Us in Minecraft, Varo oder auch CloudWars.</p>
         <div class="server-status">
           <p>
-            Spiele jetzt auch du mit <b><PlayerCounter url="https://ping.cloudcraftmc.de/" visibleElement=".server-status" client:idle /></b> weiteren Spielern auf cloudcraftmc.de!
+            Spiele jetzt auch du mit <b><PlayerCounter url="https://ping.cloudcraftmc.de/" visibleElement=".server-status" /></b> weiteren Spielern auf cloudcraftmc.de!
           </p>
           <p><b>Hinweis:</b> Für die meisten Projekte musst du dich vorher ganz einfach auf unserem <DiscordLink /> anmelden</p>
         </div>
