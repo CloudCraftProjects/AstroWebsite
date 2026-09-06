@@ -26,8 +26,6 @@ const PlayerCounter: FunctionComponent<Props> = ({url, visibleThreshold = 10, vi
             .catch(console.error);
     }, [url, visibleThreshold, visibleElement]);
 
-    return (
-        <span>{playerCount !== null ? playerCount : "??"}</span>
-    );
+    return <span>{playerCount !== null ? playerCount : "??"}</span>;
 };
 export default PlayerCounter;

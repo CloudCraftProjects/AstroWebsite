@@ -17,7 +17,7 @@ const {Content} = await render(project);
 
 const projectDir = path.dirname(project.filePath!);
 const projectCategory = (await getCollection("categories"))
-    .find(category => path.dirname(category.filePath!) === projectDir)!!;
+    .find(category => path.dirname(category.filePath!) === projectDir)!;
 ---
 
 <ProjectLayout project={project} category={projectCategory}>
