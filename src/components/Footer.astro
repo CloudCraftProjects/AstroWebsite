@@ -1,50 +1,115 @@
 ---
+import Image from "astro/components/Image.astro";
 import DiscordLink from "./DiscordLink.astro";
 import Link from "./Link.astro";
-import BaselineDownloadIcon from "~icons/ic/baseline-download";
-import InstagramIcon from "~icons/simple-icons/instagram";
-import BaselineTiktokIcon from "~icons/ic/baseline-tiktok";
-import YoutubeIcon from "~icons/simple-icons/youtube";
-import GithubIcon from "~icons/simple-icons/github";
-import BaselineMailIcon from "~icons/ic/baseline-mail";
-import BaselineSignalCellularAltIcon from "~icons/ic/baseline-signal-cellular-alt";
-import BaselineContactPageIcon from "~icons/ic/baseline-contact-page";
+import LogoImg from "../assets/logo.png"
 
 const currentYear = new Date().getFullYear();
 ---
 
 <footer>
-  <span>© {currentYear} CloudCraft. Made with {Astro.generator}.</span>
-  <span>NOT AN OFFICIAL MINECRAFT PRODUCT.<br />NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</span>
-  <nav class="links">
-    <Link icon={BaselineDownloadIcon} href="/r/downloads">Downloads</Link>
-    <Link icon={InstagramIcon} href="/r/instagram">Instagram</Link>
-    <Link icon={BaselineTiktokIcon} href="/r/tiktok">TikTok</Link>
-    <Link icon={YoutubeIcon} href="/r/youtube">YouTube</Link>
-    <DiscordLink />
-    <Link icon={GithubIcon} href="/r/github">GitHub</Link>
-    <Link icon={BaselineMailIcon} href="/r/apply">Bewerben</Link>
-    <Link icon={BaselineSignalCellularAltIcon} href="/r/status">Status</Link>
-    <Link icon={BaselineContactPageIcon} href="/faq/#contact">Kontakt</Link>
-  </nav>
+    <div class="container">
+        <div class="brand">
+            <a href="/">
+                <Image src={LogoImg} alt="CloudCraft Logo" aria-hidden="true" width={48} height={48}/>
+                <span>CloudCraft</span>
+            </a>
+            <p>Der Minecraft Projekte Discord - hier entstehen gemeinsam unvergessliche Projekte.</p>
+        </div>
+        <nav class="groups">
+            <div>
+                <DiscordLink noIcon/>
+                <Link href="/r/instagram">Instagram</Link>
+                <Link href="/r/tiktok">TikTok</Link>
+                <Link href="/r/youtube">YouTube</Link>
+                <Link href="/r/github">GitHub</Link>
+            </div>
+            <div>
+                <Link href="/projects/">Projekte</Link>
+                <Link href="/r/downloads">Downloads</Link>
+                <Link href="/r/apply">Bewerben</Link>
+            </div>
+            <div>
+                <Link href="/rules">Regeln</Link>
+                <Link href="/faq/">FAQ</Link>
+                <Link href="/r/status">Status</Link>
+                <Link href="/faq/#contact">Kontakt</Link>
+            </div>
+        </nav>
+    </div>
+    <div class="bottom">
+        <p>© {currentYear} CloudCraft. Made with {Astro.generator}.</p>
+        <p>NOT AN OFFICIAL MINECRAFT PRODUCT.<br/>NOT APPROVED BY OR ASSOCIATED WITH MOJANG OR MICROSOFT.</p>
+    </div>
 </footer>
-<style>
-  footer {
-    flex: 1;
-    padding: 3em 1em;
-    text-align: center;
-    background-color: rgb(33, 37, 41);
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 1em;
-  }
-  .links {
-    display: flex;
-    gap: 1em;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
+<style>
+    footer {
+        margin-top: auto;
+        background-color: var(--bg-alt);
+        border-top: 1px solid var(--border);
+        padding: 3.5em 1em 0 1em;
+    }
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 3em;
+        max-width: var(--content-width);
+        margin-left: auto;
+        margin-right: auto;
+        padding-bottom: 3em;
+    }
+    .brand {
+        max-width: 300px;
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+    .brand a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6em;
+        color: var(--text);
+        text-decoration: none;
+        font-size: 1.2rem;
+        font-weight: 700;
+    }
+    .brand img {
+        width: 36px;
+        height: 36px;
+    }
+    .brand p {
+        color: var(--text-muted);
+        margin: 0;
+    }
+    .groups {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3em;
+    }
+    .groups > div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.55em;
+    }
+    .groups :global(a) {
+        color: var(--text-muted);
+        text-decoration: none;
+        transition: color var(--duration-base) var(--ease-out);
+    }
+    .groups :global(a:hover) {
+        color: var(--text);
+    }
+    .bottom {
+        border-top: 1px solid var(--border);
+        padding: 1.5em 1em;
+        text-align: center;
+        color: var(--text-faint);
+        font-size: 0.85rem;
+        user-select: none;
+    }
+    .bottom p {
+        margin: 0.3em 0;
+    }
 </style>

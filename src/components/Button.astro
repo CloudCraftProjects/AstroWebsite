@@ -1,43 +1,57 @@
 ---
 export interface ButtonProps {
-    color?: "dark" | "contrast";
-    border?: boolean;
+    variant?: "secondary" | "discord";
+    size?: "sm" | "md" | "lg";
 }
-interface Props extends ButtonProps {
-}
+interface Props extends ButtonProps {}
 
-const {color = "dark", border = false} = Astro.props;
+const {variant = "secondary", size = "md"} = Astro.props;
 ---
 
-<div class={`holder ${border ? "border" : ""} ${color}`}>
+<div class:list={["btn", variant, size]}>
     <slot/>
 </div>
 <style>
-    .holder.dark {
-        --button-color: #363636;
-        --button-color-hover: #424242;
-        --button-color-outline: #999999;
-    }
-
-    .holder.contrast {
-        --button-color: #0c51b9;
-        --button-color-hover: #154792;
-        --button-color-outline: #5f92dd;
-    }
-
-    .holder {
-        padding: 0.55rem;
-        background-color: var(--button-color);
-        border-radius: 0.5rem;
-        transition: background-color 80ms linear;
-    }
-
-    .holder:hover {
-        background-color: var(--button-color-hover);
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5em;
+        padding: 0.55em 1.4em;
+        border-radius: var(--radius-lg);
+        font-weight: 600;
+        line-height: 1.2;
         cursor: pointer;
+        transition:
+            background-color var(--duration-base) var(--ease-out),
+            border-color var(--duration-base) var(--ease-out),
+            color var(--duration-base) var(--ease-out);
     }
 
-    .holder.border {
-        border: 0.1rem solid var(--button-color-outline);
+    .secondary {
+        background-color: transparent;
+        border: 1px solid var(--border-strong);
+        color: var(--text);
+    }
+    .secondary:hover {
+        background-color: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .discord {
+        background-color: var(--discord);
+        color: var(--text);
+    }
+    .discord:hover {
+        background-color: var(--discord-highlight);
+    }
+
+    .sm {
+        padding: 0.35em 0.9em;
+        font-size: 0.875em;
+    }
+    .lg {
+        padding: 0.7em 1.7em;
+        font-size: 1.05em;
     }
 </style>

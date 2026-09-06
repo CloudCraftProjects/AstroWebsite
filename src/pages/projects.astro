@@ -2,26 +2,35 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import AllProjects from "../components/AllProjects.astro";
+import Breadcrumb from "../components/Breadcrumb.astro";
 import DiscordLink from "../components/DiscordLink.astro";
 
 const projects = ["craftattack", "elements", "hardcore", "varo", "kingdoms", "cloudwars"];
 ---
 
 <Layout title="Projekte" description="Eine Auflistung der beliebtesten Projekten von CloudCraft" keywords={projects.concat(["projects"])}>
-  <Header title="CloudCraft" image={{ src: "/assets/logo.webp", alt: "Logo von CloudCraft", width: 240, height: 240 }}>
-    <p>Hier findest du Verlinkungen zu den unterschiedlichsten Projekten.</p>
-    <p>
-      Du hast eine Idee für ein Projekt, welches du bei uns sehen möchtest? Dann schreib uns deinen Vorschlag auf unserem <DiscordLink />!
-    </p>
-  </Header>
-  <main>
-    <AllProjects />
-  </main>
+    <Header title="Projekte">
+        <p>Hier findest du Verlinkungen zu den unterschiedlichsten Projekten.</p>
+        <p>
+            Du hast eine Idee für ein Projekt, welches du bei uns sehen möchtest? Dann schreib uns deinen Vorschlag auf unserem
+            <DiscordLink/>!
+        </p>
+    </Header>
+    <main class="section">
+        <div class="container">
+            <Breadcrumb items={[{href: "/", label: "Home"}, {label: "Projekte"}]}/>
+            <AllProjects/>
+        </div>
+    </main>
 </Layout>
 
 <style>
-  main {
-    margin-top: 2em;
-    margin-bottom: 2em;
-  }
+    .section {
+        padding: 2.5em 1em 3.5em;
+    }
+    .container {
+        max-width: var(--content-width);
+        margin-left: auto;
+        margin-right: auto;
+    }
 </style>

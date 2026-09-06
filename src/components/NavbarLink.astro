@@ -1,6 +1,5 @@
 ---
 import type {SvgComponent} from "astro/types";
-import Link from "./Link.astro";
 
 interface Props {
     icon: SvgComponent;
@@ -8,10 +7,35 @@ interface Props {
     noActive?: boolean;
 }
 
-const {icon, href, noActive} = Astro.props;
+const {icon: Icon, href, noActive} = Astro.props;
 const active = !noActive && (Astro.url.pathname === href + "/" || Astro.url.pathname === href);
 ---
 
-<Link icon={icon} href={href} bold={active} noColor button>
+<a href={href} class:list={["nav-link", {active}]} aria-current={active ? "page" : undefined}>
+    <Icon aria-hidden="true"/>
     <slot/>
-</Link>
+</a>
+
+<style>
+    .nav-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45em;
+        padding: 0.45em 0.95em;
+        border-radius: var(--radius-md);
+        color: var(--text-muted);
+        text-decoration: none;
+        font-weight: 500;
+        transition:
+            color var(--duration-base) var(--ease-out),
+            background-color var(--duration-base) var(--ease-out);
+    }
+    .nav-link:hover {
+        color: var(--text);
+        background-color: rgba(255, 255, 255, 0.06);
+    }
+    .nav-link.active {
+        color: var(--accent);
+        background-color: var(--accent-subtle);
+    }
+</style>

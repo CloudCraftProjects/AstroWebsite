@@ -1,117 +1,116 @@
 ---
 import {Image} from "astro:assets";
 import Badge from "./Badge.astro";
-import Link from "./Link.astro";
 import Tooltip from "./Tooltip.astro";
 import type {CollectionEntry} from "astro:content";
 import * as path from "node:path";
 import BaselineDiscordIcon from "~icons/ic/baseline-discord";
-import BaselineInfoIcon from "~icons/ic/baseline-info";
+import BaselineArrowForwardIcon from "~icons/ic/baseline-arrow-forward";
 
 interface Props {
-  data: CollectionEntry<"categories">;
-  running: boolean;
+    data: CollectionEntry<"categories">;
+    running: boolean;
 }
 
 const {filePath, data: {name, previewImage, description}} = Astro.props.data;
 const id = path.dirname(filePath!).split("/").at(-1);
 ---
 
-<div class="card">
-  <a class="image" href={`/projects/${id}/`}>
-    <Image
-        src={`/assets/projects/${id}/${previewImage}.webp`}
-        width="406"
-        height="270.6666666"
-        alt={`Vorschaubild von ${name}`}
-    />
-  </a>
-  <div class="info">
-    <h2>
-      <span>{name}</span>
-      {
+<article class="card">
+    <a class="card-link" href={`/projects/${id}/`} aria-label={`Mehr über ${name} erfahren`}></a>
+    <div class="image">
+        <Image
+            src={`/assets/projects/${id}/${previewImage}.webp`}
+            width="406"
+            height="270"
+            alt={`Vorschaubild von ${name}`}
+        />
+    </div>
+    {
         Astro.props.running && (
-          <div>
-            <Tooltip text="Anmeldung im Discord">
-              <Link href="/r/discord" noColor>
-                <Badge icon={BaselineDiscordIcon}>Aktuell</Badge>
-              </Link>
-            </Tooltip>
-          </div>
+            <div class="badge">
+                <Tooltip text="Anmeldung im Discord">
+                    <a href="/r/discord" aria-label="Aktuelles Projekt - Anmeldung im Discord">
+                        <Badge icon={BaselineDiscordIcon}>Aktuell</Badge>
+                    </a>
+                </Tooltip>
+            </div>
         )
-      }
-    </h2>
-    <slot>{description}</slot>
-  </div>
-  <div class="button-container">
-    <Link icon={BaselineInfoIcon} href={`/projects/${id}/`} button={{color: "contrast", border: true}} noColor>
-      Mehr erfahren
-    </Link>
-  </div>
-</div>
-<style>
-  .card {
-    --border-radius: 0.4em;
-    --border-width: 1px;
-    --img-width: 406px;
-    --img-height: calc(var(--img-width) / 3 * 2);
-
-    display: flex;
-    flex-direction: column;
-    border: var(--border-width) solid rgba(255, 255, 255, 0.15);
-    border-radius: var(--border-radius);
-    font-size: 0.9em;
-    max-width: var(--img-width);
-    line-height: 1.5em;
-    color: rgb(222, 226, 230);
-  }
-  .image,
-  .image > img {
-    border-top-left-radius: var(--border-radius);
-    border-top-right-radius: var(--border-radius);
-    max-height: var(--img-height);
-  }
-  .info {
-    padding: 0.6em;
-    background-color: #212529;
-    min-height: 190px;
-  }
-  .info > h2 {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.75em;
-    margin-top: 0.5em;
-    margin-bottom: 0.6em;
-    font-size: 1.8em;
-  }
-  .button-container {
-    display: flex;
-    justify-content: center;
-    padding: 0.6em;
-    border-top: var(--border-width) solid rgba(255, 255, 255, 0.15);
-    background-color: rgb(44, 44, 44);
-    border-bottom-left-radius: var(--border-radius);
-    border-bottom-right-radius: var(--border-radius);
-  }
-  @media screen and (max-width: 430px) {
-    .card {
-      --img-width: calc(406px / 2);
     }
-    .image,
-    .image > img {
-      width: var(--img-width);
-      height: var(--img-height);
+    <div class="info">
+        <h2>{name}</h2>
+        <p>{description}</p>
+        <span class="more">
+            Mehr erfahren
+            <BaselineArrowForwardIcon aria-hidden="true"/>
+        </span>
+    </div>
+</article>
+<style>
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        background-color: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        transition: border-color var(--duration-base) var(--ease-out);
+    }
+    .card:hover {
+        border-color: var(--accent-border);
+    }
+    .card-link {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        border-radius: var(--radius-lg);
+    }
+    .image {
+        overflow: hidden;
+        border-top-left-radius: calc(var(--radius-lg) - 1px);
+        border-top-right-radius: calc(var(--radius-lg) - 1px);
+        aspect-ratio: 3 / 2;
+    }
+    .image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform var(--duration-base) var(--ease-out);
+    }
+    .card:hover .image img {
+        transform: scale(1.02);
+    }
+    .badge {
+        position: absolute;
+        top: 0.6em;
+        left: 0.6em;
+        z-index: 2;
+    }
+    .badge a {
+        text-decoration: none;
     }
     .info {
-        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+        flex: 1;
+        padding: 1.25em 1.35em 1.35em;
     }
-    .info > h2 {
-      flex-direction: column;
-      align-items: center;
+    .info h2 {
+        font-size: 1.4rem;
+        margin: 0px;
     }
-    .info > h2 > div {
-      font-size: 0.9em;
+    .info p {
+        color: var(--text-muted);
+        margin: 0px;
+        flex: 1;
     }
-  }
+    .more {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4em;
+        color: var(--accent);
+        font-weight: 600;
+        font-size: 0.95rem;
+    }
 </style>

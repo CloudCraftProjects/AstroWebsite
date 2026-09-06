@@ -24,24 +24,14 @@ categories.sort((category1, category2) => {
 });
 ---
 
-<div>
+<div class="grid">
     {categories.map(category =>
             <Project data={category} running={isRunning(category)}/>)}
 </div>
 <style>
-    div {
-        display: flex;
-        gap: 3em;
-        justify-content: center;
-        flex-wrap: wrap;
-        max-width: var(--content-width);
-        margin-right: auto;
-        margin-left: auto;
-    }
-
-    @media screen and (max-width: 1245px) {
-        div {
-            max-width: 98%;
-        }
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr));
+        gap: 1.5em;
     }
 </style>

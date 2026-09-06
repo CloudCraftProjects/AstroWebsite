@@ -1,6 +1,12 @@
 ---
 import Link from "./Link.astro";
 import BaselineDiscordIcon from "~icons/ic/baseline-discord";
+
+interface Props {
+    noIcon?: boolean;
+}
+
+const {noIcon} = Astro.props;
 ---
 
-<Link icon={BaselineDiscordIcon} href="/r/discord">Discord</Link>
+<Link icon={noIcon ? undefined : BaselineDiscordIcon} href="/r/discord">Discord</Link>

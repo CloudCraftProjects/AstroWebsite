@@ -11,7 +11,7 @@ export default defineConfig({
     trailingSlash: "ignore",
     integrations: [
         sitemap({
-            filter: (page) => !page.includes("404") && !page.includes("sponsor"),
+            filter: (page) => !page.includes("404"),
             changefreq: "weekly",
             lastmod: new Date(),
         }),
@@ -22,5 +22,6 @@ export default defineConfig({
     },
     build: {
         inlineStylesheets: "always",
+        assets: "assets",
     },
 });

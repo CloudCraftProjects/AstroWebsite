@@ -2,27 +2,29 @@
 import type {SvgComponent} from "astro/types";
 
 interface Props {
-  icon: SvgComponent;
+    icon?: SvgComponent;
 }
 
-const { icon: Icon } = Astro.props;
+const {icon: Icon} = Astro.props;
 ---
 
-<span>
-    <Icon aria-hidden="true" />
-    <slot />
+<span class="badge">
+    {Icon && <Icon aria-hidden="true"/>}
+    <slot/>
 </span>
 
 <style>
-    span {
-        text-transform: uppercase;
-        background-color: #9d1bb5;
-        padding: 0.3em;
-        border-radius: 0.2em;
-        font-weight: bold;
-        font-size: 0.9em;
+    .badge {
         display: inline-flex;
         align-items: center;
-        gap: 0.2em;
+        gap: 0.4em;
+        padding: 0.3em 0.8em;
+        border-radius: var(--radius-md);
+        background-color: var(--purple);
+        color: var(--text);
+        font-size: 1.15rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        line-height: 1.2;
     }
 </style>

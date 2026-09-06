@@ -1,47 +1,37 @@
 ---
-import {Image} from "astro:assets";
-
 interface Props {
-  title: string;
-  image?: {
-    src: string;
-    alt: string;
-    width: number;
-    height: number;
-  };
+    title: string;
 }
 
-const { title, image } = Astro.props;
+const {title} = Astro.props;
 ---
 
-<header>
-  <section>
-    <h1>{title}</h1>
-    <slot />
-  </section>
-  {image && <Image {...image} loading={"eager"} />}
+<header class="page-header">
+    <div class="container">
+        <h1>{title}</h1>
+        <slot/>
+    </div>
 </header>
+
 <style>
-  header {
-    display: flex;
-    justify-content: space-between;
-    background-color: #1a5670;
-    padding: 3.5em calc((100% - var(--content-width)) / 2) 1em;
-  }
-  section {
-    max-width: 60%;
-  }
-  h1 {
-    font-weight: bold;
-  }
-  @media screen and (max-width: 590px) {
-    header {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+    .page-header {
+        border-bottom: 1px solid var(--border);
+        padding: 3em 1em 2.5em;
     }
-    section {
-      max-width: 100%;
+    .container {
+        max-width: var(--content-width);
+        margin-left: auto;
+        margin-right: auto;
     }
-  }
+    .page-header h1 {
+        margin-bottom: 0.4em;
+    }
+    .page-header :global(p) {
+        color: var(--text-muted);
+        max-width: 65ch;
+        margin: 0px 0px 0.75em;
+    }
+    .page-header :global(p:last-child) {
+        margin-bottom: 0px;
+    }
 </style>

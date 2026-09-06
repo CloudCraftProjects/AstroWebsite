@@ -16,62 +16,56 @@ const button = !rbtn ? undefined : (typeof rbtn === "boolean" ? {} : rbtn); // c
 const classNames = [];
 if (bold) classNames.push("bold");
 if (noColor) classNames.push("no-color");
-if (!button) classNames.push("ultarget");
+if (!button) classNames.push("text-link");
 const className = classNames.length > 0 ? classNames.join(" ") : undefined;
 ---
 
 <a href={href} class={className}>{
     button ?
         <Button {...button}>
-            <div class="ultarget">
-                {Icon &&
-                    <Icon aria-hidden="true"/>}
-                <slot>{href}</slot>
-            </div
-            >
-        </Button>
-        :
-        <>
             {Icon &&
                 <Icon aria-hidden="true"/>}
             <slot>{href}</slot>
-        </>
-}</a
->
+        </Button>
+        :
+        <>{Icon && <Icon aria-hidden="true"/>} <slot>{href}</slot></>
+}</a>
+
 <style>
     a {
-        text-decoration: none;
-        color: rgb(var(--link-color));
-        transition: color 80ms linear;
+        transition: color var(--duration-base) var(--ease-out),
+        text-decoration-color var(--duration-base) var(--ease-out);
+        text-wrap: nowrap;
     }
 
-    a:hover {
-        color: rgb(var(--link-hover-color));
+    a svg {
+        margin-left: 0.1em;
+        vertical-align: -0.15em;
     }
 
-    .ultarget {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.2em;
-        border-bottom: rgba(var(--link-color), 0.4) solid 1px;
+    a.text-link {
+        color: var(--accent);
+        text-decoration: underline;
+        text-decoration-color: color-mix(in oklab, var(--accent) 40%, transparent);
+        text-underline-offset: 3px;
     }
 
-    .ultarget:has(a:hover) {
-        border-bottom: rgb(var(--link-hover-color)) solid 1px;
+    a.text-link:hover {
+        color: var(--accent-hover);
+        text-decoration-color: currentColor;
     }
 
     a.bold {
-        font-weight: bold;
+        font-weight: 600;
     }
 
     a.no-color {
-        --link-color: 255, 255, 255;
-        --link-hover-color: 214, 214, 214;
+        color: var(--text);
+        text-decoration-color: rgba(255, 255, 255, 0.35);
     }
 
-    a:not(.no-color) {
-        --link-color: 218, 246, 255;
-        --link-hover-color: 113, 139, 252;
+    a.no-color:hover {
+        color: var(--text-muted);
+        text-decoration-color: currentColor;
     }
-
 </style>

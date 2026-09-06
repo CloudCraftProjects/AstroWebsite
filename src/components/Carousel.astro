@@ -1,225 +1,226 @@
 ---
 import {Image} from "astro:assets";
+import BaselineChevronLeftIcon from "~icons/ic/baseline-chevron-left";
+import BaselineChevronRightIcon from "~icons/ic/baseline-chevron-right";
 
 interface Props {
-  projectId: string;
-  slides: {
-    img: string;
-    title: string;
-    description: string;
-  }[];
-  initialSlide?: number;
-  slideWidth?: number;
-  slideHeight?: number;
+    projectId: string;
+    slides: {
+        img: string;
+        title: string;
+        description: string;
+    }[];
+    initialSlide?: number;
+    slideWidth?: number;
+    slideHeight?: number;
 }
 
-const { projectId, slides, initialSlide = 1, slideWidth = 1920, slideHeight = 1080 } = Astro.props;
+const {projectId, slides, initialSlide = 1, slideWidth = 1920, slideHeight = 1080} = Astro.props;
 ---
 
-<div class="carousel-container" data-initial-slide={initialSlide} data-slide-count={slides.length}>
-  <div class="slides">
-    {
-      slides.map(({ img, title, description }, index) => (
-        <div class={`slide${index + 1 === initialSlide ? " active" : ""}`} data-slide={index + 1}>
-          <div class="image">
-            <Image src={`/assets/projects/${projectId}/${img}.webp`} alt={`${title}. ${description}`} width={slideWidth} height={slideHeight} />
-            <div class="arrow previous" />
-            <div class="arrow next" />
-          </div>
-          <div class="caption" aria-hidden="true">
-            <p class="title">{title}</p>
-            <p class="description">{description}</p>
-          </div>
-        </div>
-      ))
-    }
-  </div>
-  <div class="switchers">
-    {slides.map((_, index) => <div class={`switcher${index + 1 === initialSlide ? " active" : ""}`} data-slide={index + 1} />)}
-  </div>
-  <script>
-    const getSlideElement = (slideIndex: number): HTMLElement => {
-      return document.querySelector(`.slide[data-slide="${slideIndex}"]`) as HTMLElement;
-    };
-    const getSwitchElement = (slideIndex: number): HTMLElement => {
-      return document.querySelector(`.switcher[data-slide="${slideIndex}"]`) as HTMLElement;
-    };
-
-    let switchJob: NodeJS.Timeout | undefined = undefined;
-    const startSwitchJob = () => {
-      if (switchJob !== undefined) {
-        clearTimeout(switchJob);
-      }
-      switchJob = setTimeout(() => switchSlide(1), 5000);
-    };
-    startSwitchJob();
-
-    const carouselContainer = document.querySelector(".carousel-container")! as HTMLElement;
-    const slideCount = +carouselContainer.dataset.slideCount!;
-    let selectedSlide = +carouselContainer.dataset.initialSlide!;
-    const changeSlide = (slideIndex: number) => {
-      // configure old slide
-      getSlideElement(selectedSlide).classList.toggle("active");
-      getSwitchElement(selectedSlide).classList.toggle("active");
-
-      // configure new slide
-      getSlideElement(slideIndex).classList.toggle("active");
-      getSwitchElement(slideIndex).classList.toggle("active");
-
-      selectedSlide = slideIndex;
-      startSwitchJob(); // re-start
-    };
-    const switchSlide = (offset: number) => {
-      let newSlide = (selectedSlide + offset - 1) % slideCount;
-      if (newSlide < 0) {
-        newSlide -= Math.floor(newSlide / slideCount) * slideCount;
-      }
-      changeSlide(newSlide + 1);
-    };
-
-    const switcherContainer = document.querySelector(".switchers") as HTMLElement;
-    switcherContainer.addEventListener("click", (event) => {
-      const targetElement = event.target as HTMLElement;
-      if (targetElement.classList.contains("switcher")) {
-        const slideIndex = +targetElement.dataset.slide!;
-        changeSlide(slideIndex);
-      }
-    });
-
-    const bindArrow = (direction: string, offset: number) => {
-      const slidesContainer = document.querySelector(".slides") as HTMLElement;
-      const targetClassName = `arrow ${direction}`;
-      slidesContainer.addEventListener("click", (event) => {
-        const targetElement = event.target as HTMLElement;
-        if (targetElement.className == targetClassName) {
-          switchSlide(offset);
+<div class="carousel" data-initial-slide={initialSlide} data-slide-count={slides.length}>
+    <div class="slides">
+        {
+            slides.map(({img, title, description}, index) => (
+                <div class:list={["slide", {active: index + 1 === initialSlide}]} data-slide={index + 1}>
+                    <div class="image">
+                        <Image
+                            src={`/assets/projects/${projectId}/${img}.webp`}
+                            alt={`${title}. ${description}`}
+                            width={slideWidth}
+                            height={slideHeight}
+                        />
+                        <button class="arrow previous" type="button" aria-label="Vorheriges Bild">
+                            <BaselineChevronLeftIcon aria-hidden="true"/>
+                        </button>
+                        <button class="arrow next" type="button" aria-label="Nächstes Bild">
+                            <BaselineChevronRightIcon aria-hidden="true"/>
+                        </button>
+                    </div>
+                    <div class="caption" aria-hidden="true">
+                        <p class="title">{title}</p>
+                        <p class="description">{description}</p>
+                    </div>
+                </div>
+            ))
         }
-      });
-    };
-    bindArrow("previous", -1);
-    bindArrow("next", 1);
-  </script>
+    </div>
+    <div class="indicators">
+        {
+            slides.map((_, index) => (
+                <button
+                    class:list={["indicator", {active: index + 1 === initialSlide}]}
+                    data-slide={index + 1}
+                    type="button"
+                    aria-label={`Bild ${index + 1} anzeigen`}
+                />
+            ))
+        }
+    </div>
 </div>
+
+<script>
+    const setupCarousel = (container: HTMLElement) => {
+        const slideCount = Number(container.dataset.slideCount);
+        let selectedSlide = Number(container.dataset.initialSlide);
+        let switchJob: ReturnType<typeof setTimeout> | undefined;
+
+        const getSlide = (slideIndex: number) =>
+            container.querySelector<HTMLElement>(`.slide[data-slide="${slideIndex}"]`)!;
+        const getIndicator = (slideIndex: number) =>
+            container.querySelector<HTMLElement>(`.indicator[data-slide="${slideIndex}"]`)!;
+
+        const startSwitchJob = () => {
+            clearTimeout(switchJob);
+            switchJob = setTimeout(() => switchSlide(1), 5000);
+        };
+        const changeSlide = (slideIndex: number) => {
+            getSlide(selectedSlide).classList.remove("active");
+            getIndicator(selectedSlide).classList.remove("active");
+            getSlide(slideIndex).classList.add("active");
+            getIndicator(slideIndex).classList.add("active");
+            selectedSlide = slideIndex;
+            startSwitchJob();
+        };
+        const switchSlide = (offset: number) => {
+            let newSlide = (selectedSlide + offset - 1) % slideCount;
+            if (newSlide < 0) {
+                newSlide += slideCount;
+            }
+            changeSlide(newSlide + 1);
+        };
+
+        container.querySelector(".indicators")!.addEventListener("click", (event) => {
+            const indicator = (event.target as HTMLElement).closest(".indicator") as HTMLElement | null;
+            if (indicator) {
+                changeSlide(Number(indicator.dataset.slide));
+            }
+        });
+        container.querySelector(".slides")!.addEventListener("click", (event) => {
+            const arrow = (event.target as HTMLElement).closest(".arrow");
+            if (!arrow) return;
+            switchSlide(arrow.classList.contains("next") ? 1 : -1);
+        });
+        container.addEventListener("mouseenter", () => clearTimeout(switchJob));
+        container.addEventListener("mouseleave", startSwitchJob);
+
+        startSwitchJob();
+    };
+    document.querySelectorAll<HTMLElement>(".carousel").forEach(setupCarousel);
+</script>
+
 <style>
-  .carousel-container {
-    margin-top: 1em;
-    margin-bottom: 1em;
-
-    display: flex;
-    flex-direction: column;
-
-    max-width: var(--content-width);
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .slides {
-    position: relative;
-    --rounded-corners: 0.5em;
-  }
-  .slide {
-    display: none;
-
-    animation-name: fade;
-    animation-duration: 150ms;
-  }
-  @keyframes fade {
-    from {
-      opacity: 0%;
+    .carousel {
+        display: flex;
+        flex-direction: column;
+        margin-top: 1em;
+        margin-bottom: 1em;
     }
-    to {
-      opacity: 100%;
+    .slides {
+        position: relative;
     }
-  }
-  .slide.active {
-    display: block;
-  }
-  .slide > .image {
-    position: relative;
-  }
-  .slide > .image > img {
-    border-radius: var(--rounded-corners);
-    width: 100%;
-    height: 100%;
-  }
-  .slide > .caption {
-    position: absolute;
-    bottom: 5%;
-    width: 100%;
-    text-align: center;
-    /* there is no proper way for this; https://stackoverflow.com/a/27767158 */
-    text-shadow:
-      0px 0px 0.5em black,
-      0px 0px 0.5em black,
-      0px 0px 0.5em black;
-  }
-  .caption > .title {
-    font-size: 1.2em;
-  }
-  @media screen and (max-width: 750px) {
-    .slide > .caption {
-      margin-top: 0.6em;
-      position: inherit;
-      bottom: unset;
+    .slide {
+        display: none;
     }
-  }
-  .caption > p {
-    margin: 0;
-  }
-  .arrow {
-    position: absolute;
-    cursor: pointer;
-    width: 15%;
-    height: 100%;
-    bottom: 0px;
-
-    background-size: 50% 50%;
-    background-position: 50%;
-    background-repeat: no-repeat;
-
-    opacity: 70%;
-  }
-  .arrow:hover {
-    opacity: 100%;
-  }
-  .arrow.previous {
-    left: 0px;
-    border-top-left-radius: var(--rounded-corners);
-    border-bottom-left-radius: var(--rounded-corners);
-
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e");
-  }
-  .arrow.next {
-    right: 0px;
-    border-top-right-radius: var(--rounded-corners);
-    border-bottom-right-radius: var(--rounded-corners);
-
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
-  }
-  .switchers {
-    display: flex;
-    justify-content: center;
-    margin-top: 1em;
-    margin-bottom: 0.5em;
-    gap: 0.3em;
-  }
-  .switcher {
-    height: 0.85em;
-    width: 2.5em;
-    background-color: #ffffff;
-    border-radius: 0.15em;
-    display: inline-block;
-    transition: background-color 80ms linear;
-  }
-  .switcher:not(.active) {
-    cursor: pointer;
-    margin: calc(1px + 0.1em);
-  }
-  .switcher.active {
-    background-color: #65b5b1;
-    margin: calc(0px + 0.1em);
-    border: white solid 1px;
-  }
-  .switcher:hover:not(.active) {
-    background-color: #d6d6d6;
-  }
+    .slide.active {
+        display: block;
+    }
+    .slide .image {
+        position: relative;
+        border-radius: var(--radius-sm);
+        overflow: hidden;
+    }
+    .slide .image img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: var(--radius-sm);
+    }
+    .slide .caption {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        padding: 3.5em 1em 1.25em;
+        text-shadow: black 0 0 0.3em, black 0 0 0.6em, black 0 0 0.9em;
+        border-bottom-left-radius: var(--radius-lg);
+        border-bottom-right-radius: var(--radius-lg);
+    }
+    .caption .title {
+        font-weight: 600;
+        font-size: 1.15em;
+    }
+    .caption p {
+        margin: 0;
+    }
+    .arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        border-radius: 50%;
+        background-color: rgba(11, 15, 25, 0.55);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: var(--text);
+        font: inherit;
+        font-size: 1.25rem;
+        cursor: pointer;
+        transition:
+            background-color var(--duration-base) var(--ease-out),
+            border-color var(--duration-base) var(--ease-out);
+    }
+    .arrow:hover {
+        background-color: rgba(11, 15, 25, 0.85);
+        border-color: rgba(255, 255, 255, 0.35);
+    }
+    .arrow.previous {
+        left: 1em;
+    }
+    .arrow.next {
+        right: 1em;
+    }
+    .indicators {
+        display: flex;
+        justify-content: center;
+        gap: 0.5em;
+        margin-top: 1em;
+        margin-bottom: 0.5em;
+    }
+    .indicator {
+        width: 28px;
+        height: 12px;
+        padding: 0;
+        border-radius: var(--radius-full);
+        background-color: rgba(255, 255, 255, 0.25);
+        border: none;
+        cursor: pointer;
+        transition:
+            background-color var(--duration-base) var(--ease-out),
+            width var(--duration-base) var(--ease-out);
+    }
+    .indicator:hover {
+        background-color: rgba(255, 255, 255, 0.45);
+    }
+    .indicator.active {
+        background-color: var(--accent);
+        width: 40px;
+        cursor: default;
+    }
+    @media screen and (max-width: 750px) {
+        .slide .caption {
+            position: inherit;
+            padding: 0.6em 1em 0;
+            border-radius: 0;
+            text-shadow: none;
+        }
+        .arrow {
+            width: 38px;
+            height: 38px;
+        }
+    }
 </style>

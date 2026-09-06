@@ -1,83 +1,331 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Header from "../components/Header.astro";
 import AllProjects from "../components/AllProjects.astro";
 import PlayerCounter from "../components/PlayerCounter.astro";
-import DiscordLink from "../components/DiscordLink.astro";
+import Link from "../components/Link.astro";
+import BaselineDiscordIcon from "~icons/ic/baseline-discord";
+import BaselineContentCopyIcon from "~icons/ic/baseline-content-copy";
+import BaselineCheckIcon from "~icons/ic/baseline-check";
+import Image from "astro/components/Image.astro";
+import LogoImg from "../assets/logo.png";
+import {teamMembers} from "../scripts/team.ts";
 ---
 
 <Layout title="Home" description="Offizielle Homepage vom Minecraft Projekte Discord CloudCraft" keywords={["home"]}>
-  <Header title="CloudCraft" image={{ src: "/assets/logo.webp", alt: "Logo von CloudCraft", width: 240, height: 240 }}>
-    <p>CloudCraft ist ein Minecraft Projekte Discord. Hier werden viele spannende Projekte gehostet. Zu diesen zählen Elements, CraftAttack, StoneAttack, Kingdoms, Varo und viele weitere Projekte!</p>
-    <p>
-      Join jetzt unserem <DiscordLink />, um kein Projekt mehr zu verpassen!
-    </p>
-  </Header>
-  <main>
-    <div class="about-us">
-      <div>
-        <h2>Über uns</h2>
-        <p>Bei CloudCraft gibt es die unterschiedlichsten und abwechslungsreichsten Minecraft Projekte.</p>
-        <p>Wir bieten verschiedenste Langzeitprojekte wie Elements, CraftAttack oder Kingdoms an, aber verstantalten auch kürzere Events wie Among Us in Minecraft, Varo oder auch CloudWars.</p>
-        <div class="server-status">
-          <p>
-            Spiele jetzt auch du mit <b><PlayerCounter url="https://ping.cloudcraftmc.de/" visibleElement=".server-status" /></b> weiteren Spielern auf cloudcraftmc.de!
-          </p>
-          <p><b>Hinweis:</b> Für die meisten Projekte musst du dich vorher ganz einfach auf unserem <DiscordLink /> anmelden</p>
-        </div>
-      </div>
-      <iframe title="CloudCraft Discord Server Widget" src="https://canary.discord.com/widget?id=737751273163718668&theme=dark" width="420" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-    </div>
-    <AllProjects />
-  </main>
+    <main>
+        <section class="hero">
+            <div class="container">
+                <Image class="logo" src={LogoImg} width={160} height={160} aria-hidden="true" alt="CloudCraft Logo"/>
+                <h1>CloudCraft</h1>
+                <p class="tagline">
+                    Der Minecraft Projekte Discord - hier findest du spannende Projekte wie
+                    CraftAttack, Elements, Kingdoms, Varo und viele weitere.
+                </p>
+                <div class="action-row">
+                    <Link button={{variant: "discord", size: "lg"}} icon={BaselineDiscordIcon} href="/r/discord">Discord beitreten</Link>
+                    <Link button={{variant: "secondary", size: "lg"}} href="/projects/">Projekte ansehen</Link>
+                </div>
+                <div class="meta-row">
+                    <span class="status" style="display: none">
+                        <span class="dot" aria-hidden="true"/>
+                        <b><PlayerCounter url="https://ping.cloudcraftmc.de/" visibleThreshold={10} visibleElement=".status"/></b>
+                        Spieler online
+                    </span>
+                    <button class="ip-chip" type="button" data-ip="cloudcraftmc.de">
+                        <span class="ip">cloudcraftmc.de</span>
+                        <BaselineContentCopyIcon class="icon-copy" aria-hidden="true"/>
+                        <BaselineCheckIcon class="icon-check" aria-hidden="true"/>
+                        <span class="sr-only">Server-IP in die Zwischenablage kopieren</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container split">
+                <div class="text">
+                    <h2>Über uns</h2>
+                    <p>
+                        Bei CloudCraft gibt es die unterschiedlichsten und abwechslungsreichsten Minecraft Projekte.
+                    </p>
+                    <p>
+                        Wir bieten verschiedenste Langzeitprojekte wie CraftAttack, Elements oder Kingdoms an, veranstalten aber auch kürzere
+                        Events wie Among Us in Minecraft, Varo oder auch das hauseigene CloudWars.
+                    </p>
+                    <p>
+                        Zudem legen wir besonders Wert auf leistungsstarke Server, eigene Systeme und ein Team mit Ahnung.
+                    </p>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <span class="value">35+</span>
+                        <span class="label">veranstaltete Projekte &amp; Events</span>
+                    </div>
+                    <div class="stat">
+                        <span class="value">{teamMembers.length}</span>
+                        <span class="label">kompetente Teammitglieder</span>
+                    </div>
+                    <div class="stat">
+                        <span class="value">5.000+</span>
+                        <span class="label">insgesamte Spieler seit 2020</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section-alt">
+            <div class="container">
+                <div class="section-head">
+                    <h2>Unsere Projekte</h2>
+                    <Link href="/projects/">Alle Projekte</Link>
+                </div>
+                <AllProjects/>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container split">
+                <div class="discord-copy">
+                    <h2>Interesse geweckt?</h2>
+                    <p>
+                        Auf unserem Discord findest du alles Wichtige: Ankündigungen und Anmeldungen zu neuen
+                        Projekten, Support vom Team und eine große Community.
+                    </p>
+                    <Link button={{variant: "discord"}} icon={BaselineDiscordIcon} href="/r/discord">Discord beitreten</Link>
+                    <p class="note"><b>Hinweis:</b> Für die meisten Projekte musst du dich vorher einfach auf unserem Discord anmelden.</p>
+                </div>
+                <div class="widget">
+                    <iframe
+                        title="CloudCraft Discord Server Widget"
+                        src="https://canary.discord.com/widget?id=737751273163718668&theme=dark"
+                        width="420"
+                        height="500"
+                        allowtransparency="true"
+                        sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
+                        loading="lazy"
+                    ></iframe>
+                </div>
+            </div>
+        </section>
+    </main>
 </Layout>
 
+<script>
+    const chip = document.querySelector<HTMLButtonElement>(".ip-chip")!;
+    const copy = async () => {
+        await navigator.clipboard.writeText(chip.dataset.ip!);
+        chip.classList.add("copied");
+        setTimeout(() => chip.classList.remove("copied"), 2000);
+    };
+    chip.addEventListener("click", () => void copy());
+</script>
+
 <style>
-  main {
-    margin-top: 2em;
-    margin-bottom: 2em;
-  }
-  .about-us {
-    display: flex;
-    justify-content: space-between;
-    margin-right: auto;
-    margin-left: auto;
-    margin-bottom: 2em;
-    max-width: var(--content-width);
-    gap: 2em;
-  }
-  .about-us > div {
-    max-width: 50%;
-  }
-  .about-us > div > .server-status {
-    margin-top: 3em;
-    opacity: 0%;
-  }
-  .about-us > iframe {
-    min-width: 20%;
-  }
-  @media screen and (max-width: 630px) {
-    .about-us {
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 0em;
-      gap: 1em;
+    .container {
+        max-width: var(--content-width);
+        margin-left: auto;
+        margin-right: auto;
     }
-    .about-us > div {
-      max-width: 100%;
+
+    .section {
+        padding: 3em 1em;
     }
-    .about-us > div > .server-status {
-      display: none;
+
+    .split {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 3em;
+        align-items: center;
     }
-    .about-us > iframe {
-      margin-bottom: 2em;
-      min-width: 100%;
+
+    .split .text h2,
+    .discord-copy h2 {
+        margin-top: 0px;
     }
-  }
-  @media screen and (max-width: 460px) {
-    .about-us > iframe {
-      min-width: unset;
-	  width: 100%;
+
+    .hero {
+        padding: 5em 1em 4em;
+        text-align: center;
     }
-  }
+
+    .hero .logo {
+        width: clamp(120px, 18vw, 170px);
+        height: auto;
+        margin-bottom: 1.25em;
+    }
+
+    .hero h1 {
+        margin-bottom: 0.35em;
+    }
+
+    .tagline {
+        color: var(--text-muted);
+        font-size: 1.15rem;
+        max-width: 60ch;
+        margin: 0px auto 2em;
+    }
+
+    .action-row {
+        display: flex;
+        justify-content: center;
+        gap: 1em;
+        flex-wrap: wrap;
+        margin-bottom: 1.5em;
+    }
+
+    .meta-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.75em;
+        flex-wrap: wrap;
+    }
+
+    .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6em;
+        padding: 0.45em 1em;
+        border-radius: var(--radius-full);
+        background-color: var(--surface);
+        border: 1px solid var(--border);
+        color: var(--text-muted);
+        font-size: 0.9rem;
+    }
+
+    .status b {
+        color: var(--text);
+        font-weight: 600;
+    }
+
+    .status .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: var(--success);
+    }
+
+    .ip-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.6em;
+        padding: 0.45em 1em;
+        border-radius: var(--radius-full);
+        background-color: var(--surface);
+        border: 1px solid var(--border);
+        color: var(--text);
+        font-family: ui-monospace, monospace;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: border-color var(--duration-base) var(--ease-out),
+        background-color var(--duration-base) var(--ease-out);
+    }
+
+    .ip-chip:hover {
+        border-color: var(--accent-border);
+        background-color: var(--accent-subtle);
+    }
+
+    .ip-chip .icon-check {
+        display: none;
+        color: var(--success);
+    }
+
+    .ip-chip.copied {
+        border-color: color-mix(in oklab, var(--success) 40%, transparent);
+    }
+
+    .ip-chip.copied .icon-copy {
+        display: none;
+    }
+
+    .ip-chip.copied .icon-check {
+        display: block;
+    }
+
+    .stats {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    .stat {
+        display: flex;
+        align-items: baseline;
+        gap: 0.75em;
+        background-color: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 1.1em 1.35em;
+    }
+
+    .stat .value {
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: var(--accent);
+    }
+
+    .stat .label {
+        color: var(--text-muted);
+    }
+
+    .section-alt {
+        background-color: var(--bg-alt);
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+    }
+
+    .discord-copy p {
+        color: var(--text-muted);
+        max-width: 55ch;
+    }
+
+    .discord-copy .note {
+        color: var(--text-faint);
+        font-size: 0.9rem;
+        margin-top: 1.5em;
+        margin-bottom: 0px;
+    }
+
+    .widget {
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        background-color: var(--surface);
+        overflow: hidden;
+    }
+
+    .widget iframe {
+        display: block;
+        width: 100%;
+        height: 500px;
+        border: 0;
+    }
+
+    .section-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 1em;
+        margin-bottom: 1em;
+    }
+
+    .section-head h2 {
+        margin: 0;
+    }
+
+    @media screen and (max-width: 900px) {
+        .split {
+            grid-template-columns: 1fr;
+            gap: 2em;
+        }
+
+        .stats {
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            flex: 1 1 140px;
+        }
+    }
 </style>

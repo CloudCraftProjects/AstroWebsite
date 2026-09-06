@@ -16,14 +16,12 @@ const {url, visibleThreshold = 10, visibleElement} = Astro.props;
         .then((resp) => resp.json())
         .then((json) => {
             const count = json.players.online;
-            if (span) {
-                span.textContent = String(count);
-            }
-            const target = span.dataset.target!;
-            if (count >= Number(span.dataset.threshold!) && target) {
-                const el = document.querySelector(target);
+            span.textContent = String(count);
+            const target = span.dataset.target;
+            if (target && count >= Number(span.dataset.threshold!)) {
+                const el = document.querySelector<HTMLElement>(target);
                 if (el) {
-                    (el as HTMLElement).style.opacity = "100%";
+                    el.style.display = "";
                 }
             }
         })

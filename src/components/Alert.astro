@@ -1,0 +1,41 @@
+---
+interface Props {
+    variant?: "info" | "warn";
+    title?: string;
+}
+
+const {variant = "info", title} = Astro.props;
+---
+
+<aside class:list={["container", variant]}>
+    {title && <p class="title">{title}</p>}
+    <div class="body">
+        <slot/>
+    </div>
+</aside>
+
+<style>
+    .container {
+        border-radius: var(--radius-sm);
+        border: 1px solid var(--accent-border);
+        background-color: var(--accent-subtle);
+        padding: 1.1em 1.35em;
+        margin: 2em 0;
+        text-align: center;
+    }
+    .container.warn {
+        border-color: rgba(245, 158, 11, 0.4);
+        background-color: rgba(245, 158, 11, 0.08);
+    }
+    .title {
+        font-weight: 700;
+        font-size: 1.05em;
+        margin: 0 0 0.5em;
+    }
+    .container.warn .title {
+        color: #fbbf24;
+    }
+    .container :global(p:last-child) {
+        margin-bottom: 0;
+    }
+</style>

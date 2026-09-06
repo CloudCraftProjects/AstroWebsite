@@ -20,7 +20,7 @@ start: 2025-10-25
 import Link from "../../components/Link.astro";
 import DiscordLink from "../../components/DiscordLink.astro";
 import Carousel from "../../components/Carousel.astro";
-import BaselineFavoriteIcon from "~icons/ic/baseline-favorite";
+import Alert from "../../components/Alert.astro";
 import BaselineDownloadIcon from "~icons/ic/baseline-download";
 
 export const slides = [
@@ -91,8 +91,7 @@ export const slides = [
     },
 ];
 
-<div style="width: 80%; margin-left: auto; margin-right: auto; margin-top: 2em; margin-bottom: 2em; padding: 1em 0em 1em 0em; background-color: #555; text-align: center; border-radius: 1em;">
-<h3 style="font-weight: bold; margin-bottom: 0.5em">Achtung!</h3>
+<Alert title="Achtung!">
 <strong>Vor kurzem startete das CraftAttack 12 Projekt!</strong>
 
 Verpasse keine spannenden Events und lerne neue Freunde kennen!<br/>
@@ -100,11 +99,7 @@ Die Anmeldung erfolgt einfach über unseren <DiscordLink/>.
 
 Das CloudCraft-Team freut sich auf ein wieder großartiges Projekt mit dir!
 
-<div style="font-size: 4em; color: #ff2222">
-    <BaselineFavoriteIcon aria-hidden="true" />
-</div>
-
-</div>
+</Alert>
 
 <Carousel projectId="craftattack" slides={slides.reverse()} />
 
@@ -120,14 +115,14 @@ unserem <DiscordLink/> nachschauen.
 
 <hr style="margin-bottom: 1em" />
 
-<h2 style="text-align: center; font-weight: bold">Online-Karte von CraftAttack 12</h2>
-<center>
+<h2>Online-Karte von CraftAttack 12</h2>
+<p>
     Link zur Vollbild-Karte: <Link href="//craftattack.cloudcraftmc.de">craftattack.cloudcraftmc.de</Link>
-</center>
+</p>
 
 <iframe
     title="Map Viewer for CloudCraft's CraftAttack 12 project"
-    style="width: 100%; margin-top: 1em; margin-bottom: 1em; height: 75vh"
+    style="width: 100%; margin-top: 1em; margin-bottom: 1em; height: 75vh; border: 0; border-radius: var(--radius-sm)"
     src="https://craftattack.cloudcraftmc.de/"
     loading="lazy"
     allowtransparency="true"

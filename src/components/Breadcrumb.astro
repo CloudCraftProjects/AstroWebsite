@@ -1,0 +1,42 @@
+---
+import Link from "./Link.astro";
+
+interface Crumb {
+    label: string;
+    href?: string;
+}
+
+interface Props {
+    items: Crumb[];
+}
+
+const {items} = Astro.props;
+---
+
+<nav class="breadcrumb" aria-label="Brotkrumen">
+    {
+        items.map((item, index) => (
+            <>
+                {index > 0 && <span aria-hidden="true">/</span>}
+                {item.href ? <Link href={item.href}>{item.label}</Link> : <span class="current">{item.label}</span>}
+            </>
+        ))
+    }
+</nav>
+
+<style>
+    .breadcrumb {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.5em;
+        font-size: 0.9rem;
+        margin-bottom: 2em;
+    }
+    .breadcrumb span {
+        color: var(--text-faint);
+    }
+    .breadcrumb .current {
+        color: var(--text-muted);
+    }
+</style>
