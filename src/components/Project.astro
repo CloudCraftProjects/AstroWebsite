@@ -3,7 +3,7 @@ import {Image} from "astro:assets";
 import Badge from "./Badge.astro";
 import Link from "./Link.astro";
 import Tooltip from "./Tooltip.astro";
-import {CollectionEntry} from "astro:content";
+import type {CollectionEntry} from "astro:content";
 import * as path from "node:path";
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 }
 
 const {filePath, data: {name, previewImage, description}} = Astro.props.data;
-const id = path.dirname(filePath).split("/").at(-1);
+const id = path.dirname(filePath!).split("/").at(-1);
 ---
 
 <div class="card">

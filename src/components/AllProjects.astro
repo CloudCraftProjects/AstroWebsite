@@ -1,5 +1,5 @@
 ---
-import {CollectionEntry, getCollection} from "astro:content";
+import {type CollectionEntry, getCollection} from "astro:content";
 import Project from "./Project.astro";
 import * as path from "node:path";
 
@@ -8,9 +8,9 @@ const projects = await getCollection("projects");
 
 const activeProjectDirs = projects
     .filter(project => project.data.start && !project.data.end)
-    .map(project => path.dirname(project.filePath));
+    .map(project => path.dirname(project.filePath!));
 const isRunning = (category: CollectionEntry<"categories">) => {
-    const categoryDir = path.dirname(category.filePath);
+    const categoryDir = path.dirname(category.filePath!);
     return activeProjectDirs.includes(categoryDir);
 };
 
