@@ -1,6 +1,7 @@
 import {defineConfig} from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import mdx from "@astrojs/mdx";
+import Icons from "unplugin-icons/vite";
 
 // https://astro.build/config
 export default defineConfig({
@@ -16,6 +17,9 @@ export default defineConfig({
         }),
         mdx(),
     ],
+    vite: {
+        plugins: [Icons({compiler: "astro"})],
+    },
     build: {
         inlineStylesheets: "always",
     },

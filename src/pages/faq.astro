@@ -4,6 +4,9 @@ import Header from "../components/Header.astro";
 import Link from "../components/Link.astro";
 import DiscordLink from "../components/DiscordLink.astro";
 import DcUser from "../components/DcUser.astro";
+import BaselineGavelIcon from "~icons/ic/baseline-gavel";
+import BaselineDownloadIcon from "~icons/ic/baseline-download";
+import BaselineAlternateEmailIcon from "~icons/ic/baseline-alternate-email";
 
 type TeamMember = {
   id: string;
@@ -49,20 +52,20 @@ const team = [
     </div>
     <div>
       <h2 id="rules">Gibt es ein generelles Regelwerk?</h2>
-      <p>Ja, es gibt ein generelles <Link icon={["solid", "scroll"]} href="/rules">Regelwerk</Link>. Allerdings solltest du beachten, dass es in jedem Projekte zusätzliche Regeln geben könnte oder einige Regeln nicht gelten.</p>
+      <p>Ja, es gibt ein generelles <Link icon={BaselineGavelIcon} href="/rules">Regelwerk</Link>. Allerdings solltest du beachten, dass es in jedem Projekte zusätzliche Regeln geben könnte oder einige Regeln nicht gelten.</p>
     </div>
     <div>
       <h2 id="source">Kann man CraftAttack/Elements/etc. selbst nutzen?</h2>
-      <p>Einige unserer System sind Open-Source. Auf unserer <Link icon={["solid", "download"]} href="/r/downloads">Downloads</Link>-Seite können diese heruntergeladen werden. Allerdings ist nicht alles öffentlich verfügbar.</p>
+      <p>Einige unserer System sind Open-Source. Auf unserer <Link icon={BaselineDownloadIcon} href="/r/downloads">Downloads</Link>-Seite können diese heruntergeladen werden. Allerdings ist nicht alles öffentlich verfügbar.</p>
     </div>
     <div>
       <h2 id="contact">Wie kann man euch kontaktieren?</h2>
       <p>Die schnellste Kontaktmöglich ist über unseren <DiscordLink />. Dort kannst du per Ticket dem Team direkt eine Frage stellen.</p>
-      <p>Eine alternative Kontaktmöglichkeit wäre per &#69;-&#77;&#97;&#105;&#108; unter cloudcraft4mc<i class="fa-solid fa-at"></i>&#103;m&#97;il[p&#117;nkt]com. Bitte beachte, dass wir hier keine direkte Antwort garantieren können.</p>
+      <p>Eine alternative Kontaktmöglichkeit wäre per &#69;-&#77;&#97;&#105;&#108; unter cloudcraft4mc<BaselineAlternateEmailIcon />&#103;m&#97;il[p&#117;nkt]com. Bitte beachte, dass wir hier keine direkte Antwort garantieren können.</p>
     </div>
     <div>
       <h2 id="downloads">Wo kann man die Maps der Projekte downloaden?</h2>
-      <p>Wir haben eine extra Seite für alle Projekt-Downloads unter <Link icon={["solid", "download"]} href="/r/downloads">downloads.cloudcraftmc.de</Link>.</p>
+      <p>Wir haben eine extra Seite für alle Projekt-Downloads unter <Link icon={BaselineDownloadIcon} href="/r/downloads">downloads.cloudcraftmc.de</Link>.</p>
     </div>
   </main>
 </Layout>

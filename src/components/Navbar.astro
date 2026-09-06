@@ -1,20 +1,24 @@
 ---
 import NavbarLink from "./NavbarLink.astro";
+import BaselineCloudIcon from "~icons/ic/baseline-cloud";
+import BaselineNewspaperIcon from "~icons/ic/baseline-newspaper";
+import BaselineHelpIcon from "~icons/ic/baseline-help";
+import BaselineDiscordIcon from "~icons/ic/baseline-discord";
 ---
 
 <nav>
   <div class="container">
     <div class="brand">
-      <NavbarLink icon={["solid", "cloud"]} href="/" noActive>CloudCraft</NavbarLink>
+      <NavbarLink icon={BaselineCloudIcon} href="/" noActive>CloudCraft</NavbarLink>
     </div>
     <div class="nodes">
-      <NavbarLink icon={["solid", "cloud"]} href="/">Home</NavbarLink>
+      <NavbarLink icon={BaselineCloudIcon} href="/">Home</NavbarLink>
       <div class="nav-projects">
-        <NavbarLink icon={["solid", "newspaper"]} href="/projects/">Projekte</NavbarLink>
+        <NavbarLink icon={BaselineNewspaperIcon} href="/projects/">Projekte</NavbarLink>
       </div>
-      <NavbarLink icon={["regular", "circle-question"]} href="/faq/">FAQ</NavbarLink>
+      <NavbarLink icon={BaselineHelpIcon} href="/faq/">FAQ</NavbarLink>
       <div class="nav-discord">
-        <NavbarLink icon={["brands", "discord"]} href="/r/discord">Discord</NavbarLink>
+        <NavbarLink icon={BaselineDiscordIcon} href="/r/discord">Discord</NavbarLink>
       </div>
     </div>
   </div>

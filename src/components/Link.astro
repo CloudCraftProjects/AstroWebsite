@@ -1,16 +1,16 @@
 ---
-import Icon from "./Icon.astro";
+import type {SvgComponent} from "astro/types";
 import Button, {type ButtonProps} from "./Button.astro";
 
 interface Props {
-    icon?: string[];
+    icon?: SvgComponent;
     href: string;
     bold?: boolean;
     noColor?: boolean;
     button?: boolean | ButtonProps;
 }
 
-const {icon, href, bold, noColor, button: rbtn} = Astro.props;
+const {icon: Icon, href, bold, noColor, button: rbtn} = Astro.props;
 const button = !rbtn ? undefined : (typeof rbtn === "boolean" ? {} : rbtn); // convert "true" to empty props
 
 const classNames = [];
@@ -22,24 +22,20 @@ const className = classNames.length > 0 ? classNames.join(" ") : undefined;
 
 <a href={href} class={className}>{
     button ?
-            <Button {...button}>
-                <div class="ultarget">
-                    {icon &&
-                            <>
-                                <Icon icon={icon}/>
-                            </>
-                    }
-                    <slot>{href}</slot>
-                </div
-                >
-            </Button>
+        <Button {...button}>
+            <div class="ultarget">
+                {Icon &&
+                    <Icon aria-hidden="true"/>}
+                <slot>{href}</slot>
+            </div
+            >
+        </Button>
         :
-            <>{icon &&
-                    <>
-                        <Icon icon={icon}/>
-                    </>
-            }
-                <slot>{href}</slot></>
+        <>
+            {Icon &&
+                <Icon aria-hidden="true"/>}
+            <slot>{href}</slot>
+        </>
 }</a
 >
 <style>
@@ -54,6 +50,9 @@ const className = classNames.length > 0 ? classNames.join(" ") : undefined;
     }
 
     .ultarget {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.2em;
         border-bottom: rgba(var(--link-color), 0.4) solid 1px;
     }
 

@@ -17,10 +17,11 @@ keywords:
 start: 2025-10-25
 ---
 
-import Icon from "../../components/Icon.astro";
 import Link from "../../components/Link.astro";
 import DiscordLink from "../../components/DiscordLink.astro";
 import Carousel from "../../components/Carousel.astro";
+import BaselineFavoriteIcon from "~icons/ic/baseline-favorite";
+import BaselineDownloadIcon from "~icons/ic/baseline-download";
 
 export const slides = [
     {
@@ -100,7 +101,7 @@ Die Anmeldung erfolgt einfach über unseren <DiscordLink/>.
 Das CloudCraft-Team freut sich auf ein wieder großartiges Projekt mit dir!
 
 <div style="font-size: 4em; color: #ff2222">
-    <Icon icon={["solid", "heart"]} />
+    <BaselineFavoriteIcon aria-hidden="true" />
 </div>
 
 </div>
@@ -138,4 +139,4 @@ unserem <DiscordLink/> nachschauen.
 
 Dich interessiert, was in unserem letzten Projekt, CraftAttack 11, geschehen ist?
 Du kannst dir die alte Online-Karte unter <Link href="//maps.cloudcraftmc.de/craftattack11/">maps.cloudcraftmc.de/craftattack11</Link> anschauen.
-Den Download der Minecraft-Map gibt es auf unserer <Link icon={["solid", "download"]} href="/r/downloads">Downloads</Link>-Seite.
+Den Download der Minecraft-Map gibt es auf unserer <Link icon={BaselineDownloadIcon} href="/r/downloads">Downloads</Link>-Seite.

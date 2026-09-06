@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Link from "../components/Link.astro";
 import DiscordLink from "../components/DiscordLink.astro";
+import BaselineHomeIcon from "~icons/ic/baseline-home";
 ---
 
 <Layout title="Error 404" description="Die Seite konnte nicht gefunden werden" keywords={["404"]}>
@@ -19,7 +20,7 @@ import DiscordLink from "../components/DiscordLink.astro";
     </div>
     <div>
       <h2>Zurück zur Homepage</h2>
-      <p>Klicke <Link icon={["solid", "home"]} href="/">hier</Link>, um wieder zurück zur Homepage zu gelangen.</p>
+      <p>Klicke <Link icon={BaselineHomeIcon} href="/">hier</Link>, um wieder zurück zur Homepage zu gelangen.</p>
     </div>
   </main>
 </Layout>

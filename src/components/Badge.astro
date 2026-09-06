@@ -1,14 +1,17 @@
 ---
-import Icon from "./Icon.astro";
+import type {SvgComponent} from "astro/types";
 
 interface Props {
-  icon: string[];
+  icon: SvgComponent;
 }
 
-const { icon } = Astro.props;
+const { icon: Icon } = Astro.props;
 ---
 
-<span><Icon icon={icon} /> <slot /></span>
+<span>
+    <Icon aria-hidden="true" />
+    <slot />
+</span>
 
 <style>
     span {
@@ -18,5 +21,8 @@ const { icon } = Astro.props;
         border-radius: 0.2em;
         font-weight: bold;
         font-size: 0.9em;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.2em;
     }
 </style>

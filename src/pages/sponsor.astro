@@ -2,6 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import Header from "../components/Header.astro";
 import Link from "../components/Link.astro";
+import BaselinePublicIcon from "~icons/ic/baseline-public";
+import BaselineDiscordIcon from "~icons/ic/baseline-discord";
 ---
 
 <Layout title="Sponsor" description="CloudCraft wurde von chaoshosting unterstützt - ohne sie waren unsere vorherigen Projekte nicht möglich" keywords={["sponsor", "chaoshosting"]}>
@@ -13,7 +15,7 @@ import Link from "../components/Link.astro";
       <h2>Über chaoshosting</h2>
       <p>Ohne die Unterstützung von chaoshosting wären CloudCraft's Projekte nicht möglich gewesen.</p>
       <p>
-        Falls du selbst einen Discord Bot hosten willst, kannst auch du dich bei chaoshosting umschauen. Sie haben eine eigene Website unter <Link icon={["solid", "globe"]} href="https://chaoshosting.eu/">chaoshosting.eu</Link> und auch einen eigenen <Link icon={["brands", "discord"]} href="https://chaoshosting.eu/discord">Discord</Link>.
+        Falls du selbst einen Discord Bot hosten willst, kannst auch du dich bei chaoshosting umschauen. Sie haben eine eigene Website unter <Link icon={BaselinePublicIcon} href="https://chaoshosting.eu/">chaoshosting.eu</Link> und auch einen eigenen <Link icon={BaselineDiscordIcon} href="https://chaoshosting.eu/discord">Discord</Link>.
       </p>
     </div>
     <div>

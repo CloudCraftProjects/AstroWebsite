@@ -1,8 +1,9 @@
 ---
+import type {SvgComponent} from "astro/types";
 import Link from "./Link.astro";
 
 interface Props {
-    icon: string[];
+    icon: SvgComponent;
     href: string;
     noActive?: boolean;
 }
