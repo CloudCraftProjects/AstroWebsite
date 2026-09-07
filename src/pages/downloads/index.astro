@@ -1,0 +1,133 @@
+---
+import {getCollection} from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
+import DownloadCard from "../../components/DownloadCard.astro";
+import DiscordLink from "../../components/DiscordLink.astro";
+import Link from "../../components/Link.astro";
+import BaselineHandymanIcon from "~icons/ic/baseline-handyman";
+
+const categories = (await getCollection("downloadProjects")).sort((category1, category2) => category1.data.order - category2.data.order);
+
+const runningProjects = categories
+    .flatMap((category) => category.data.projects.filter((project) => project.start && !project.end).map((project) => ({id: `${category.id}/${project.id}`, project})))
+    .sort((entry1, entry2) => entry2.project.start!.getTime() - entry1.project.start!.getTime());
+
+const finishedCategories = categories
+    .map((category) => ({
+        category,
+        projects: category.data.projects
+            .filter((project) => project.start && project.end)
+            .sort((project1, project2) => project2.start!.getTime() - project1.start!.getTime()),
+    }))
+    .filter(({projects}) => projects.length > 0);
+const finishedProjectCount = finishedCategories.map(({projects}) => projects.length).reduce((a, b) => a + b, 0);
+---
+
+<Layout title="Downloads" description="Übersichtsseite über alle vergangenen Projekte von CloudCraft und deren jeweilige Downloadlinks"
+        keywords={["downloads", "herunterladen"]}>
+    <Header title="Downloads">
+        <p>Auf dieser Seite findest du Downloads zu allen vergangenen CloudCraft-Projekten - von CraftAttack über Kingdoms bis Varo.</p>
+        <p>Falls bei einem Projekt aktuell kein Download verfügbar ist und dich der Download interessiert, kannst du uns per
+            <DiscordLink/>
+            kontaktieren. Wir werden sobald wie möglich einen Download-Link zur Verfügung stellen.
+        </p>
+        <p>Zusätzlich findest du auf der
+            <Link icon={BaselineHandymanIcon} href="/downloads/tools">Werkzeuge-Seite</Link>
+            alle öffentlich verfügbaren Werkzeuge, welche in CloudCraft-Projekten verwendet werden.
+        </p>
+    </Header>
+    <main class="section">
+        <div class="container">
+            <Breadcrumb items={[{href: "/", label: "Home"}, {label: "Downloads"}]}/>
+            {
+                runningProjects.length > 0 && (
+                    <>
+                        <h2 class="mb">Laufende Projekte ({runningProjects.length})</h2>
+                        <div class="grid">
+                            {runningProjects.map(({id, project}) => (
+                                <DownloadCard id={id} project={project}/>
+                            ))}
+                        </div>
+                    </>
+                )
+            }
+            <h2 class="mt">Beendete Projekte ({finishedProjectCount})</h2>
+            {
+                finishedCategories.map(({category, projects}) => (
+                    <>
+                        <h3 id={category.id}>{category.data.name}</h3>
+                        <p class="category-desc">{category.data.description}</p>
+                        <div class="grid">
+                            {projects.map((project) => (
+                                <DownloadCard sub id={`${category.id}/${project.id}`} project={project}/>
+                            ))}
+                        </div>
+                    </>
+                ))
+            }
+        </div>
+    </main>
+    {runningProjects.length > 0 && (
+        <>
+            <script>
+                import {formatDuration} from "../../scripts/format.ts";
+
+                // refresh client-side because the site is rendered statically
+                const elements = document.querySelectorAll<HTMLElement>("dd[data-runtimestart]");
+                elements.forEach((elem) => {
+                    const start = Number(elem.dataset.runtimestart!);
+                    elem.textContent = formatDuration(Date.now() - start);
+                });
+            </script>
+        </>
+    )}
+</Layout>
+
+<style>
+    .section {
+        padding: 2.5em 1em 3.5em;
+    }
+
+    .container {
+        max-width: var(--content-width);
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container h2 {
+        margin: 0;
+        font-size: 2rem;
+    }
+
+    .container h3 {
+        margin: 1rem 0;
+        font-size: 1.5rem;
+    }
+
+    .category-desc {
+        margin: -0.5rem 0 1rem;
+        color: var(--text-muted);
+    }
+
+    .container .mt {
+        margin-top: 2rem;
+    }
+
+    .container .mb {
+        margin-bottom: 1rem;
+    }
+
+    .container h2:first-child {
+        background-color: red;
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 400px), 1fr));
+        gap: 1.5em;
+    }
+</style>

@@ -1,0 +1,30 @@
+name: Kingdoms
+description: In Kingdoms ging es darum, Königreiche zu gründen, Burgen zu bauen und Krieg gegen andere Königreiche zu führen. Wer wird den Krieg gewinnen?
+order: 30
+projects:
+  - id: "5"
+    title: Kingdoms 5
+    start: "2021-10-08"
+    end: "2022-03-10"
+    download:
+      size: 514690949
+      link: https://s3.cloudcraftmc.de/Kingdoms5.tar.gz
+    tags:
+      - kingdoms
+  - id: "4"
+    title: Kingdoms 4
+    start: "2021-04-03"
+    end: "2021-05-09"
+    download:
+      size: 2052060170
+      link: https://s3.cloudcraftmc.de/Kingdoms4.tar.gz
+    tags:
+      - kingdoms
+  - id: "3"
+    title: Kingdoms 3
+    start: "2020-10-15"
+    end: "2020-11-06"
+    download:
+      text: "Download verloren"
+    tags:
+      - kingdoms

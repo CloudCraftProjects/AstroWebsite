@@ -1,0 +1,21 @@
+name: BuildBattle
+description: Beim BuildBattle traten Spieler in mehreren Runden gegeneinander an und ließen ihre Bauwerke von der Community bewerten.
+order: 70
+projects:
+  - id: "2"
+    title: BuildBattle 2
+    start: "2021-05-07"
+    end: "2021-05-14"
+    download:
+      size: 83482689
+      link: https://s3.cloudcraftmc.de/BuildBattle2.tar.gz
+    tags:
+      - buildbattle
+  - id: "1"
+    title: BuildBattle 1
+    start: "2020-09-16"
+    end: "2020-10-02"
+    download:
+      text: "Kein Download, fand nur auf dem Discord statt"
+    tags:
+      - buildbattle

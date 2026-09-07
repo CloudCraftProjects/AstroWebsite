@@ -1,0 +1,38 @@
+name: Varo
+description: Starte mit anderen Spielern in einer begrenzten Welt und sammle Ressourcen, um nachher im großen Kampf als Sieger zu verbleiben!
+order: 50
+projects:
+  - id: "3"
+    title: Varo 3
+    start: "2021-01-10"
+    end: "2021-01-29"
+    download:
+      size: 562388807
+      link: https://s3.cloudcraftmc.de/Varo3.tar.gz
+    tags:
+      - varo
+  - id: "2"
+    title: Varo 2
+    start: "2020-11-06"
+    end: "2020-11-13"
+    download:
+      size: 59677884
+      link: https://s3.cloudcraftmc.de/Varo2.tar.gz
+    tags:
+      - varo
+  - id: nether
+    title: Nether Varo
+    start: "2020-08-22"
+    end: "2020-08-26"
+    download:
+      text: "Download verloren"
+    tags:
+      - varo
+  - id: "1"
+    title: Varo 1
+    start: "2020-08-03"
+    end: "2020-08-09"
+    download:
+      text: "Download verloren"
+    tags:
+      - varo

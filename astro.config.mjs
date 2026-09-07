@@ -11,7 +11,7 @@ export default defineConfig({
     trailingSlash: "ignore",
     integrations: [
         sitemap({
-            filter: (page) => !page.includes("404"),
+            filter: (page) => !page.includes("404") && !page.includes("_redirects"),
             changefreq: "weekly",
             lastmod: new Date(),
         }),

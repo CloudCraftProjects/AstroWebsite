@@ -27,4 +27,44 @@ const projects = defineCollection({
     }),
 });
 
-export const collections = {categories, projects};
+const downloadProjects = defineCollection({
+    loader: glob({pattern: "*.yml", base: "./src/downloads/projects"}),
+    schema: z.object({
+        name: z.string(),
+        description: z.string(),
+        order: z.number(),
+        projects: z
+            .object({
+                id: z.string(),
+                title: z.string(),
+                description: z.string().optional(),
+                start: z.coerce.date().optional(),
+                end: z.coerce.date().optional(),
+                download: z
+                    .object({
+                        size: z.coerce.number().optional(),
+                        text: z.string().optional(),
+                        link: z.string().optional(),
+                    })
+                    .optional(),
+                paths: z.string().array().optional(),
+                tags: z.string().array().optional(),
+            })
+            .array(),
+    }),
+});
+const downloadTools = defineCollection({
+    loader: glob({pattern: "*.yml", base: "./src/downloads/tools"}),
+    schema: z.object({
+        title: z.string(),
+        description: z.string().optional(),
+        hidden: z.coerce.boolean().optional(),
+        archived: z.coerce.boolean().optional(),
+        github: z.string(),
+        download: z.string().optional(),
+        paths: z.string().array().optional(),
+        tags: z.string().array().optional(),
+    }),
+});
+
+export const collections = {categories, projects, downloadProjects, downloadTools};

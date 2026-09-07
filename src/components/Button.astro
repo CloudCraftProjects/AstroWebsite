@@ -1,6 +1,6 @@
 ---
 export interface ButtonProps {
-    variant?: "secondary" | "discord";
+    variant?: "primary" | "secondary" | "discord";
     size?: "sm" | "md" | "lg";
 }
 interface Props extends ButtonProps {}
@@ -26,6 +26,17 @@ const {variant = "secondary", size = "md"} = Astro.props;
             background-color var(--duration-base) var(--ease-out),
             border-color var(--duration-base) var(--ease-out),
             color var(--duration-base) var(--ease-out);
+    }
+
+    .primary {
+        background-color: var(--accent-subtle);
+        border: 1px solid var(--accent-border);
+        color: var(--accent);
+    }
+    .primary:hover {
+        color: var(--accent-hover);
+        border-color: var(--accent);
+        background-color: color-mix(in oklab, var(--accent) 22%, transparent);
     }
 
     .secondary {

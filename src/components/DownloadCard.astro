@@ -1,0 +1,132 @@
+---
+import type {CollectionEntry} from "astro:content";
+import BaselineDownloadIcon from "~icons/ic/baseline-download";
+import BaselineCalendarMonthIcon from "~icons/ic/baseline-calendar-month";
+import BaselineScheduleIcon from "~icons/ic/baseline-schedule";
+import {formatDate, formatDuration, formatFileSize} from "../scripts/format.ts";
+import Button from "./Button.astro";
+
+interface Props {
+    id: string;
+    project: CollectionEntry<"downloadProjects">["data"]["projects"][number];
+    sub?: boolean;
+}
+
+const {id, project, sub} = Astro.props;
+const {title, description, start, end, download} = project;
+
+const running = start !== undefined && end === undefined;
+const duration = start ? (end ?? new Date()).getTime() - start.getTime() : undefined;
+const href = download?.link ? `/download/${id}` : undefined;
+---
+
+<article class="card">
+    {sub ? <h4>{title}</h4> : <h3>{title}</h3>}
+    {description && <p class="desc">{description}</p>}
+    <div class="separator"/>
+    <dl class="meta">
+        {
+            start && (
+                <div>
+                    <dt><BaselineCalendarMonthIcon aria-hidden="true"/>Zeitraum</dt>
+                    <dd>{end ? `${formatDate(start)} - ${formatDate(end)}` : `seit ${formatDate(start)}`}</dd>
+                </div>
+            )
+        }
+        {
+            duration !== undefined && (
+                <div>
+                    <dt><BaselineScheduleIcon aria-hidden="true"/>Laufzeit</dt>
+                    <dd data-runtimestart={running ? start.getTime() : undefined}>
+                        {formatDuration(duration)}
+                    </dd>
+                </div>
+            )
+        }
+    </dl>
+    {
+        href ? (
+            <a href={href} class="download-link">
+                <Button variant="primary">
+                    <BaselineDownloadIcon aria-hidden="true"/>
+                    <span>Download</span>
+                    {download?.size && <span class="size">({formatFileSize(download.size)})</span>}
+                </Button>
+            </a>
+        ) : (
+            <p class="unavailable">{download?.text ?? (running ? "Download folgt nach Projektende" : "Download nicht verfügbar")}</p>
+        )
+    }
+</article>
+
+<style>
+    .card {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75em;
+        min-height: fit-content;
+        max-height: 100%;
+        background-color: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+        padding: 1.25em 1.35em 1.35em;
+    }
+    .card h3, .card h4 {
+        font-size: 1.35rem;
+        margin: 0;
+    }
+    .desc {
+        color: var(--text-muted);
+        margin: 0;
+        font-size: 0.95rem;
+    }
+    .separator {
+        flex: 1;
+    }
+    .meta {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35em;
+        margin: 0;
+    }
+    .meta div {
+        display: flex;
+        align-items: center;
+        gap: 0.3em;
+    }
+    .meta dt {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4em;
+        color: var(--text-faint);
+        font-size: 0.9rem;
+        min-width: 6.5em;
+    }
+    .meta dd {
+        margin: 0;
+        color: var(--text-muted);
+        font-size: 0.95rem;
+    }
+    .download-link :global(.btn) {
+        width: 100%;
+    }
+    .size {
+        font-weight: 400;
+        font-size: 0.9em;
+        color: var(--text-muted);
+    }
+    .unavailable {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        padding: 0.55em 1.4em;
+        border-radius: var(--radius-lg);
+        border: 1px dashed var(--border-strong);
+        color: var(--text-faint);
+        font-size: 0.9rem;
+        text-align: center;
+        user-select: none;
+        cursor: not-allowed;
+    }
+</style>

@@ -1,0 +1,24 @@
+name: Hardcore
+description: Im Hardcore Projekt hat jeder nur eine begrenzte Anzahl an Leben. Führe Krieg gegen gegnerische Teams und eliminiere sie vom Server!
+order: 40
+projects:
+  - id: lifesteal
+    title: Lifesteal
+    start: "2022-05-28"
+    end: "2022-07-29"
+    download:
+      size: 558908334
+      link: https://s3.cloudcraftmc.de/Lifesteal.tar.gz
+    paths:
+      - LifeSteal.tar.gz
+    tags:
+      - hardcore
+  - id: "1"
+    title: Hardcore
+    start: "2021-02-05"
+    end: "2021-03-01"
+    download:
+      size: 5820316642
+      link: https://s3.cloudcraftmc.de/Hardcore.tar.gz
+    tags:
+      - hardcore

@@ -1,0 +1,24 @@
+name: Among Us
+description: Among Us Events in Minecraft - Verräter und Crewmates spielten das bekannte Spielprinzip in eigens gebauten Welten.
+order: 80
+projects:
+  - id: "2"
+    title: Among Us Event 2
+    start: "2020-11-28"
+    end: "2020-11-28"
+    download:
+      size: 67329843
+      link: https://s3.cloudcraftmc.de/AmongUs.tar.gz
+    tags:
+      - amongus
+      - event
+  - id: "1"
+    title: Among Us Event 1
+    start: "2020-11-20"
+    end: "2020-11-20"
+    download:
+      size: 67329843
+      link: https://s3.cloudcraftmc.de/AmongUs.tar.gz
+    tags:
+      - amongus
+      - event

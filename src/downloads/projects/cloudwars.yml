@@ -1,0 +1,49 @@
+name: CloudWars
+description: CloudWars ist ein Capture the Flag Event. Du musst mit verschiedenen Kits die Flagge des Gegner einsammeln und in deine eigene Burg bringen - aber wer sammelt am Ende mehr Flaggen?
+order: 60
+projects:
+  - id: "5"
+    title: CloudWars Event 5
+    start: "2020-08-27"
+    end: "2020-08-27"
+    download:
+      text: Download privat
+    tags:
+      - cloudwars
+      - event
+  - id: "4"
+    title: CloudWars Event 4
+    start: "2020-08-26"
+    end: "2020-08-26"
+    download:
+      text: Download privat
+    tags:
+      - cloudwars
+      - event
+  - id: "3"
+    title: CloudWars Event 3
+    start: "2020-08-19"
+    end: "2020-08-19"
+    download:
+      text: Download privat
+    tags:
+      - cloudwars
+      - event
+  - id: "2"
+    title: CloudWars Event 2
+    start: "2020-08-15"
+    end: "2020-08-15"
+    download:
+      text: Download privat
+    tags:
+      - cloudwars
+      - event
+  - id: "1"
+    title: CloudWars Event 1
+    start: "2020-08-12"
+    end: "2020-08-12"
+    download:
+      text: Download privat
+    tags:
+      - cloudwars
+      - event

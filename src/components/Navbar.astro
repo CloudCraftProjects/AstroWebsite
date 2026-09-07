@@ -2,6 +2,7 @@
 import NavbarLink from "./NavbarLink.astro";
 import BaselineHomeIcon from "~icons/ic/baseline-home";
 import BaselineNewspaperIcon from "~icons/ic/baseline-newspaper";
+import BaselineDownloadIcon from "~icons/ic/baseline-download";
 import BaselineHelpIcon from "~icons/ic/baseline-help";
 import BaselineDiscordIcon from "~icons/ic/baseline-discord";
 import BaselineMenuIcon from "~icons/ic/baseline-menu";
@@ -16,33 +17,24 @@ import LogoImg from "../assets/logo.png"
             <Image aria-hidden="true" src={LogoImg} alt="CloudCraft Logo" width={48} height={48}/>
             <span>CloudCraft</span>
         </a>
-        <nav class="links" id="site-nav" aria-label="Hauptnavigation">
+        <input type="checkbox" id="nav-toggle" class="nav-toggle"/>
+        <nav class="links" aria-label="Hauptnavigation">
             <NavbarLink icon={BaselineHomeIcon} href="/">Home</NavbarLink>
             <NavbarLink icon={BaselineNewspaperIcon} href="/projects/">Projekte</NavbarLink>
+            <NavbarLink icon={BaselineDownloadIcon} href="/downloads/">Downloads</NavbarLink>
             <NavbarLink icon={BaselineHelpIcon} href="/faq/">FAQ</NavbarLink>
             <a class="discord" href="/r/discord">
                 <BaselineDiscordIcon aria-hidden="true"/>
                 <span>Discord</span>
             </a>
         </nav>
-        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <label class="menu-toggle" for="nav-toggle">
             <BaselineMenuIcon class="icon-open" aria-hidden="true"/>
             <BaselineCloseIcon class="icon-close" aria-hidden="true"/>
             <span class="sr-only">Menü umschalten</span>
-        </button>
+        </label>
     </div>
 </header>
-
-<script>
-    const toggle = document.querySelector<HTMLButtonElement>(".menu-toggle")!;
-    const nav = document.getElementById("site-nav")!;
-    const setOpen = (open: boolean) => {
-        nav.classList.toggle("open", open);
-        toggle.setAttribute("aria-expanded", String(open));
-    };
-    toggle.addEventListener("click", () => setOpen(!nav.classList.contains("open")));
-    nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => setOpen(false)));
-</script>
 
 <style>
     .nav {
@@ -98,6 +90,19 @@ import LogoImg from "../assets/logo.png"
     .links .discord:hover {
         background-color: var(--discord-highlight);
     }
+    .nav-toggle {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        margin: -1px;
+        clip-path: inset(50%);
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    .nav-toggle:focus-visible ~ .menu-toggle {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+    }
     .menu-toggle {
         display: none;
         align-items: center;
@@ -122,10 +127,10 @@ import LogoImg from "../assets/logo.png"
     .menu-toggle .icon-close {
         display: none;
     }
-    .menu-toggle[aria-expanded="true"] .icon-open {
+    .nav-toggle:checked ~ .menu-toggle .icon-open {
         display: none;
     }
-    .menu-toggle[aria-expanded="true"] .icon-close {
+    .nav-toggle:checked ~ .menu-toggle .icon-close {
         display: block;
     }
     @media screen and (max-width: 768px) {
@@ -145,7 +150,7 @@ import LogoImg from "../assets/logo.png"
             border-bottom: 1px solid var(--border);
             padding: 1em 1.25em 1.25em;
         }
-        .links.open {
+        .nav-toggle:checked ~ .links {
             display: flex;
         }
         .links .discord {

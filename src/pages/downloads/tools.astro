@@ -1,0 +1,58 @@
+---
+import {getCollection} from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
+import ToolCard from "../../components/ToolCard.astro";
+import DiscordLink from "../../components/DiscordLink.astro";
+import Link from "../../components/Link.astro";
+import GithubIcon from "~icons/simple-icons/github";
+
+const tools = (await getCollection("downloadTools"))
+    .filter((tool) => !tool.data.hidden)
+    .sort((tool1, tool2) => {
+        if (tool1.data.archived == tool2.data.archived) {
+            if (!tool1.data.download == !tool2.data.download) {
+                return tool1.id.localeCompare(tool2.id);
+            }
+            return tool1.data.download ? -1 : 1;
+        }
+        return tool1.data.archived ? 1 : -1;
+    });
+---
+
+<Layout title="Werkzeuge" description="Übersichtsseite über alle öffentlich verfügbaren Werkzeuge-Downloads von CloudCraft" keywords={["downloads", "werkzeuge", "tools", "plugins", "mods", "software"]}>
+    <Header title="Werkzeuge">
+        <p>Hier findest du alle öffentlich verfügbaren Werkzeuge, welche in CloudCraft-Projekten verwendet werden.</p>
+        <p>Falls hier irgendein Werkzeug fehlt oder dich generell etwas am Server interessiert, kannst du gerne auf unserem <DiscordLink/> nachfragen.</p>
+        <p>Der Quellcode vieler Werkzeuge ist öffentlich auf GitHub unter <Link icon={GithubIcon} href="/r/github">@CloudCraftProjects</Link> verfügbar.</p>
+    </Header>
+    <main class="section">
+        <div class="container">
+            <Breadcrumb items={[{href: "/", label: "Home"}, {href: "/downloads", label: "Downloads"}, {label: "Werkzeuge"}]}/>
+            <h2>Verwendete Werkzeuge</h2>
+            <div class="grid">
+                {tools.map((tool) => <ToolCard entry={tool}/>)}
+            </div>
+        </div>
+    </main>
+</Layout>
+
+<style>
+    .section {
+        padding: 2.5em 1em 3.5em;
+    }
+    .container {
+        max-width: var(--content-width);
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr));
+        gap: 1.5em;
+    }
+    .container h2 {
+        margin: 0 0 1rem;
+    }
+</style>

@@ -1,0 +1,16 @@
+name: StoneAttack
+description: StoneAttack war ein kleineres Projekt im Stil von Minecraft Elements.
+order: 100
+projects:
+  - id: "1"
+    title: "StoneAttack"
+    start: "2022-07-29"
+    end: "2022-12-25"
+    download:
+      size: 63241922
+      link: https://s3.cloudcraftmc.de/StoneAttack.tar.gz
+    paths:
+      - StoneAttack.tar.gz
+    tags:
+      - elements
+      - youtube
