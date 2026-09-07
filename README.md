@@ -1,7 +1,12 @@
 # CloudCraft Website
 
-The main web page, made with astro. This page displays general information about the CloudCraft minecraft network and its projects.
-The page is hosted at [cloudcraftmc.de](https://cloudcraftmc.de/).
+URL: [cloudcraftmc.de](https://cloudcraftmc.de/)
+
+## Content
+
+- General info, FAQ and rules
+- Description and gallery for projects
+- Downloads for past projects and tools
 
 ## License
 
