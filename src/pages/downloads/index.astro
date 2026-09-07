@@ -11,7 +11,10 @@ import BaselineHandymanIcon from "~icons/ic/baseline-handyman";
 const categories = (await getCollection("downloadProjects")).sort((category1, category2) => category1.data.order - category2.data.order);
 
 const runningProjects = categories
-    .flatMap((category) => category.data.projects.filter((project) => project.start && !project.end).map((project) => ({id: `${category.id}/${project.id}`, project})))
+    .flatMap((category) => category.data.projects.filter((project) => project.start && !project.end).map((project) => ({
+        id: `${category.id}/${project.id}`,
+        project,
+    })))
     .sort((entry1, entry2) => entry2.project.start!.getTime() - entry1.project.start!.getTime());
 
 const finishedCategories = categories
@@ -119,10 +122,6 @@ const finishedProjectCount = finishedCategories.map(({projects}) => projects.len
 
     .container .mb {
         margin-bottom: 1rem;
-    }
-
-    .container h2:first-child {
-        background-color: red;
     }
 
     .grid {

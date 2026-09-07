@@ -1,32 +1,11 @@
 ---
-import {type CollectionEntry, getCollection} from "astro:content";
 import Project from "./Project.astro";
-import * as path from "node:path";
-
-const categories = await getCollection("categories");
-const projects = await getCollection("projects");
-
-const activeProjectDirs = projects
-    .filter(project => project.data.start && !project.data.end)
-    .map(project => path.dirname(project.filePath!));
-const isRunning = (category: CollectionEntry<"categories">) => {
-    const categoryDir = path.dirname(category.filePath!);
-    return activeProjectDirs.includes(categoryDir);
-};
-
-categories.sort((category1, category2) => {
-    const running1 = isRunning(category1);
-    const running2 = isRunning(category2);
-    if (running1 !== running2) {
-        return running2 ? 1 : -1;
-    }
-    return category2.data.order - category1.data.order;
-});
+import {categories, isRunning} from "../scripts/projects.ts";
 ---
 
 <div class="grid">
     {categories.map(category =>
-            <Project data={category} running={isRunning(category)}/>)}
+        <Project data={category} running={isRunning(category)}/>)}
 </div>
 <style>
     .grid {

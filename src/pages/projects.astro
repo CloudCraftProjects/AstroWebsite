@@ -4,8 +4,10 @@ import Header from "../components/Header.astro";
 import AllProjects from "../components/AllProjects.astro";
 import Breadcrumb from "../components/Breadcrumb.astro";
 import DiscordLink from "../components/DiscordLink.astro";
+import {categories} from "../scripts/projects.ts";
+import path from "node:path";
 
-const projects = ["craftattack", "elements", "hardcore", "varo", "kingdoms", "cloudwars"];
+const projects = categories.map(cat => path.dirname(cat.id))
 ---
 
 <Layout title="Projekte" description="Eine Auflistung der beliebtesten Projekten von CloudCraft" keywords={projects.concat(["projects"])}>

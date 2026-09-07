@@ -30,7 +30,7 @@ const articleData: any = {
     keywords: allKeywords.join(", "),
     mainEntityOfPage: {
         "@type": "WebPage",
-        id: Astro.site,
+        id: new URL(Astro.url.pathname, Astro.site),
     },
 };
 if (pubDate) articleData["datePublished"] = pubDate.toString();

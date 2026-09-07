@@ -29,7 +29,7 @@ const tools = (await getCollection("downloadTools"))
     </Header>
     <main class="section">
         <div class="container">
-            <Breadcrumb items={[{href: "/", label: "Home"}, {href: "/downloads", label: "Downloads"}, {label: "Werkzeuge"}]}/>
+            <Breadcrumb items={[{href: "/", label: "Home"}, {href: "/downloads/", label: "Downloads"}, {label: "Werkzeuge"}]}/>
             <h2>Verwendete Werkzeuge</h2>
             <div class="grid">
                 {tools.map((tool) => <ToolCard entry={tool}/>)}

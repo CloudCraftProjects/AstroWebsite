@@ -13,7 +13,6 @@ export default defineConfig({
         sitemap({
             filter: (page) => !page.includes("404") && !page.includes("_redirects"),
             changefreq: "weekly",
-            lastmod: new Date(),
         }),
         mdx(),
     ],
