@@ -94,12 +94,12 @@ const currentYear = new Date().getFullYear();
         gap: 0.55em;
     }
     .groups :global(a) {
-        color: var(--text-muted);
-        text-decoration: none;
+        color: var(--text-muted) !important;
+        text-decoration: none !important;
         transition: color var(--duration-base) var(--ease-out);
     }
     .groups :global(a:hover) {
-        color: var(--text);
+        color: var(--text) !important;
     }
     .bottom {
         border-top: 1px solid var(--border);
