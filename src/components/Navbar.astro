@@ -17,7 +17,7 @@ import LogoImg from "../assets/logo.png"
             <Image aria-hidden="true" src={LogoImg} alt="CloudCraft Logo" width={48} height={48}/>
             <span>CloudCraft</span>
         </a>
-        <input type="checkbox" id="nav-toggle" class="nav-toggle"/>
+        <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Menü umschalten"/>
         <nav class="links" aria-label="Hauptnavigation">
             <NavbarLink icon={BaselineHomeIcon} href="/">Home</NavbarLink>
             <NavbarLink icon={BaselineNewspaperIcon} href="/projects/">Projekte</NavbarLink>
@@ -28,10 +28,9 @@ import LogoImg from "../assets/logo.png"
                 <span>Discord</span>
             </a>
         </nav>
-        <label class="menu-toggle" for="nav-toggle">
-            <BaselineMenuIcon class="icon-open" aria-hidden="true"/>
-            <BaselineCloseIcon class="icon-close" aria-hidden="true"/>
-            <span class="sr-only">Menü umschalten</span>
+        <label class="menu-toggle" for="nav-toggle" aria-hidden="true">
+            <BaselineMenuIcon class="icon-open"/>
+            <BaselineCloseIcon class="icon-close"/>
         </label>
     </div>
 </header>
