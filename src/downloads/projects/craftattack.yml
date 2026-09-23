@@ -2,6 +2,11 @@ name: CraftAttack
 description: Spiele mit vielen anderen Spielern auf einem großen Server. Triff dich mit anderen und erschaffe gemeinsam riesige Bauwerke!
 order: 10
 projects:
+  - id: "14"
+    title: "CraftAttack 14"
+    tags:
+      - craftattack
+      - youtube
   - id: "12"
     title: "CraftAttack 12"
     start: "2025-10-25"
