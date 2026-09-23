@@ -1,7 +1,7 @@
 ---
-import {Image} from "astro:assets";
 import Badge from "./Badge.astro";
 import Tooltip from "./Tooltip.astro";
+import {projectImage} from "../scripts/projectImages.ts";
 import type {CollectionEntry} from "astro:content";
 import * as path from "node:path";
 import BaselineDiscordIcon from "~icons/ic/baseline-discord";
@@ -13,18 +13,14 @@ interface Props {
 }
 
 const {filePath, data: {name, previewImage, description}} = Astro.props.data;
-const id = path.dirname(filePath!).split("/").at(-1);
+const id = path.dirname(filePath!).split("/").at(-1)!;
+const preview = await projectImage(id, previewImage, 406, 270);
 ---
 
 <article class="card">
     <a class="card-link" href={`/projects/${id}/`} aria-label={`Mehr über ${name} erfahren`}></a>
     <div class="image">
-        <Image
-            src={`/assets/projects/${id}/${previewImage}.webp`}
-            width="406"
-            height="270"
-            alt={`Vorschaubild von ${name}`}
-        />
+        <img src={preview.thumbnail} width={preview.width} height={preview.height} alt={`Vorschaubild von ${name}`}/>
     </div>
     {
         Astro.props.running && (

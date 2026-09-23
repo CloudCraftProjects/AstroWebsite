@@ -1,8 +1,8 @@
 ---
-import {Image} from "astro:assets";
 import BaselineChevronLeftIcon from "~icons/ic/baseline-chevron-left";
 import BaselineChevronRightIcon from "~icons/ic/baseline-chevron-right";
 import BaselineCloseIcon from "~icons/ic/baseline-close";
+import {projectImage} from "../scripts/projectImages.ts";
 
 interface Props {
     projectId: string;
@@ -17,19 +17,28 @@ interface Props {
 }
 
 const {projectId, slides, initialSlide = 1, slideWidth = 1920, slideHeight = 1080} = Astro.props;
+
+const resolvedSlides = await Promise.all(
+    slides.map(async ({img, title, description}) => {
+        const {thumbnail, fullscreen, width, height} = await projectImage(projectId, img, slideWidth, slideHeight);
+        return {title, description, thumbnail, fullscreen, width, height};
+    }),
+);
 ---
 
 <div class="carousel" data-initial-slide={initialSlide} data-slide-count={slides.length}>
     <div class="slides">
         {
-            slides.map(({img, title, description}, index) => (
+            resolvedSlides.map(({thumbnail, title, description, width, height}, index) => (
                 <div class:list={["slide", {active: index + 1 === initialSlide}]} data-slide={index + 1}>
                     <div class="image">
-                        <Image
-                            src={`/assets/projects/${projectId}/${img}.webp`}
+                        <img
+                            src={thumbnail}
                             alt={`${title}. ${description}`}
-                            width={slideWidth}
-                            height={slideHeight}
+                            width={width}
+                            height={height}
+                            loading="lazy"
+                            decoding="async"
                         />
                         <button class="arrow previous" type="button" aria-label="Vorheriges Bild">
                             <BaselineChevronLeftIcon aria-hidden="true"/>
@@ -60,10 +69,10 @@ const {projectId, slides, initialSlide = 1, slideWidth = 1920, slideHeight = 108
     </div>
     <div class="modal" role="dialog" aria-modal="true" aria-label="Bildansicht">
         {
-            slides.map(({img, title, description}, index) => (
+            resolvedSlides.map(({fullscreen, title, description}, index) => (
                 <img
                     class:list={["modal-image", {active: index + 1 === initialSlide}]}
-                    src={`/assets/projects/${projectId}/${img}.webp`}
+                    src={fullscreen}
                     alt={`${title}. ${description}`}
                     data-slide={index + 1}
                     loading="lazy"
@@ -128,6 +137,7 @@ const {projectId, slides, initialSlide = 1, slideWidth = 1920, slideHeight = 108
         };
         const openModal = (slideIndex: number) => {
             clearTimeout(switchJob);
+            getModalImage(modalSlide).classList.remove("active");
             modalSlide = slideIndex;
             getModalImage(modalSlide).classList.add("active");
             modal.classList.add("open");
