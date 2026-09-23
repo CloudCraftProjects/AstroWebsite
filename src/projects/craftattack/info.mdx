@@ -19,77 +19,9 @@ start: 2025-10-25
 
 import Link from "../../components/Link.astro";
 import DiscordLink from "../../components/DiscordLink.astro";
-import Carousel from "../../components/Carousel.astro";
+import Gallery from "../../components/Gallery.astro";
 import Alert from "../../components/Alert.astro";
 import BaselineDownloadIcon from "~icons/ic/baseline-download";
-
-export const slides = [
-    {
-        img: "ca3_spawn_island",
-        title: "CraftAttack 3 - Spawninsel am Anfang",
-        description: "Die Spawninsel von CraftAttack 3 vor Projektstart",
-    },
-    {
-        img: "ca3_shopping_district",
-        title: "CraftAttack 3 - Shop-Bereich",
-        description: "Die Shops in CraftAttack 3 nach ein paar Monaten Projektlaufzeit",
-    },
-    {
-        img: "ca3_christmas_tree",
-        title: "CraftAttack 3 - Weihnachtsbaum",
-        description: "Ein von Spielern gebauter Weihnachtsbaum neben dem Spawn",
-    },
-    {
-        img: "ca4_spawn_island",
-        title: "CraftAttack 4 - Spawninsel am Anfang",
-        description: "Die Spawninsel von CraftAttack 4 vor Projektstart; die Besonderheit bei diesem Projekt: Der Spawn ist eine Insel im Meer",
-    },
-    {
-        img: "ca4_random_building",
-        title: "CraftAttack 4 - Mittelalterliches Gebäude",
-        description: "Ein mittelalterliches Gebäude gebaut in CraftAttack 4",
-    },
-    {
-        img: "ca4_shopping_district",
-        title: "CraftAttack 4 - Shop-Bereich",
-        description: "Der Shop-Bereich im Meer von CraftAttack 4 nach ein paar Monaten Projektlaufzeit",
-    },
-    {
-        img: "ca7_spawn_island",
-        title: "CraftAttack 7 - Spawninsel am Anfang",
-        description: "Die Spawninsel von CraftAttack 7 vor dem Start",
-    },
-    {
-        img: "ca7_cactus_farm",
-        title: "CraftAttack 7 - Kaktusfarm",
-        description: "Eine große von Spielern erbaute Kaktusfarm in CraftAttack 7",
-    },
-    {
-        img: "ca7_shopping_district",
-        title: "CraftAttack 7 - Shop-Bereich",
-        description: "Der Shop-Bereich von CraftAttack 7 nach einigen Wochen",
-    },
-    {
-        img: "ca7_christmas_tree",
-        title: "CraftAttack 7 - Weihnachtsbaum",
-        description: "Der von Spielern erbaute Weihnachtsbaum direkt neben dem Shop-Bereich",
-    },
-    {
-        img: "ca9_shopping_district",
-        title: "CraftAttack 9 - Shop-Bereich",
-        description: "Der Shop-Bereich wurde in CraftAttack 9 direkt in den ersten Tagen hochgezogen",
-    },
-    {
-        img: "ca9_christmas_tree",
-        title: "CraftAttack 9 - Weihnachtsbaum",
-        description: "Vito hat als Spieler einen Weihnachtsbaum neben den Spawn gebaut",
-    },
-    {
-        img: "ca9_base_near_spawn",
-        title: "CraftAttack 9 - Blick auf Spawn",
-        description: "Die meisten Spieler haben in CraftAttack 9 in der Nähe des Spawns gebaut",
-    },
-];
 
 <Alert title="Achtung! Am 10.10. startet unser CraftAttack 14 Projekt!">
 Verpasse keine spannenden Events und lerne neue Freunde kennen!<br/>
@@ -99,7 +31,7 @@ Das CloudCraft-Team freut sich auf ein wieder großartiges Projekt mit dir!
 
 </Alert>
 
-<Carousel projectId="craftattack" slides={slides.toReversed()} />
+<Gallery projectId="craftattack" />
 
 CraftAttack ist eines der bekanntesten Minecraft YouTuber-Projekte im deutschsprachigen Raum.
 
@@ -111,12 +43,13 @@ CloudCraft veranstalte 2020 das erste eigene CraftAttack-Projekt. Inzwischen gib
 von CloudCraft, garantiert eins zum Start des YouTuber-Projekts. Ob gerade ein Projekt läuft, kannst du auf
 unserem <DiscordLink/> nachschauen.
 
-<hr/>
+<hr />
 
 <h2>Online-Karte von CraftAttack 14</h2>
 <p>
-    Unser CraftAttack 14 Projekt startet am 10.10.<br/>
-    Du möchtest mitmachen? Komm einfach auf unseren <DiscordLink/>!
+    Unser CraftAttack 14 Projekt startet am 10.10.
+    <br />
+    Du möchtest mitmachen? Komm einfach auf unseren <DiscordLink />!
 </p>
 
 <iframe
@@ -132,8 +65,8 @@ unserem <DiscordLink/> nachschauen.
     Link zur Vollbild-Karte: <Link href="https://craftattack14.cloudcraftmc.de">craftattack14.cloudcraftmc.de</Link>
 </p>
 
-<hr/>
+<hr />
 
 Dich interessiert, was in unserem letzten Projekt, CraftAttack 12, geschehen ist?
 Du kannst dir die alte Online-Karte unter <Link href="https://craftattack12.cloudcraftmc.de/">craftattack12.cloudcraftmc.de</Link> anschauen.
-{/*Den Download der Minecraft-Map gibt es auf unserer <Link icon={BaselineDownloadIcon} href="/r/downloads">Downloads</Link>-Seite.*/}
+{/* Den Download der Minecraft-Map gibt es auf unserer <Link icon={BaselineDownloadIcon} href="/r/downloads">Downloads</Link>-Seite. */}

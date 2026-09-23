@@ -27,6 +27,21 @@ const projects = defineCollection({
     }),
 });
 
+const galleries = defineCollection({
+    loader: glob({pattern: "*/galleries/*.yml", base: "./src/projects"}),
+    schema: z.object({
+        iteration: z.string().optional(),
+        order: z.number().default(0),
+        images: z
+            .object({
+                img: z.string(),
+                title: z.string(),
+                description: z.string(),
+            })
+            .array(),
+    }),
+});
+
 const downloadProjects = defineCollection({
     loader: glob({pattern: "*.yml", base: "./src/downloads/projects"}),
     schema: z.object({
@@ -67,4 +82,4 @@ const downloadTools = defineCollection({
     }),
 });
 
-export const collections = {categories, projects, downloadProjects, downloadTools};
+export const collections = {categories, projects, galleries, downloadProjects, downloadTools};

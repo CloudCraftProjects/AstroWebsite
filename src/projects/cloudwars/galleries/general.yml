@@ -1,0 +1,14 @@
+order: 0
+images:
+  - img: cw_red_pov
+    title: Sicht von roter Burg
+    description: Blick zur blauen Burg über das Schlachtfeld
+  - img: cw_top_down
+    title: Schlachtfeldplan
+    description: Übersicht des gesamten Schlachtfelds aus der Vogelperspektive
+  - img: cw_side_view
+    title: Seitenansicht
+    description: Ein seitlicher Blick auf das Schlachtfeld von CloudWars
+  - img: cw_waiting_lobby
+    title: Wartebereich
+    description: Der Wartebereich - hier hält man sich nur kurz auf

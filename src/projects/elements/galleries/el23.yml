@@ -1,0 +1,24 @@
+iteration: Elements 23
+order: 23
+images:
+  - img: el1_hub
+    title: Elements Hub
+    description: Elements Hub mit 6/7 Händlern
+  - img: el1_sky_spawn
+    title: Skyblock Spawn
+    description: Das Skyblock-Spawngebäude, erbaut von Spielern
+  - img: el1_sky_overview
+    title: Skyblock Übersicht
+    description: Eine Übersicht aller Basen in Skyblock
+  - img: el1_stone_spawn
+    title: Stoneblock Spawn
+    description: Die Spawnhöle von Stoneblock mit vielen Abzweigungen
+  - img: el1_stone_overview
+    title: Stoneblock Übersicht
+    description: Ein Überblick aller Wege und Räume in Stoneblock
+  - img: el1_nether_spawn
+    title: Netherblock Spawn
+    description: Der Spawn von Netherblock - mit Slabs ausgelegt
+  - img: el1_nether_overview
+    title: Netherblock Übersicht
+    description: Ein Überblick von Netherblock - alles nah zusammen gebaut

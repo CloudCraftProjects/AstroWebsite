@@ -1,0 +1,21 @@
+iteration: Elements 24
+order: 24
+images:
+  - img: el2_hub
+    title: Elements Hub
+    description: Der Startpunkt von Elements 2024 mit dem ersten Händler
+  - img: el2_level_tree
+    title: Levelbaum
+    description: Der Levelbaum im Hub, welcher von Spielern freigeschaltet wurde und Level spendet
+  - img: el2_nether
+    title: Netherblock
+    description: Netherblock - eine heiße Welt mit einigen heißen Vorteilen
+  - img: el2_ocean
+    title: Oceanblock
+    description: Oceanblock - keine Luft, dafür genügend Wasser und mehr Schwierigkeit
+  - img: el2_sky
+    title: Skyblock
+    description: Skyblock - frei schwebend und gut zum Bauen von Bauwerken
+  - img: el2_stone
+    title: Stoneblock
+    description: Stoneblock - die einfachste Dimension, allerdings auch sehr grabeintensiv

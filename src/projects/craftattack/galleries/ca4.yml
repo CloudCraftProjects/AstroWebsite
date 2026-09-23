@@ -1,0 +1,12 @@
+iteration: CraftAttack 4
+order: 4
+images:
+  - img: ca4_spawn_island
+    title: Spawninsel am Anfang
+    description: "Die Spawninsel von CraftAttack 4 vor Projektstart; die Besonderheit bei diesem Projekt: Der Spawn ist eine Insel im Meer"
+  - img: ca4_random_building
+    title: Mittelalterliches Gebäude
+    description: Ein mittelalterliches Gebäude gebaut in CraftAttack 4
+  - img: ca4_shopping_district
+    title: Shop-Bereich
+    description: Der Shop-Bereich im Meer von CraftAttack 4 nach ein paar Monaten Projektlaufzeit

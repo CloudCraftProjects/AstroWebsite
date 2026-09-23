@@ -1,0 +1,15 @@
+iteration: CraftAttack 7
+order: 7
+images:
+  - img: ca7_spawn_island
+    title: Spawninsel am Anfang
+    description: Die Spawninsel von CraftAttack 7 vor dem Start
+  - img: ca7_cactus_farm
+    title: Kaktusfarm
+    description: Eine große von Spielern erbaute Kaktusfarm in CraftAttack 7
+  - img: ca7_shopping_district
+    title: Shop-Bereich
+    description: Der Shop-Bereich von CraftAttack 7 nach einigen Wochen
+  - img: ca7_christmas_tree
+    title: Weihnachtsbaum
+    description: Der von Spielern erbaute Weihnachtsbaum direkt neben dem Shop-Bereich

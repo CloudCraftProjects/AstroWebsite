@@ -5,8 +5,8 @@ export const categories = await getCollection("categories");
 export const projects = await getCollection("projects");
 
 const activeProjectDirs = projects
-    .filter(project => project.data.start && !project.data.end)
-    .map(project => path.dirname(project.filePath!));
+    .filter((project) => project.data.start && !project.data.end)
+    .map((project) => path.dirname(project.filePath!));
 
 const compare = (category1: CollectionEntry<"categories">, category2: CollectionEntry<"categories">) => {
     const running1 = isRunning(category1);

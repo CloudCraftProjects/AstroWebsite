@@ -1,0 +1,12 @@
+iteration: CraftAttack 9
+order: 9
+images:
+  - img: ca9_shopping_district
+    title: Shop-Bereich
+    description: Der Shop-Bereich wurde in CraftAttack 9 direkt in den ersten Tagen hochgezogen
+  - img: ca9_christmas_tree
+    title: Weihnachtsbaum
+    description: Vito hat als Spieler einen Weihnachtsbaum neben den Spawn gebaut
+  - img: ca9_base_near_spawn
+    title: Blick auf Spawn
+    description: Die meisten Spieler haben in CraftAttack 9 in der Nähe des Spawns gebaut

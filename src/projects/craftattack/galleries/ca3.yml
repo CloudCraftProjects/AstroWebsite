@@ -1,0 +1,12 @@
+iteration: CraftAttack 3
+order: 3
+images:
+  - img: ca3_spawn_island
+    title: Spawninsel am Anfang
+    description: Die Spawninsel von CraftAttack 3 vor Projektstart
+  - img: ca3_shopping_district
+    title: Shop-Bereich
+    description: Die Shops in CraftAttack 3 nach ein paar Monaten Projektlaufzeit
+  - img: ca3_christmas_tree
+    title: Weihnachtsbaum
+    description: Ein von Spielern gebauter Weihnachtsbaum neben dem Spawn

@@ -12,80 +12,10 @@ start: 2024-08-01
 
 import Link from "../../components/Link.astro";
 import DiscordLink from "../../components/DiscordLink.astro";
-import Carousel from "../../components/Carousel.astro";
+import Gallery from "../../components/Gallery.astro";
 import YoutubeIcon from "~icons/simple-icons/youtube";
 
-export const slides23 = [
-    {
-        img: "el1_hub",
-        title: "Elements Hub",
-        description: "Elements Hub mit 6/7 Händlern",
-    },
-    {
-        img: "el1_sky_spawn",
-        title: "Skyblock Spawn",
-        description: "Das Skyblock-Spawngebäude, erbaut von Spielern",
-    },
-    {
-        img: "el1_sky_overview",
-        title: "Skyblock Übersicht",
-        description: "Eine Übersicht aller Basen in Skyblock",
-    },
-    {
-        img: "el1_stone_spawn",
-        title: "Stoneblock Spawn",
-        description: "Die Spawnhöle von Stoneblock mit vielen Abzweigungen",
-    },
-    {
-        img: "el1_stone_overview",
-        title: "Stoneblock Übersicht",
-        description: "Ein Überblick aller Wege und Räume in Stoneblock",
-    },
-    {
-        img: "el1_nether_spawn",
-        title: "Netherblock Spawn",
-        description: "Der Spawn von Netherblock - mit Slabs ausgelegt",
-    },
-    {
-        img: "el1_nether_overview",
-        title: "Netherblock Übersicht",
-        description: "Ein Überblick von Netherblock - alles nah zusammen gebaut",
-    },
-];
-export const slides24 = [
-    {
-        img: "el2_hub",
-        title: "Elements Hub",
-        description: "Der Startpunkt von Elements 2024 mit dem ersten Händler",
-    },
-    {
-        img: "el2_level_tree",
-        title: "Levelbaum",
-        description: "Der Levelbaum im Hub, welcher von Spielern freigeschaltet wurde und Level spendet",
-    },
-    {
-        img: "el2_nether",
-        title: "Netherblock",
-        description: "Netherblock - eine heiße Welt mit einigen heißen Vorteilen",
-    },
-    {
-        img: "el2_ocean",
-        title: "Oceanblock",
-        description: "Oceanblock - keine Luft, dafür genügend Wasser und mehr Schwierigkeit",
-    },
-    {
-        img: "el2_sky",
-        title: "Skyblock",
-        description: "Skyblock - frei schwebend und gut zum Bauen von Bauwerken",
-    },
-    {
-        img: "el2_stone",
-        title: "Stoneblock",
-        description: "Stoneblock - die einfachste Dimension, allerdings auch sehr grabeintensiv",
-    },
-];
-
-<Carousel projectId="elements" slides={slides24} />
+<Gallery projectId="elements" />
 
 Minecraft Elements 2 ist die Fortsetzung von Minecraft Elements 1 (Sommer 2023), StoneAttack (Sommer 2022) und SkyAttack (Sommer 2021). In diesem Projekt kommen viele Deutsche YouTuber und Streamer zusammen, um gemeinsam Minecraft zu spielen.
 

@@ -1,0 +1,114 @@
+---
+import {type CollectionEntry, getCollection} from "astro:content";
+import * as path from "node:path";
+import Carousel from "./Carousel.astro";
+
+interface Props {
+    projectId: string;
+}
+
+const {projectId} = Astro.props;
+
+const projectOf = (gallery: CollectionEntry<"galleries">) => path.dirname(path.dirname(gallery.filePath!)).split("/").at(-1);
+const galleries = (await getCollection("galleries"))
+    .filter((gallery) => projectOf(gallery) === projectId)
+    .sort((a, b) => b.data.order - a.data.order);
+---
+
+{
+    galleries.length === 1 ? (
+        <Carousel projectId={projectId} slides={galleries[0].data.images} />
+    ) : galleries.length > 1 && (
+        <div class="gallery">
+            <div class="tabs" role="tablist" aria-label="Projekt-Iterationen">
+                {galleries.map((gallery, index) => (
+                    <button
+                        class:list={["tab", {active: index === 0}]}
+                        data-tab={index}
+                        type="button"
+                        role="tab"
+                        aria-selected={index === 0 ? "true" : "false"}
+                    >
+                        {gallery.data.iteration}
+                    </button>
+                ))}
+            </div>
+            {galleries.map((gallery, index) => (
+                <div class:list={["pane", {active: index === 0}]} data-pane={index} role="tabpanel">
+                    <Carousel projectId={projectId} slides={gallery.data.images} />
+                </div>
+            ))}
+        </div>
+    )
+}
+
+<script>
+    const setupGallery = (container: HTMLElement) => {
+        const tabs = Array.from(container.querySelectorAll<HTMLElement>(".tab"));
+        const panes = Array.from(container.querySelectorAll<HTMLElement>(".pane"));
+        let selectedTab = 0;
+
+        container.querySelector(".tabs")!.addEventListener("click", (event) => {
+            const tab = (event.target as HTMLElement).closest(".tab") as HTMLElement | null;
+            if (!tab) return;
+            const tabNumber = Number(tab.dataset.tab);
+            if (tabNumber === selectedTab) return;
+
+            const selectTab = (index: number, selected: boolean) => {
+                tabs[index].classList.toggle("active", selected);
+                panes[index].classList.toggle("active", selected);
+                tabs[index].setAttribute("aria-selected", selected ? "true" : "false");
+            };
+            selectTab(selectedTab, false);
+            selectedTab = tabNumber;
+            selectTab(selectedTab, true);
+        });
+    };
+    document.querySelectorAll<HTMLElement>(".gallery").forEach(setupGallery);
+</script>
+
+<style>
+    .gallery {
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+    .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5em;
+        margin-bottom: 1em;
+    }
+    .tab {
+        padding: 0.35em 1em;
+        border-radius: var(--radius-full);
+        background-color: transparent;
+        border: 1px solid var(--border-strong);
+        color: var(--text-muted);
+        font: inherit;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition:
+            background-color var(--duration-base) var(--ease-out),
+            border-color var(--duration-base) var(--ease-out),
+            color var(--duration-base) var(--ease-out);
+    }
+    .tab:hover {
+        background-color: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.3);
+        color: var(--text);
+    }
+    .tab.active {
+        background-color: var(--accent-subtle);
+        border-color: var(--accent-border);
+        color: var(--accent);
+        cursor: default;
+    }
+    .pane {
+        display: none;
+    }
+    .pane.active {
+        display: block;
+    }
+</style>
