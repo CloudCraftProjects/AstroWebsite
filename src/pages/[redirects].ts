@@ -10,7 +10,7 @@ export const getStaticPaths = () => {
 const staticRedirects = `
 /r/downloads /downloads/ 303
 /r/youtube https://www.youtube.com/@cloudcraft_mc 303
-/r/instagram https://www.instagram.com/cloudcraft_mc/ 303
+/r/instagram https://www.instagram.com/cloudcraft.mc/ 303
 /r/tiktok https://www.tiktok.com/@cloudcraft.mc 303
 /r/discord https://discord.com/invite/e5xE7SqQzh 303
 /r/github https://github.com/CloudCraftProjects 303
