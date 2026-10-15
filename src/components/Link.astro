@@ -8,9 +8,11 @@ interface Props {
     bold?: boolean;
     noColor?: boolean;
     button?: boolean | ButtonProps;
+    target?: astroHTML.JSX.AnchorHTMLAttributes["target"];
+    rel?: astroHTML.JSX.AnchorHTMLAttributes["rel"];
 }
 
-const {icon: Icon, href, bold, noColor, button: rbtn} = Astro.props;
+const {icon: Icon, href, bold, noColor, button: rbtn, target, rel} = Astro.props;
 const button = !rbtn ? undefined : (typeof rbtn === "boolean" ? {} : rbtn); // convert "true" to empty props
 
 const classNames = [];
@@ -20,7 +22,7 @@ if (!button) classNames.push("text-link");
 const className = classNames.length > 0 ? classNames.join(" ") : undefined;
 ---
 
-<a href={href} class={className}>{
+<a href={href} class={className} target={target} rel={rel}>{
     button ?
         <Button {...button}>
             {Icon &&
