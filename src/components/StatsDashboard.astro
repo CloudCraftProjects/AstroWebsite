@@ -139,6 +139,7 @@ const {name, endpoint} = Astro.props;
     const HEAD_URL = "https://crafthead.net/helm/%s/8";
     const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
     const GRAPH_HEIGHT = 260;
+    const GRAPH_HEIGHT_COMPACT = 220;
     const GRAPH_GAP_FACTOR = 1.5;
 
     const ACTIVITY_GROUPS = [
@@ -443,13 +444,21 @@ const {name, endpoint} = Astro.props;
             return;
         }
 
-        const pad = {top: 22, right: 14, bottom: 26, left: 38};
-        const innerWidth = Math.max(1, width - pad.left - pad.right);
-        const innerHeight = GRAPH_HEIGHT - pad.top - pad.bottom;
-
         const divisions = 4;
         const peak = samples.reduce((best, sample) => Math.max(best, sample.players), 0);
         const maxY = Math.max(divisions, Math.ceil(peak / divisions) * divisions);
+
+        const compact = width < 520;
+        const height = compact ? GRAPH_HEIGHT_COMPACT : GRAPH_HEIGHT;
+        const yLabels = Array.from({length: divisions + 1}, (_, index) => formatCount((maxY / divisions) * index));
+        const pad = {
+            top: 22,
+            right: compact ? 10 : 14,
+            bottom: 26,
+            left: clamp(Math.ceil(Math.max(...yLabels.map((label) => label.length)) * 6.8 + 10), 28, 72),
+        };
+        const innerWidth = Math.max(1, width - pad.left - pad.right);
+        const innerHeight = height - pad.top - pad.bottom;
 
         const first = samples[0].timestampMillis;
         const last = samples[samples.length - 1].timestampMillis;
@@ -468,7 +477,7 @@ const {name, endpoint} = Astro.props;
             }
         }
 
-        const svg = svgElement("svg", {height: GRAPH_HEIGHT, viewBox: `0 0 ${width} ${GRAPH_HEIGHT}`});
+        const svg = svgElement("svg", {height, viewBox: `0 0 ${width} ${height}`});
 
         for (let i = 0; i <= divisions; i++) {
             const value = (maxY / divisions) * i;
@@ -490,7 +499,7 @@ const {name, endpoint} = Astro.props;
             });
             tick.style.fill = "var(--text-faint)";
             tick.style.fontVariantNumeric = "tabular-nums";
-            tick.textContent = formatCount(value);
+            tick.textContent = yLabels[i];
             svg.append(tick);
         }
 
@@ -518,6 +527,7 @@ const {name, endpoint} = Astro.props;
         svg.append(areaPath, linePath);
 
         const dayFormat = new Intl.DateTimeFormat("de-DE", {day: "2-digit", month: "2-digit", timeZone: "Europe/Berlin"});
+        const dayLabels: {day: string; x: number}[] = [];
         let previousDay = "";
         for (const sample of samples) {
             const day = dayFormat.format(new Date(sample.timestampMillis));
@@ -525,9 +535,20 @@ const {name, endpoint} = Astro.props;
                 continue;
             }
             previousDay = day;
-            const label = svgElement("text", {x: x(sample), y: GRAPH_HEIGHT - 8, "text-anchor": "middle", "font-size": "11"});
+            dayLabels.push({day, x: x(sample)});
+        }
+
+        const maxDayLabels = Math.max(2, Math.floor(innerWidth / 48));
+        const labelCount = Math.min(dayLabels.length, maxDayLabels);
+        const labelIndexes = Array.from({length: labelCount}, (_, index) =>
+            Math.round((index * (dayLabels.length - 1)) / Math.max(1, labelCount - 1)),
+        );
+        for (const [position, index] of labelIndexes.entries()) {
+            const dayLabel = dayLabels[index];
+            const anchor = position === 0 ? "start" : position === labelIndexes.length - 1 ? "end" : "middle";
+            const label = svgElement("text", {x: dayLabel.x, y: height - 8, "text-anchor": anchor, "font-size": "11"});
             label.style.fill = "var(--text-faint)";
-            label.textContent = day;
+            label.textContent = dayLabel.day;
             svg.append(label);
         }
 
