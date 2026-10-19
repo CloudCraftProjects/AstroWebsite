@@ -1,0 +1,760 @@
+---
+import StatsLeaderboard from "./StatsLeaderboard.astro";
+import StatsPlayerCountGraph from "./StatsPlayerCountGraph.astro";
+import BaselineGroupsIcon from "~icons/ic/baseline-groups";
+import BaselineHowToRegIcon from "~icons/ic/baseline-how-to-reg";
+import BaselineTrendingUpIcon from "~icons/ic/baseline-trending-up";
+import BaselineSpeedIcon from "~icons/ic/baseline-speed";
+import BaselinePercentIcon from "~icons/ic/baseline-percent";
+import BaselineSportsKabaddiIcon from "~icons/ic/baseline-sports-kabaddi";
+import BaselineBugReportIcon from "~icons/ic/baseline-bug-report";
+import BaselineHeartBrokenIcon from "~icons/ic/baseline-heart-broken";
+import BaselineScheduleIcon from "~icons/ic/baseline-schedule";
+import BaselinePersonIcon from "~icons/ic/baseline-person";
+
+interface Props {
+    name: string;
+    endpoint: string;
+}
+
+const {name, endpoint} = Astro.props;
+---
+
+<div class="stats" data-stats data-endpoint={endpoint}>
+    <p class="state" data-stats-state="loading">Statistiken laden...</p>
+
+    <p class="state error" data-stats-state="error" hidden>
+        Die Statistiken von {name} sind gerade nicht erreichbar, bitte versuche es später erneut.
+    </p>
+
+    <div data-stats-state="ready" hidden>
+        <section class="section">
+            <h2>Generell</h2>
+            <div class="tiles">
+                <div class="tile">
+                    <span class="tile-value" data-field="uniquePlayersRecent">-</span>
+                    <span class="tile-label">
+                        <BaselineGroupsIcon aria-hidden="true"/>
+                        <span data-label="uniquePlayers">Unique Spieler</span>
+                    </span>
+                </div>
+                <div class="tile">
+                    <span class="tile-value" data-field="regularPlayers">-</span>
+                    <span class="tile-label">
+                        <BaselineHowToRegIcon aria-hidden="true"/>
+                        <span>Regelmäßige Spieler</span>
+                    </span>
+                </div>
+                <div class="tile">
+                    <span class="tile-value" data-field="playerCountPeakRecent">-</span>
+                    <span class="tile-label">
+                        <BaselineTrendingUpIcon aria-hidden="true"/>
+                        <span data-label="peakRecent">Spieler-Peak</span>
+                    </span>
+                </div>
+                <div class="tile">
+                    <span class="tile-value" data-field="tpsLow5Percent">-</span>
+                    <span class="tile-label">
+                        <BaselineSpeedIcon aria-hidden="true"/>
+                        <span data-label="tps">Niedrigste TPS</span>
+                    </span>
+                </div>
+                <div class="tile">
+                    <span class="tile-value" data-field="playerCountPercentile">-</span>
+                    <span class="tile-label">
+                        <BaselinePercentIcon aria-hidden="true"/>
+                        <span data-label="percentile">Spielerzahl</span>
+                    </span>
+                </div>
+                <div class="tile">
+                    <span class="tile-value" data-field="playerKillsTotal">-</span>
+                    <span class="tile-label">
+                        <BaselineSportsKabaddiIcon aria-hidden="true"/>
+                        <span>Spielerkills</span>
+                    </span>
+                </div>
+                <div class="tile">
+                    <span class="tile-value" data-field="mobKillsTotal">-</span>
+                    <span class="tile-label">
+                        <BaselineBugReportIcon aria-hidden="true"/>
+                        <span>Mobkills</span>
+                    </span>
+                </div>
+                <div class="tile">
+                    <span class="tile-value" data-field="deathsTotal">-</span>
+                    <span class="tile-label">
+                        <BaselineHeartBrokenIcon aria-hidden="true"/>
+                        <span>Tode</span>
+                    </span>
+                </div>
+                <div class="tile">
+                    <span class="tile-value" data-field="playtimeTotalSeconds">-</span>
+                    <span class="tile-label">
+                        <BaselineScheduleIcon aria-hidden="true"/>
+                        <span>Spielzeit insgesamt</span>
+                    </span>
+                </div>
+                <div class="tile">
+                    <span class="tile-value" data-field="playtimeAverageSeconds">-</span>
+                    <span class="tile-label">
+                        <BaselinePersonIcon aria-hidden="true"/>
+                        <span>Spielzeit pro Spieler</span>
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Spielerzahl im Verlauf</h2>
+            <StatsPlayerCountGraph/>
+        </section>
+
+        <section class="section">
+            <h2>Aktivität</h2>
+            <figure class="activity">
+                <figcaption class="caption">Aktivität der Spielerbasis</figcaption>
+                <div class="bar" data-activity-bar></div>
+                <div class="activity-tooltip" data-activity-tooltip hidden></div>
+                <ul class="legend sr-only" data-activity-legend></ul>
+                <p class="note" data-activity-empty hidden>Aktuell gibt es hierfür keine Daten</p>
+            </figure>
+        </section>
+
+        <section class="section">
+            <h2>Bestenlisten</h2>
+            <div class="boards">
+                <StatsLeaderboard field="playerKillsLeaderboard" title="Spielerkills" unit="count"/>
+                <StatsLeaderboard field="mobKillsLeaderboard" title="Mobkills" unit="count"/>
+                <StatsLeaderboard field="deathsLeaderboard" title="Tode" unit="count"/>
+                <StatsLeaderboard field="playtimeLeaderboard" title="Spielzeit" unit="seconds"/>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script>
+    import {formatCount, formatDateTime, formatDuration} from "../scripts/format.ts";
+
+    const LEADERBOARD_LIMIT = 10;
+    const HEAD_URL = "https://crafthead.net/helm/%s/8";
+    const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    const GRAPH_HEIGHT = 260;
+    const GRAPH_GAP_FACTOR = 1.5;
+
+    const ACTIVITY_GROUPS = [
+        {key: "inactive", label: "Inaktiv"},
+        {key: "irregular", label: "Unregelmäßig"},
+        {key: "regular", label: "Regelmäßig"},
+        {key: "active", label: "Aktiv"},
+        {key: "veryActive", label: "Sehr aktiv"},
+    ];
+
+    interface Metrics {
+        computedAtMillis: number;
+        parameters: {
+            playerCountPercentile: number;
+            playerCountPercentileWindowDays: number;
+            recentWindowDays: number;
+            activityIndexIgnoreAfterDays: number;
+            tpsLowPercent: number;
+            playerCountGraphIntervalMinutes: number;
+            playerCountGraphDays: number;
+        };
+        playerKillsTotal: number;
+        playerKillsLeaderboard: LeaderboardEntry[];
+        mobKillsTotal: number;
+        mobKillsLeaderboard: LeaderboardEntry[];
+        deathsTotal: number;
+        deathsLeaderboard: LeaderboardEntry[];
+        playtimeTotalSeconds: number;
+        playtimeAverageSeconds: number;
+        playtimeLeaderboard: LeaderboardEntry[];
+        playerCountPercentile: number;
+        playerCountPeakRecent: number;
+        playerCountGraph: {timestampMillis: number; players: number}[];
+        uniquePlayersRecent: number;
+        regularPlayers: number;
+        activityIndex: Record<string, number>;
+        tpsLow5Percent: number;
+    }
+
+    interface LeaderboardEntry {
+        playerId: string;
+        playerName: string;
+        value: number;
+    }
+
+    const SVG_NS = "http://www.w3.org/2000/svg";
+
+    const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
+
+    const svgElement = <K extends keyof SVGElementTagNameMap>(
+        name: K,
+        attributes: Record<string, string | number> = {},
+    ): SVGElementTagNameMap[K] => {
+        const element = document.createElementNS(SVG_NS, name);
+        for (const [key, value] of Object.entries(attributes)) {
+            element.setAttribute(key, String(value));
+        }
+        return element;
+    };
+
+    const root = document.querySelector<HTMLElement>("[data-stats]");
+    if (root) {
+        void load(root);
+    }
+
+    async function load(root: HTMLElement) {
+        const endpoint = root.dataset.endpoint!;
+        const state = (name: string) => root.querySelector<HTMLElement>(`[data-stats-state='${name}']`)!;
+        try {
+            const response = await fetch(endpoint, {headers: {Accept: "application/json"}});
+            if (!response.ok) {
+                throw new Error(`${response.status} ${response.statusText}`);
+            }
+            const metrics: Metrics = await response.json();
+            if (!metrics || typeof metrics.computedAtMillis !== "number" || !metrics.parameters) {
+                throw new Error("unexpected response body");
+            }
+            // the graph measures the plot element, so the dashboard has to be visible before rendering
+            state("loading").hidden = true;
+            state("ready").hidden = false;
+            render(root, metrics);
+        } catch (error) {
+            console.error("Unable to load the metrics from", endpoint, error);
+            state("loading").hidden = true;
+            state("error").hidden = false;
+        }
+    }
+
+    const formatSeconds = (seconds: number) => (seconds > 0 ? formatDuration(seconds * 1000) : "0 Sekunden");
+
+    const formatLeaderboardSeconds = (seconds: number) => {
+        if (seconds <= 0) return "0 Sekunden";
+        const units = [
+            {size: 86400, singular: "Tag", plural: "Tage"},
+            {size: 3600, singular: "Stunde", plural: "Stunden"},
+            {size: 60, singular: "Minute", plural: "Minuten"},
+            {size: 1, singular: "Sekunde", plural: "Sekunden"},
+        ];
+        const unit = units.find((candidate) => seconds >= candidate.size) ?? units[units.length - 1];
+        const value = Number((seconds / unit.size).toFixed(2));
+        const formatted = value.toLocaleString("de-DE", {maximumFractionDigits: 2});
+        return `${formatted} ${value === 1 ? unit.singular : unit.plural}`;
+    };
+
+    const formatTps = (tps: number) =>
+        tps > 0 ? tps.toLocaleString("de-DE", {minimumFractionDigits: 3, maximumFractionDigits: 3}) : "-";
+
+    function render(root: HTMLElement, metrics: Metrics) {
+        const {parameters} = metrics;
+        const recent = parameters.recentWindowDays;
+
+        const labels: Record<string, string> = {
+            uniquePlayers: `Unique Spieler (${recent}d)`,
+            percentile: `Spielerzahl (${parameters.playerCountPercentile}. Perzentil, ${parameters.playerCountPercentileWindowDays}d)`,
+            peakRecent: `Spieler-Peak (${recent}d)`,
+            tps: `Niedrigste ${parameters.tpsLowPercent}% TPS (${recent}d)`,
+        };
+        for (const element of root.querySelectorAll<HTMLElement>("[data-label]")) {
+            element.textContent = labels[element.dataset.label!] ?? element.textContent;
+        }
+
+        const activityCount = (key: string) => metrics.activityIndex[key] ?? 0;
+        const regularPlayers = activityCount("regular") + activityCount("active") + activityCount("veryActive");
+
+        const values: Record<string, string> = {
+            computedAtMillis: formatDateTime(new Date(metrics.computedAtMillis)),
+            playerKillsTotal: formatCount(metrics.playerKillsTotal),
+            mobKillsTotal: formatCount(metrics.mobKillsTotal),
+            deathsTotal: formatCount(metrics.deathsTotal),
+            playtimeTotalSeconds: formatSeconds(metrics.playtimeTotalSeconds),
+            playtimeAverageSeconds: formatSeconds(metrics.playtimeAverageSeconds),
+            uniquePlayersRecent: formatCount(metrics.uniquePlayersRecent),
+            regularPlayers: formatCount(regularPlayers),
+            playerCountPercentile: formatCount(metrics.playerCountPercentile),
+            playerCountPeakRecent: formatCount(metrics.playerCountPeakRecent),
+            tpsLow5Percent: formatTps(metrics.tpsLow5Percent),
+        };
+        for (const element of root.querySelectorAll<HTMLElement>("[data-field]")) {
+            const value = values[element.dataset.field!];
+            if (value !== undefined) {
+                element.textContent = value;
+            }
+        }
+
+        renderLeaderboards(root, metrics);
+        renderActivity(root, metrics);
+        renderGraph(root, metrics);
+    }
+
+    function renderLeaderboards(root: HTMLElement, metrics: Metrics) {
+        for (const body of root.querySelectorAll<HTMLTableSectionElement>("[data-leaderboard]")) {
+            const board = (metrics as unknown as Record<string, LeaderboardEntry[]>)[body.dataset.leaderboard!] ?? [];
+            const unit = body.dataset.unit;
+            const entries = board.slice(0, LEADERBOARD_LIMIT);
+            body.replaceChildren();
+
+            const empty = root.querySelector(`[data-leaderboard-empty='${body.dataset.leaderboard}']`);
+            empty?.toggleAttribute("hidden", entries.length > 0);
+
+            entries.forEach((entry, index) => {
+                const row = document.createElement("tr");
+
+                const place = document.createElement("td");
+                place.className = index < 3 ? "place top" : "place";
+                const rank = document.createElement("span");
+                rank.className = "rank";
+                rank.textContent = String(index + 1);
+                place.append(rank);
+                row.append(place);
+
+                const player = document.createElement("td");
+                const playerBox = document.createElement("div");
+                playerBox.className = "player";
+                if (UUID_PATTERN.test(entry.playerId)) {
+                    const head = document.createElement("img");
+                    head.className = "head";
+                    head.src = HEAD_URL.replace("%s", entry.playerId.toLowerCase());
+                    head.alt = "";
+                    head.loading = "lazy";
+                    head.width = 28;
+                    head.height = 28;
+                    playerBox.append(head);
+                }
+                const playerName = document.createElement("span");
+                playerName.className = "player-name";
+                playerName.textContent = entry.playerName;
+                playerBox.append(playerName);
+                player.append(playerBox);
+                row.append(player);
+
+                const value = document.createElement("td");
+                value.className = "value";
+                value.textContent = unit === "seconds" ? formatLeaderboardSeconds(entry.value) : formatCount(entry.value);
+                row.append(value);
+
+                body.append(row);
+            });
+        }
+    }
+
+    function renderActivity(root: HTMLElement, metrics: Metrics) {
+        const bar = root.querySelector<HTMLElement>("[data-activity-bar]")!;
+        const legend = root.querySelector<HTMLElement>("[data-activity-legend]")!;
+        const tooltip = root.querySelector<HTMLElement>("[data-activity-tooltip]")!;
+        const empty = root.querySelector<HTMLElement>("[data-activity-empty]")!;
+        const counts = ACTIVITY_GROUPS.map((group) => metrics.activityIndex[group.key] ?? 0);
+        const total = counts.reduce((sum, count) => sum + count, 0);
+
+        bar.replaceChildren();
+        legend.replaceChildren();
+        tooltip.hidden = true;
+        bar.setAttribute("aria-hidden", "true");
+        empty.hidden = total > 0;
+        if (total === 0) {
+            bar.hidden = true;
+            return;
+        }
+        bar.hidden = false;
+
+        ACTIVITY_GROUPS.forEach((group, index) => {
+            const count = counts[index];
+            const share = (count / total) * 100;
+            const color = `var(--activity-${index + 1})`;
+
+            const item = document.createElement("li");
+            item.textContent = `${group.label}: ${formatCount(count)} Spieler (${formatShare(share)})`;
+            legend.append(item);
+
+            if (count > 0) {
+                const segment = document.createElement("div");
+                segment.className = "segment";
+                segment.style.flexGrow = String(count);
+                segment.style.backgroundColor = color;
+                segment.addEventListener("pointerenter", () => showActivityTooltip(tooltip, segment, group.label, count, share));
+                segment.addEventListener("pointerleave", () => (tooltip.hidden = true));
+                bar.append(segment);
+            }
+        });
+    }
+
+    const formatShare = (share: number) =>
+        `${share.toLocaleString("de-DE", {maximumFractionDigits: 1})} %`;
+
+    function showActivityTooltip(
+        tooltip: HTMLElement,
+        segment: HTMLElement,
+        label: string,
+        count: number,
+        share: number,
+    ) {
+        const value = document.createElement("div");
+        value.className = "tooltip-value";
+        value.textContent = `${formatCount(count)} Spieler`;
+        const name = document.createElement("div");
+        name.className = "tooltip-label";
+        name.textContent = `${label} · ${formatShare(share)}`;
+        tooltip.replaceChildren(value, name);
+
+        tooltip.hidden = false;
+        const bounds = segment.offsetParent as HTMLElement;
+        const half = tooltip.offsetWidth / 2;
+        const center = segment.offsetLeft + segment.offsetWidth / 2;
+        tooltip.style.left = `${Math.min(Math.max(center, half + 4), bounds.offsetWidth - half - 4)}px`;
+        tooltip.style.top = `${segment.offsetTop + segment.offsetHeight + 10}px`;
+    }
+
+    function renderGraph(root: HTMLElement, metrics: Metrics) {
+        const plot = root.querySelector<HTMLElement>("[data-graph-plot]")!;
+        const canvas = root.querySelector<HTMLElement>("[data-graph-canvas]")!;
+        const state = root.querySelector<HTMLElement>("[data-graph-state]")!;
+        const caption = root.querySelector<HTMLElement>("[data-graph-caption]")!;
+        const samples = metrics.playerCountGraph ?? [];
+
+        caption.textContent = `Spielerzahl je ${metrics.parameters.playerCountGraphIntervalMinutes} Minuten, letzte ${metrics.parameters.playerCountGraphDays} Tage`;
+
+        if (samples.length === 0) {
+            canvas.replaceChildren();
+            state.removeAttribute("hidden");
+            return;
+        }
+        state.setAttribute("hidden", "");
+
+        const draw = () => drawGraph({plot, canvas, samples, intervalMinutes: metrics.parameters.playerCountGraphIntervalMinutes});
+        draw();
+
+        let frame = 0;
+        new ResizeObserver(() => {
+            cancelAnimationFrame(frame);
+            frame = requestAnimationFrame(draw);
+        }).observe(plot);
+    }
+
+    function drawGraph(options: {
+        plot: HTMLElement;
+        canvas: HTMLElement;
+        samples: {timestampMillis: number; players: number}[];
+        intervalMinutes: number;
+    }) {
+        const {plot, canvas, samples, intervalMinutes} = options;
+        const width = plot.clientWidth;
+        if (width <= 0) {
+            return;
+        }
+
+        const pad = {top: 22, right: 14, bottom: 26, left: 38};
+        const innerWidth = Math.max(1, width - pad.left - pad.right);
+        const innerHeight = GRAPH_HEIGHT - pad.top - pad.bottom;
+
+        const divisions = 4;
+        const peak = samples.reduce((best, sample) => Math.max(best, sample.players), 0);
+        const maxY = Math.max(divisions, Math.ceil(peak / divisions) * divisions);
+
+        const first = samples[0].timestampMillis;
+        const last = samples[samples.length - 1].timestampMillis;
+        const span = Math.max(1, last - first);
+        const x = (sample: {timestampMillis: number}) => pad.left + ((sample.timestampMillis - first) / span) * innerWidth;
+        const y = (value: number) => pad.top + innerHeight - (value / maxY) * innerHeight;
+
+        const gap = intervalMinutes * 60_000 * GRAPH_GAP_FACTOR;
+        const runs: {timestampMillis: number; players: number}[][] = [];
+        for (const sample of samples) {
+            const current = runs.at(-1);
+            if (current && sample.timestampMillis - current.at(-1)!.timestampMillis <= gap) {
+                current.push(sample);
+            } else {
+                runs.push([sample]);
+            }
+        }
+
+        const svg = svgElement("svg", {height: GRAPH_HEIGHT, viewBox: `0 0 ${width} ${GRAPH_HEIGHT}`});
+
+        for (let i = 0; i <= divisions; i++) {
+            const value = (maxY / divisions) * i;
+            const line = svgElement("line", {
+                x1: pad.left,
+                x2: width - pad.right,
+                y1: y(value),
+                y2: y(value),
+            });
+            line.style.stroke = i === 0 ? "var(--border-strong)" : "var(--border)";
+            line.style.strokeWidth = "1";
+            svg.append(line);
+
+            const tick = svgElement("text", {
+                x: pad.left - 8,
+                y: y(value) + 4,
+                "text-anchor": "end",
+                "font-size": "11",
+            });
+            tick.style.fill = "var(--text-faint)";
+            tick.style.fontVariantNumeric = "tabular-nums";
+            tick.textContent = formatCount(value);
+            svg.append(tick);
+        }
+
+        const baseline = y(0);
+        let line = "";
+        let area = "";
+        for (const run of runs) {
+            if (run.length === 1) {
+                continue;
+            }
+            const points = run.map((sample) => `${x(sample).toFixed(1)},${y(sample.players).toFixed(1)}`);
+            line += `M${points.join("L")}`;
+            area += `M${x(run[0]).toFixed(1)},${baseline}L${points.join("L")}L${x(run.at(-1)!).toFixed(1)},${baseline}Z`;
+        }
+
+        const areaPath = svgElement("path", {d: area});
+        areaPath.style.fill = "var(--accent)";
+        areaPath.style.opacity = "0.1";
+        const linePath = svgElement("path", {d: line});
+        linePath.style.fill = "none";
+        linePath.style.stroke = "var(--accent)";
+        linePath.style.strokeWidth = "2";
+        linePath.style.strokeLinejoin = "round";
+        linePath.style.strokeLinecap = "round";
+        svg.append(areaPath, linePath);
+
+        const dayFormat = new Intl.DateTimeFormat("de-DE", {day: "2-digit", month: "2-digit", timeZone: "Europe/Berlin"});
+        let previousDay = "";
+        for (const sample of samples) {
+            const day = dayFormat.format(new Date(sample.timestampMillis));
+            if (day === previousDay) {
+                continue;
+            }
+            previousDay = day;
+            const label = svgElement("text", {x: x(sample), y: GRAPH_HEIGHT - 8, "text-anchor": "middle", "font-size": "11"});
+            label.style.fill = "var(--text-faint)";
+            label.textContent = day;
+            svg.append(label);
+        }
+
+        const peakSample = samples.reduce((best, sample) => (sample.players > best.players ? sample : best), samples[0]);
+        const peakX = x(peakSample);
+        const peakY = y(peakSample.players);
+        const dot = svgElement("circle", {cx: peakX, cy: peakY, r: 4});
+        dot.style.fill = "var(--accent)";
+        dot.style.stroke = "var(--surface)";
+        dot.style.strokeWidth = "2";
+        svg.append(dot);
+
+        const peakLabel = svgElement("text", {
+            x: clamp(peakX, pad.left + 24, width - pad.right - 24),
+            y: Math.max(peakY - 12, 12),
+            "text-anchor": "middle",
+            "font-size": "11",
+        });
+        peakLabel.style.fill = "var(--text)";
+        peakLabel.style.fontWeight = "600";
+        peakLabel.textContent = `${formatCount(peakSample.players)} Spieler`;
+        svg.append(peakLabel);
+
+        const crosshair = svgElement("line", {y1: pad.top, y2: baseline});
+        crosshair.style.stroke = "var(--border-strong)";
+        crosshair.style.strokeWidth = "1";
+        crosshair.style.opacity = "0";
+        svg.append(crosshair);
+
+        canvas.replaceChildren(svg);
+        attachGraphHover({plot, svg, crosshair, samples, x, y, width});
+    }
+
+    function attachGraphHover(options: {
+        plot: HTMLElement;
+        svg: SVGSVGElement;
+        crosshair: SVGLineElement;
+        samples: {timestampMillis: number; players: number}[];
+        x: (sample: {timestampMillis: number}) => number;
+        y: (value: number) => number;
+        width: number;
+    }) {
+        const {plot, svg, crosshair, samples, x, y, width} = options;
+        const tooltip = plot.querySelector<HTMLElement>("[data-graph-tooltip]")!;
+        let active = -1;
+
+        const show = (index: number) => {
+            active = index;
+            const sample = samples[index];
+            const left = x(sample);
+            crosshair.setAttribute("x1", String(left));
+            crosshair.setAttribute("x2", String(left));
+            crosshair.style.opacity = "1";
+
+            tooltip.replaceChildren();
+            const value = document.createElement("div");
+            value.className = "tooltip-value";
+            value.textContent = `${formatCount(sample.players)} Spieler`;
+            const label = document.createElement("div");
+            label.className = "tooltip-label";
+            label.textContent = formatDateTime(new Date(sample.timestampMillis));
+            tooltip.append(value, label);
+
+            tooltip.hidden = false;
+            const half = tooltip.offsetWidth / 2;
+            tooltip.style.left = `${Math.min(Math.max(left, half + 4), width - half - 4)}px`;
+            tooltip.style.top = `${y(sample.players) - 10}px`;
+        };
+
+        const hide = () => {
+            active = -1;
+            crosshair.style.opacity = "0";
+            tooltip.hidden = true;
+        };
+
+        const nearest = (clientX: number) => {
+            const bounds = svg.getBoundingClientRect();
+            const offset = clientX - bounds.left;
+            let best = 0;
+            let bestDistance = Infinity;
+            samples.forEach((sample, index) => {
+                const distance = Math.abs(x(sample) - offset);
+                if (distance < bestDistance) {
+                    best = index;
+                    bestDistance = distance;
+                }
+            });
+            return best;
+        };
+
+        plot.addEventListener("pointermove", (event) => show(nearest(event.clientX)));
+        plot.addEventListener("pointerleave", hide);
+        plot.addEventListener("focus", () => show(active === -1 ? samples.length - 1 : active));
+        plot.addEventListener("blur", hide);
+    }
+</script>
+
+<style>
+    .stats {
+        color: var(--text);
+    }
+    .state {
+        color: var(--text-muted);
+        margin: 2em 0;
+    }
+    .state.error {
+        background-color: var(--surface);
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius-lg);
+        padding: 1.35em;
+        max-width: 70ch;
+    }
+    .section {
+        margin-top: 2.5em;
+    }
+    .section h2 {
+        margin-top: 0;
+    }
+    .note {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        margin-bottom: 1em;
+    }
+    .tiles {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 185px), 1fr));
+        gap: 0.9em;
+    }
+    .tile {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+        background-color: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 1.1em 1.2em 1.05em;
+    }
+    .tile-value {
+        font-size: 1.55rem;
+        font-weight: 700;
+        color: var(--text);
+        line-height: 1.2;
+        font-variant-numeric: tabular-nums;
+        overflow-wrap: anywhere;
+    }
+    .tile-label {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.45em;
+        color: var(--text-muted);
+        font-size: 0.88rem;
+        line-height: 1.35;
+    }
+    .tile-label svg {
+        flex: none;
+        width: 18px;
+        height: 18px;
+        margin-top: 0.06em;
+        color: var(--accent);
+    }
+    .activity {
+        position: relative;
+        margin: 0;
+        background-color: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 1.35em;
+        --activity-1: var(--cyan-800);
+        --activity-2: var(--cyan-700);
+        --activity-3: var(--cyan-600);
+        --activity-4: var(--cyan-500);
+        --activity-5: var(--cyan-400);
+    }
+    .activity .caption {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.9em;
+    }
+    .bar {
+        display: flex;
+        gap: 2px;
+        height: 24px;
+        margin-bottom: 1.1em;
+    }
+    .boards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr));
+        gap: 1.25em;
+    }
+</style>
+
+<style is:global>
+    .stats .segment {
+        flex-basis: 0;
+        min-width: 3px;
+        transition: filter var(--duration-fast) var(--ease-out);
+    }
+    .stats .segment:hover {
+        filter: brightness(1.2);
+    }
+    .stats .segment:first-child {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+    .stats .segment:last-child {
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+    .stats .activity-tooltip {
+        position: absolute;
+        z-index: 10;
+        pointer-events: none;
+        background-color: var(--bg);
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius-md);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        padding: 0.5em 0.75em;
+        font-size: 0.85rem;
+        white-space: nowrap;
+        transform: translateX(-50%);
+    }
+    .stats .activity-tooltip .tooltip-value {
+        font-weight: 600;
+        color: var(--text);
+        font-variant-numeric: tabular-nums;
+    }
+    .stats .activity-tooltip .tooltip-label {
+        color: var(--text-muted);
+    }
+</style>

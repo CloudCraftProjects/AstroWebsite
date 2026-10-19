@@ -9,6 +9,14 @@ const categories = defineCollection({
         previewImage: z.string(),
         description: z.string(),
         order: z.number().default(0),
+        stats: z
+            .object({
+                slug: z.string(),
+                name: z.string(),
+                endpoint: z.url(),
+            })
+            .array()
+            .default([]),
     }),
 });
 const projects = defineCollection({

@@ -10,6 +10,11 @@
     --sky-300: oklch(82.8% 0.111 230.318);
     --emerald-400: oklch(76.5% 0.177 163.223);
     --violet-600: oklch(54.1% 0.281 293.009);
+    --cyan-800: oklch(45% 0.085 224.283);
+    --cyan-700: oklch(52% 0.105 223.128);
+    --cyan-600: oklch(60.9% 0.126 221.723);
+    --cyan-500: oklch(71.5% 0.143 215.221);
+    --cyan-400: oklch(78.9% 0.154 211.53);
 
     --slate-875: color-mix(in oklch, var(--slate-900) 75%, var(--slate-800) 25%);
     --slate-850: color-mix(in oklch, var(--slate-900), var(--slate-800));

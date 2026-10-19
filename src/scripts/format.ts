@@ -6,6 +6,17 @@ const hoursPerDay = 24;
 export const formatDate = (date: Date): string =>
     date.toLocaleDateString("de-de", {year: "numeric", month: "long", day: "2-digit", timeZone: "Europe/Berlin"});
 
+export const formatDateTime = (date: Date): string =>
+    date.toLocaleString("de-de", {
+        day: "2-digit",
+        month: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        timeZone: "Europe/Berlin",
+    });
+
+export const formatCount = (value: number): string => value.toLocaleString("de-de");
+
 export const formatDuration = (millis: number): string => {
     if (millis < msPerSecond) return "unter einer Sekunde";
     const days = Math.floor(millis / (msPerSecond * secondsPerMinute * minutesPerHour * hoursPerDay));

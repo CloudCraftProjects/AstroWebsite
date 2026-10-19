@@ -1,0 +1,56 @@
+---
+import Layout from "../../../../layouts/Layout.astro";
+import Header from "../../../../components/Header.astro";
+import Breadcrumb from "../../../../components/Breadcrumb.astro";
+import StatsDashboard from "../../../../components/StatsDashboard.astro";
+import {statsProjects} from "../../../../scripts/stats.ts";
+
+export const getStaticPaths = async () => {
+    const projects = await statsProjects();
+    return projects.flatMap((entry) =>
+        entry.pages.map((page) => ({
+            params: {id: entry.project.data.slug, stats: page.slug},
+            props: {...entry, page},
+        })),
+    );
+};
+
+type Props = Awaited<ReturnType<typeof statsProjects>>[number] & {page: {name: string; slug: string; endpoint: string}};
+
+const {project, pages, page} = Astro.props;
+const description = `Alle Live-Spielerstatistiken von ${page.name}: Spielerzahlen, Bestenlisten und Aktivität`;
+---
+
+<Layout title={`${page.name} Live Statistiken`} description={description} keywords={[...project.data.keywords, "statistiken"]}>
+    <link slot="head" rel="preconnect" href={new URL(page.endpoint).origin}/>
+    <Header title={`${page.name} Statistiken`}>
+        <p>{description}</p>
+    </Header>
+    <main class="section">
+        <div class="container">
+            <Breadcrumb
+                items={[
+                    {href: "/", label: "Home"},
+                    {href: "/projects/", label: "Projekte"},
+                    {href: `/projects/${project.data.slug}/`, label: project.data.title},
+                    ...(pages.length > 1
+                        ? [{href: `/projects/${project.data.slug}/stats/`, label: "Statistiken"}]
+                        : []),
+                    {label: page.name},
+                ]}
+            />
+            <StatsDashboard name={page.name} endpoint={page.endpoint}/>
+        </div>
+    </main>
+</Layout>
+
+<style>
+    .section {
+        padding: 3em 1em 4em;
+    }
+    .container {
+        max-width: min(1080px, 92vw);
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>

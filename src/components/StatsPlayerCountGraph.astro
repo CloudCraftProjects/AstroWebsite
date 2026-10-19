@@ -1,0 +1,64 @@
+---
+// empty container, no actual graph rendering done here
+---
+
+<figure class="graph">
+    <figcaption class="caption" data-graph-caption>Spielerzahl im Verlauf</figcaption>
+    <div class="plot" data-graph-plot tabindex="0" role="img" aria-label="Verlauf der Spielerzahl">
+        <div class="canvas" data-graph-canvas></div>
+        <div class="tooltip" data-graph-tooltip role="tooltip" hidden></div>
+    </div>
+    <p class="state" data-graph-state hidden>Aktuell gibt es hierfür keine Daten</p>
+</figure>
+
+<style>
+    .graph {
+        margin: 0;
+        background-color: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 1.35em 1.35em 1.1em;
+    }
+    .caption {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.9em;
+    }
+    .plot {
+        position: relative;
+        outline-offset: 4px;
+    }
+    .state {
+        color: var(--text-muted);
+        margin: 2em 0;
+        text-align: center;
+    }
+    .tooltip {
+        position: absolute;
+        z-index: 10;
+        pointer-events: none;
+        background-color: var(--bg);
+        border: 1px solid var(--border-strong);
+        border-radius: var(--radius-md);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        padding: 0.5em 0.75em;
+        font-size: 0.85rem;
+        white-space: nowrap;
+        transform: translate(-50%, -100%);
+    }
+</style>
+
+<style is:global>
+    .graph .canvas svg {
+        display: block;
+        width: 100%;
+        overflow: visible;
+    }
+    .graph .tooltip .tooltip-value {
+        font-weight: 600;
+        color: var(--text);
+    }
+    .graph .tooltip .tooltip-label {
+        color: var(--text-muted);
+    }
+</style>

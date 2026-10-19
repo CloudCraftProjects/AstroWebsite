@@ -2,6 +2,9 @@
 import StructuredData from "../components/StructuredData.astro";
 import Layout from "./Layout.astro";
 import Breadcrumb from "../components/Breadcrumb.astro";
+import Link from "../components/Link.astro";
+import BaselineQueryStatsIcon from "~icons/ic/baseline-query-stats";
+import {statsPages, statsUrl} from "../scripts/stats.ts";
 import type {CollectionEntry} from "astro:content";
 
 interface Props {
@@ -12,6 +15,7 @@ interface Props {
 const {slug: projectId, title, pubDate, modDate, keywords, prefetch, preconnect} = Astro.props.project.data;
 const description = Astro.props.category.data.description;
 const allKeywords = [projectId].concat(keywords || []);
+const pages = Astro.props.category.data.stats;
 
 const cloudcraftData = {
     "@type": "Organization",
@@ -46,6 +50,15 @@ if (modDate) articleData["dateModified"] = modDate.toString();
         <header class="project-header">
             <h1>{title}</h1>
             <p class="description">{description}</p>
+            {pages.length > 0 && <div class="project-actions">
+                {
+                    pages.map(({slug, name}) => (
+                        <Link button={{variant: "primary", size: "lg"}} icon={BaselineQueryStatsIcon} href={statsUrl(projectId, slug)}>
+                            Statistiken: {name}
+                        </Link>
+                    ))
+                }
+            </div>}
         </header>
         <article>
             <slot/>
@@ -69,5 +82,11 @@ if (modDate) articleData["dateModified"] = modDate.toString();
         color: var(--text-muted);
         font-size: 1.15rem;
         margin: 0px;
+    }
+    .project-actions {
+        margin-top: 1.5em;
+        display: flex;
+        gap: 1em;
+        justify-content: center;
     }
 </style>

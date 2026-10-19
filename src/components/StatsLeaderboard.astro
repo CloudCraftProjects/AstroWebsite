@@ -1,0 +1,102 @@
+---
+interface Props {
+    field: string;
+    title: string;
+    unit: "count" | "seconds";
+}
+
+const {field, title, unit} = Astro.props;
+
+// just a container, not rendered here
+---
+
+<section class="board">
+    <h3>{title}</h3>
+    <div class="scroll">
+        <table>
+            <tbody data-leaderboard={field} data-unit={unit}></tbody>
+        </table>
+    </div>
+    <p class="empty" data-leaderboard-empty={field} hidden>Aktuell gibt es hierfür keine Daten</p>
+</section>
+
+<style is:global>
+    .board {
+        background-color: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 1.35em 1.35em 1.1em;
+    }
+    .board h3 {
+        margin: 0 0 0.9em;
+        font-size: 1.1rem;
+    }
+    .board .scroll {
+        overflow-x: auto;
+    }
+    .board table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .board td {
+        padding: 0.4em 0;
+        border-top: 1px solid var(--border);
+        vertical-align: middle;
+        transition: background-color var(--duration-fast) var(--ease-out);
+    }
+    .board tbody tr:hover td {
+        background-color: rgba(255, 255, 255, 0.03);
+    }
+    .board .place {
+        width: 2.8em;
+        padding-right: 0.4em;
+        color: var(--text-faint);
+    }
+    .board .rank {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 1.7em;
+        height: 1.7em;
+        border-radius: var(--radius-full);
+        font-size: 0.85em;
+    }
+    .board tr.top .rank {
+        background-color: var(--accent-subtle);
+        color: var(--accent);
+        font-weight: 600;
+    }
+    .board .player {
+        display: flex;
+        align-items: center;
+        gap: 0.6em;
+        min-height: 28px;
+        min-width: 0;
+        padding-right: 1em;
+    }
+    .board .player-name {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .board .head {
+        flex: none;
+        width: 28px;
+        height: 28px;
+        border-radius: calc(var(--radius-sm)/2);
+        background-color: var(--bg-alt);
+        image-rendering: pixelated;
+    }
+    .board .value {
+        width: 8em;
+    }
+    .board td.value {
+        text-align: right;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+    .board .empty {
+        color: var(--text-muted);
+        margin: 0.9em 0 0.3em;
+    }
+</style>
